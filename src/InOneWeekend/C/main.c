@@ -1,3 +1,4 @@
+#include "color.h"
 #include <stdio.h>
 
 int
@@ -16,15 +17,12 @@ main (void)
       fprintf (stderr, "\rScanlines remaining: %d", image_height - row);
       for (int col = 0; col < image_width; col++)
         {
-          double r = (double)col / (image_width - 1);
-          double g = (double)row / (image_height - 1);
-          double b = 0.0;
-
-          int ir = (int)(255.999999 * r);
-          int ig = (int)(255.999999 * g);
-          int ib = (int)(255.999999 * b);
-
-          printf ("%d %d %d\n", ir, ig, ib);
+          color pixel = {
+            .r = (double)row / (image_width - 1),
+            .g = (double)col / (image_height - 1),
+            .b = 0,
+          };
+          write_color (stdout, pixel);
         }
     }
   fprintf (stderr, "\rDone.                                   \n");

@@ -21,4 +21,3 @@ typedef union vec3_union
 } vec3;
 
 typedef vec3 point3;
-typedef vec3 color;
