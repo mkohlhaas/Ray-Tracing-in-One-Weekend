@@ -9,6 +9,6 @@ project(
 cc = meson.get_compiler('c')
 m_dep = cc.find_library('m')
 
-source_files = files('main.c', 'vec3.c', 'color.c', 'ray.c', 'point.c')
+source_files = files('color.c', 'main.c', 'point.c', 'ray.c', 'sphere.c', 'sphere.c', 'vec3.c')
 
 executable('raytracer', source_files, dependencies: m_dep, install: false)

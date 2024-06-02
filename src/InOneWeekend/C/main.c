@@ -1,6 +1,5 @@
 #include "ray.h"
 #include "vec3.h"
-
 #include <stdio.h>
 
 int
@@ -52,7 +51,7 @@ main (void)
           vec3   pixel               = vec3_add (pixel_u, pixel_v);
           point3 pixel_center        = vec3_add (pixel_origin, pixel);
           vec3   ray_direction       = vec3_sub (pixel_center, camera_center);
-          ray    ray_camera_to_pixel = { .orig = camera_center, .direction = ray_direction };
+          ray    ray_camera_to_pixel = { .origin = camera_center, .direction = ray_direction };
           color  pixel_color         = ray_color (ray_camera_to_pixel);
           write_color (stdout, pixel_color);
         }

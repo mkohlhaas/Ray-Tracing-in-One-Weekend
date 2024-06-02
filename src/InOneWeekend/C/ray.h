@@ -6,7 +6,7 @@
 
 typedef struct
 {
-  point3 orig;
+  point3 origin;
   vec3   direction;
 } ray;
 
