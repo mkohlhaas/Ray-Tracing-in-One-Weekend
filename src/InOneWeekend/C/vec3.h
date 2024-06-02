@@ -20,11 +20,9 @@ typedef union vec3_union
   };
 } vec3;
 
-typedef vec3 point3;
-
-vec3   vec3_create (double x, double y, double z);
 vec3   vec3_minus (vec3 v);
 vec3   vec3_add (vec3 v1, vec3 v2);
+vec3   vec3_sub (vec3 v1, vec3 v2);
 vec3   vec3_mul (vec3 v1, vec3 v2);
 vec3   vec3_scalar_mult (vec3 v, double t);
 vec3   vec3_scalar_div (vec3 v, double t);
@@ -33,3 +31,4 @@ vec3   vec3_cross_product (vec3 v1, vec3 v2);
 double vec3_length_squared (vec3 v);
 double vec3_length (vec3 v);
 vec3   vec3_unit (vec3 v);
+void   vec3_print (char *name, vec3 v);

@@ -1,15 +1,6 @@
 #include "vec3.h"
 #include <math.h>
-
-vec3
-vec3_create (double x, double y, double z)
-{
-  return (vec3){
-    .x = x,
-    .y = y,
-    .z = z,
-  };
-}
+#include <stdio.h>
 
 vec3
 vec3_minus (vec3 v)
@@ -28,6 +19,16 @@ vec3_add (vec3 v1, vec3 v2)
     .x = v1.x + v2.x,
     .y = v1.y + v2.y,
     .z = v1.z + v2.z,
+  };
+}
+
+vec3
+vec3_sub (vec3 v1, vec3 v2)
+{
+  return (vec3){
+    .x = v1.x - v2.x,
+    .y = v1.y - v2.y,
+    .z = v1.z - v2.z,
   };
 }
 
@@ -76,7 +77,7 @@ vec3_cross_product (vec3 v1, vec3 v2)
 double
 vec3_length_squared (vec3 v)
 {
-  return vec3_dot_product(v, v);
+  return vec3_dot_product (v, v);
 }
 
 double
@@ -89,4 +90,10 @@ vec3
 vec3_unit (vec3 v)
 {
   return vec3_scalar_div (v, vec3_length (v));
+}
+
+void
+vec3_print (char *name, vec3 v)
+{
+  fprintf (stderr, "Vector \"%s\": %f %f %f\n", name, v.x, v.y, v.z);
 }
