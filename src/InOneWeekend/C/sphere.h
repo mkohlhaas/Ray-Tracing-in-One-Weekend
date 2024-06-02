@@ -4,4 +4,4 @@
 #include "ray.h"
 #include <stdbool.h>
 
-bool hit_sphere (point3 const center, double radius, ray const r);
+double hit_sphere (point3 const center, double radius, ray const r);

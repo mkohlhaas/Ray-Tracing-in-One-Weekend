@@ -10,5 +10,5 @@ typedef struct
   vec3   direction;
 } ray;
 
-point3 ray_at (ray r, double t);
+point3 point_at (ray r, double t);
 color  ray_color (ray const r);
