@@ -1,5 +1,8 @@
+#include "hittable.h"
 #include "ray.h"
+#include "sphere.h"
 #include "vec3.h"
+#include <glib.h>
 #include <stdio.h>
 
 int
@@ -12,6 +15,17 @@ main (void)
   // Calculate the image height, and ensure that it's at least 1.
   int image_height = image_width / aspect_ratio_demand;
   image_height     = image_height < 1 ? 1 : image_height;
+
+  // world
+  GArray *world = g_array_new (FALSE, FALSE, sizeof (hittable));
+
+  sphere   S1  = { (point3){ .x = 0, .y = 0, .z = -1}, 0.5 };
+  hittable SH1 = { hit_sphere, &S1 };
+  g_array_append_val (world, SH1);
+
+  sphere   S2  = { (point3){ .x = 0, .y = -100.5, .z = -1}, 100 };
+  hittable SH2 = { hit_sphere, &S2 };
+  g_array_append_val (world, SH2);
 
   // camera
   double focal_length      = 1.0; // distance camera to viewport
@@ -52,9 +66,11 @@ main (void)
           point3 pixel_center        = vec3_add (pixel_origin, pixel);
           vec3   ray_direction       = vec3_sub (pixel_center, camera_center);
           ray    ray_camera_to_pixel = { .origin = camera_center, .direction = ray_direction };
-          color  pixel_color         = ray_color (ray_camera_to_pixel);
+          color  pixel_color         = ray_color (ray_camera_to_pixel, world);
           write_color (stdout, pixel_color);
         }
     }
   fprintf (stderr, "\rDone.                                   \n");
+
+  g_array_free (world, FALSE);
 }

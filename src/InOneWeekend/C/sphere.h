@@ -1,7 +1,13 @@
 #pragma once
 
-#include "point.h"
+#include "hittable.h"
 #include "ray.h"
 #include <stdbool.h>
 
-double hit_sphere (point3 const center, double radius, ray const r);
+typedef struct
+{
+  point3 center;
+  double radius;
+} sphere;
+
+bool hit_sphere (void *sphere, ray const r, double ray_tmin, double ray_tmax, hit_record *rec);

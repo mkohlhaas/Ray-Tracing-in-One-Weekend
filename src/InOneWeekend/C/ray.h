@@ -3,6 +3,7 @@
 #include "color.h"
 #include "point.h"
 #include "vec3.h"
+#include <glib.h>
 
 typedef struct
 {
@@ -11,4 +12,4 @@ typedef struct
 } ray;
 
 point3 point_at (ray r, double t);
-color  ray_color (ray const r);
+color  ray_color (ray const r, GArray *const world);
