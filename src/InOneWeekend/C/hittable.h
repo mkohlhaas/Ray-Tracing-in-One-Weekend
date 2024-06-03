@@ -1,5 +1,6 @@
 #pragma once
 
+#include "interval.h"
 #include "ray.h"
 #include "vec3.h"
 #include <stdbool.h>
@@ -12,7 +13,7 @@ typedef struct
   bool   front_face;
 } hit_record;
 
-typedef bool (*hit_fn) (void *self, ray const r, double ray_tmin, double ray_tmax, hit_record *rec);
+typedef bool (*hit_fn) (void *self, ray const r, interval i, hit_record *rec);
 
 typedef struct
 {

@@ -27,7 +27,7 @@ ray_color (ray const r, GArray *const world)
   for (uint i = 0; i < world->len; i++)
     {
       hittable h = g_array_index (world, hittable, i);
-      if (h.hit (h.object, r, 0, INFINITY, &temp_rec))
+      if (h.hit (h.object, r, (interval){ 0, closest_so_far }, &temp_rec))
         {
           hit_anything = true;
           if (temp_rec.t < closest_so_far)

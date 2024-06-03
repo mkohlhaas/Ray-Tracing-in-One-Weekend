@@ -1,11 +1,12 @@
 #include "sphere.h"
 #include "hittable.h"
+#include "interval.h"
 #include "ray.h"
 #include "vec3.h"
 #include <math.h>
 
 bool
-hit_sphere (void *self, ray const r, double tmin, double tmax, hit_record *rec)
+hit_sphere (void *self, ray const r, interval i, hit_record *rec)
 {
   sphere *s    = self;
   vec3    c_q  = vec3_sub (s->center, r.origin);
@@ -23,10 +24,10 @@ hit_sphere (void *self, ray const r, double tmin, double tmax, hit_record *rec)
 
   // Find the nearest root that lies in the acceptable range.
   double root = (h - sqrtd) / a;
-  if (root <= tmin || tmax <= root)
+  if (!surrounds (i, root))
     {
       root = (h + sqrtd) / a;
-      if (root <= tmin || tmax <= root)
+      if (!surrounds (i, root))
         {
           return false;
         }

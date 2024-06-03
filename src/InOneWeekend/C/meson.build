@@ -14,6 +14,7 @@ m_dep = cc.find_library('m')
 source_files = files(
   'color.c',
   'hittable.c',
+  'interval.c',
   'main.c',
   'point.c',
   'ray.c',
