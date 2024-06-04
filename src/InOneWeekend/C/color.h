@@ -6,6 +6,7 @@
 typedef vec3 color;
 
 extern color blue;
+extern color light_blue;
 extern color red;
 extern color white;
 extern color black;

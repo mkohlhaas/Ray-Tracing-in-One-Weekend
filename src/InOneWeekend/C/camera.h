@@ -18,6 +18,7 @@ typedef struct
   point3 pixel_origin;
   int    samples_per_pixel;
   double pixel_samples_scale;
+  int    max_depth;
 } camera;
 
 extern camera cam;

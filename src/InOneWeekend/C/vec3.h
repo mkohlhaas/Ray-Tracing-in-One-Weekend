@@ -32,3 +32,8 @@ double vec3_length_squared (vec3 v);
 double vec3_length (vec3 v);
 vec3   vec3_unit (vec3 v);
 void   vec3_print (char *name, vec3 v);
+vec3   vec3_random (void);
+vec3   vec3_random_min_max (double min, double max);
+vec3   vec3_random_in_unit_sphere (void);
+vec3   vec3_random_unit_vector (void);
+vec3   vec3_random_on_hemisphere (vec3 const normal);

@@ -15,6 +15,7 @@ camera_init (void)
     .viewport_height   = 2.0,
     .center            = origin,
     .samples_per_pixel = 10,
+    .max_depth         = 50,
   };
 
   cam.image_height        = cam.image_width / cam.aspect_ratio;
@@ -45,14 +46,14 @@ render (camera c, GArray *const world)
   // write image
   for (int row = 0; row < c.image_height; row++)
     {
-      fprintf (stderr, "\rScanlines remaining: %d", c.image_height - row);
+      fprintf (stderr, "\rScanlines remaining: %6d", c.image_height - row);
       for (int col = 0; col < c.image_width; col++)
         {
           color pixel_color = black;
           for (int sample = 0; sample < c.samples_per_pixel; sample++)
             {
               ray r       = get_ray (c, row, col);
-              pixel_color = vec3_add (pixel_color, ray_color (r, world));
+              pixel_color = vec3_add (pixel_color, ray_color (r, c.max_depth, world));
             }
           write_color (stdout, vec3_scalar_mult (pixel_color, c.pixel_samples_scale));
         }

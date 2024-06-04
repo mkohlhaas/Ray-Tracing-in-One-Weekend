@@ -13,5 +13,5 @@ typedef struct
 } ray;
 
 point3 point_at (ray r, double t);
-color  ray_color (ray const r, GArray *const world);
+color  ray_color (ray const r, int depth, GArray *const world);
 ray    get_ray (camera c, int row, int col);

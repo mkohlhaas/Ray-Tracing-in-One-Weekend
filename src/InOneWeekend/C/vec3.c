@@ -1,5 +1,7 @@
 #include "vec3.h"
+#include "utils.h"
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 vec3
@@ -96,4 +98,57 @@ void
 vec3_print (char *name, vec3 v)
 {
   fprintf (stderr, "Vector \"%s\": %f %f %f\n", name, v.x, v.y, v.z);
+}
+
+vec3
+vec3_random (void)
+{
+  return (vec3){
+    .x = random_double (),
+    .y = random_double (),
+    .z = random_double (),
+  };
+}
+
+vec3
+vec3_random_min_max (double min, double max)
+{
+  return (vec3){
+    .x = random_double_min_max (min, max),
+    .y = random_double_min_max (min, max),
+    .z = random_double_min_max (min, max),
+  };
+}
+
+vec3
+vec3_random_in_unit_sphere (void)
+{
+  while (true)
+    {
+      vec3 p = vec3_random_min_max (-1, 1);
+      if (vec3_length_squared (p) < 1)
+        {
+          return p;
+        }
+    }
+}
+
+vec3
+vec3_random_unit_vector (void)
+{
+  return vec3_unit (vec3_random_in_unit_sphere ());
+}
+
+vec3
+vec3_random_on_hemisphere (vec3 const normal)
+{
+  vec3 on_unit_sphere = vec3_random_unit_vector ();
+  if (vec3_dot_product (on_unit_sphere, normal) > 0.0) // in the same hemisphere as the normal
+    {
+      return on_unit_sphere;
+    }
+  else
+    {
+      return vec3_minus (on_unit_sphere);
+    }
 }

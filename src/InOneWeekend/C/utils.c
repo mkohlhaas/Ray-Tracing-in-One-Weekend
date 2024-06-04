@@ -20,3 +20,14 @@ random_double_min_max (double min, double max)
 {
   return min + (max - min) * random_double ();
 }
+
+// gamma 2
+double
+linear_to_gamma (double linear_component)
+{
+  if (linear_component > 0)
+    {
+      return sqrt (linear_component);
+    }
+  return 0;
+}
