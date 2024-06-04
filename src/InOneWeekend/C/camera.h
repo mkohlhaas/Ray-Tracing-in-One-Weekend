@@ -16,7 +16,8 @@ typedef struct
   vec3   pixel_delta_u;
   vec3   pixel_delta_v;
   point3 pixel_origin;
-
+  int    samples_per_pixel;
+  double pixel_samples_scale;
 } camera;
 
 extern camera cam;

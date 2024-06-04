@@ -1,5 +1,7 @@
 #include "camera.h"
+#include "color.h"
 #include "ray.h"
+#include "vec3.h"
 
 camera cam;
 
@@ -7,17 +9,19 @@ void
 camera_init (void)
 {
   cam = (camera){
-    .aspect_ratio    = 16.0 / 9.0,
-    .image_width     = 1200,
-    .focal_length    = 1.0,
-    .viewport_height = 2.0,
-    .center          = origin,
+    .aspect_ratio      = 16.0 / 9.0,
+    .image_width       = 1200,
+    .focal_length      = 1.0,
+    .viewport_height   = 2.0,
+    .center            = origin,
+    .samples_per_pixel = 10,
   };
 
-  cam.image_height   = cam.image_width / cam.aspect_ratio;
-  cam.image_height   = cam.image_height < 1 ? 1 : cam.image_height;
-  cam.aspect_ratio   = (double)cam.image_width / cam.image_height;
-  cam.viewport_width = cam.viewport_height * cam.aspect_ratio;
+  cam.image_height        = cam.image_width / cam.aspect_ratio;
+  cam.image_height        = cam.image_height < 1 ? 1 : cam.image_height;
+  cam.aspect_ratio        = (double)cam.image_width / cam.image_height;
+  cam.viewport_width      = cam.viewport_height * cam.aspect_ratio;
+  cam.pixel_samples_scale = 1.0 / cam.samples_per_pixel;
 
   vec3 viewport_u         = { .x = cam.viewport_width };
   vec3 viewport_v         = { .y = -cam.viewport_height };
@@ -44,14 +48,13 @@ render (camera c, GArray *const world)
       fprintf (stderr, "\rScanlines remaining: %d", c.image_height - row);
       for (int col = 0; col < c.image_width; col++)
         {
-          vec3   pixel_u             = vec3_scalar_mult (c.pixel_delta_u, col);
-          vec3   pixel_v             = vec3_scalar_mult (c.pixel_delta_v, row);
-          vec3   pixel               = vec3_add (pixel_u, pixel_v);
-          point3 pixel_center        = vec3_add (c.pixel_origin, pixel);
-          vec3   ray_direction       = vec3_sub (pixel_center, c.center);
-          ray    ray_camera_to_pixel = { .origin = c.center, .direction = ray_direction };
-          color  pixel_color         = ray_color (ray_camera_to_pixel, world);
-          write_color (stdout, pixel_color);
+          color pixel_color = black;
+          for (int sample = 0; sample < c.samples_per_pixel; sample++)
+            {
+              ray r       = get_ray (c, row, col);
+              pixel_color = vec3_add (pixel_color, ray_color (r, world));
+            }
+          write_color (stdout, vec3_scalar_mult (pixel_color, c.pixel_samples_scale));
         }
     }
   fprintf (stderr, "\rDone.                                   \n");

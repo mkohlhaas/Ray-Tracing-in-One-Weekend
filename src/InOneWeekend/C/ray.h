@@ -1,5 +1,6 @@
 #pragma once
 
+#include "camera.h"
 #include "color.h"
 #include "point.h"
 #include "vec3.h"
@@ -13,3 +14,4 @@ typedef struct
 
 point3 point_at (ray r, double t);
 color  ray_color (ray const r, GArray *const world);
+ray    get_ray (camera c, int row, int col);
