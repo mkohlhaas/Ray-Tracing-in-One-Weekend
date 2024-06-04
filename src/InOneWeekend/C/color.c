@@ -1,5 +1,4 @@
 #include "color.h"
-#include <stdio.h>
 
 void
 write_color (FILE *out, color const pixel)

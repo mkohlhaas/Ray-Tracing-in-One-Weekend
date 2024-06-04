@@ -1,10 +1,4 @@
-#include "ray.h"
-#include "color.h"
 #include "hittable.h"
-#include "point.h"
-#include "vec3.h"
-#include <glib.h>
-#include <math.h>
 
 point3
 point_at (ray r, double t)
@@ -26,8 +20,8 @@ ray_color (ray const r, GArray *const world)
   hit_record temp_rec;
   for (uint i = 0; i < world->len; i++)
     {
-      hittable h = g_array_index (world, hittable, i);
-      if (h.hit (h.object, r, (interval){ 0, closest_so_far }, &temp_rec))
+      hittable *h = g_array_index (world, hittable*, i);
+      if (h->hit (h->object, r, (interval){ 0, closest_so_far }, &temp_rec))
         {
           hit_anything = true;
           if (temp_rec.t < closest_so_far)

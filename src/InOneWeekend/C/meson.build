@@ -12,6 +12,7 @@ cc = meson.get_compiler('c')
 m_dep = cc.find_library('m')
 
 source_files = files(
+  'camera.c',
   'color.c',
   'hittable.c',
   'interval.c',
@@ -22,6 +23,7 @@ source_files = files(
   'sphere.c',
   'utils.c',
   'vec3.c',
+  'world.c',
 )
 
 executable('raytracer', source_files, dependencies: [m_dep, glib_deb], install: false)

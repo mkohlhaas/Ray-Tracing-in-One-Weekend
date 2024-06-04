@@ -26,4 +26,5 @@ typedef struct
 //   hittable->hit(hittable->object, r, ray_min, ray_max, *rec);
 // }
 
-void set_face_normal (hit_record *rec, ray const r, vec3 const outward_normal);
+void      set_face_normal (hit_record *rec, ray const r, vec3 const outward_normal);
+hittable *hittable_new (hit_fn hit, void *object);

@@ -1,4 +1,17 @@
 #include "hittable.h"
+#include <stdlib.h>
+
+hittable *
+hittable_new (hit_fn hit, void *object)
+{
+  hittable *h = malloc (sizeof (*h));
+  if (h)
+    {
+      h->hit    = hit;
+      h->object = object;
+    }
+  return h;
+}
 
 // The parameter `outward_normal` is assumed to have unit length.
 void

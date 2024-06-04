@@ -11,4 +11,5 @@ typedef struct
   double radius;
 } sphere;
 
-bool hit_sphere (void *sphere, ray const r, interval i, hit_record *rec);
+bool    hit_sphere (void *sphere, ray const r, interval i, hit_record *rec);
+sphere *sphere_new (point3 center, double radius);

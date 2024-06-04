@@ -1,9 +1,17 @@
 #include "sphere.h"
-#include "hittable.h"
-#include "interval.h"
-#include "ray.h"
-#include "vec3.h"
-#include <math.h>
+#include <stdlib.h>
+
+sphere *
+sphere_new (point3 center, double radius)
+{
+  sphere *s = malloc (sizeof (*s));
+  if (s)
+    {
+      s->center = center;
+      s->radius = radius;
+    }
+  return s;
+}
 
 bool
 hit_sphere (void *self, ray const r, interval i, hit_record *rec)
