@@ -1,6 +1,5 @@
 #pragma once
 
-#include "hittable.h"
 #include "point.h"
 
 typedef struct camera
@@ -23,5 +22,6 @@ typedef struct camera
 
 extern camera cam;
 
+struct hittable;
 void camera_init (void);
-void render (camera c, hittable **world);
+void render (camera c, struct hittable **world);

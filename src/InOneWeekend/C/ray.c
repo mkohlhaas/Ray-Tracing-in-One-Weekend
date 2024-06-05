@@ -1,5 +1,6 @@
 #include "ray.h"
 #include "camera.h"
+#include "hit_record.h"
 #include "hittable.h"
 #include "stb_ds.h"
 #include "utils.h"

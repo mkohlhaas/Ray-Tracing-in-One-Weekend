@@ -1,8 +1,9 @@
 #include "sphere.h"
+#include "hit_record.h"
 #include "hittable.h"
 #include "ray.h"
-#include <stdlib.h>
 #include <math.h>
+#include <stdlib.h>
 
 sphere *
 sphere_new (point3 center, double radius)
