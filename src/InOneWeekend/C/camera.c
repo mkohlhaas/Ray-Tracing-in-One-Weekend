@@ -38,7 +38,7 @@ camera_init (void)
 }
 
 void
-render (camera c, GArray *const world)
+render (camera c, struct hittable **world)
 {
   // write pnm header
   printf ("P3\n%d %d\n255\n", c.image_width, c.image_height);

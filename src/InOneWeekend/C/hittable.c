@@ -1,4 +1,5 @@
 #include "hittable.h"
+#include "ray.h"
 #include <stdlib.h>
 
 hittable *
@@ -15,7 +16,7 @@ hittable_new (hit_fn hit, void *object)
 
 // The parameter `outward_normal` is assumed to have unit length.
 void
-set_face_normal (hit_record *rec, ray const r, vec3 const outward_normal)
+set_face_normal (hit_record *rec, struct ray const r, vec3 const outward_normal)
 {
 
   rec->front_face = vec3_dot_product (r.direction, outward_normal) < 0;

@@ -1,4 +1,4 @@
-#include <math.h>
+#pragma once
 
 double degrees_to_radians (double degrees);
 double random_double (void);

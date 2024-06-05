@@ -1,7 +1,10 @@
+#include "ray.h"
 #include "camera.h"
 #include "hittable.h"
+#include "stb_ds.h"
 #include "utils.h"
 #include "vec3.h"
+#include <math.h>
 
 point3
 point_at (ray r, double t)
@@ -10,7 +13,7 @@ point_at (ray r, double t)
 }
 
 color
-ray_color (ray const r, int depth, GArray *const world)
+ray_color (ray const r, int depth, struct hittable **world)
 {
   // If we've exceeded the ray bounce limit, no more light is gathered.
   if (depth <= 0)
@@ -23,9 +26,9 @@ ray_color (ray const r, int depth, GArray *const world)
   double     closest_so_far = INFINITY;
   hit_record rec;
   hit_record obj_rec;
-  for (uint i = 0; i < world->len; i++)
+  for (uint i = 0; i < arrlen (world); i++)
     {
-      hittable *h = g_array_index (world, hittable *, i);
+      hittable *h = world[i];
       if (h->hit (h->object, r, (interval){ 0.001, closest_so_far }, &obj_rec))
         {
           hit_anything = true;
@@ -38,11 +41,9 @@ ray_color (ray const r, int depth, GArray *const world)
     }
   if (hit_anything)
     {
-      vec3 direction = vec3_add (rec.normal, vec3_random_unit_vector ());
+      vec3   direction   = vec3_add (rec.normal, vec3_random_unit_vector ());
       double attenuation = 0.5;
       return vec3_scalar_mult (ray_color ((ray){ rec.p, direction }, depth - 1, world), attenuation); // recursive call
-
-      // return vec3_scalar_mult (vec3_add (rec.normal, white), 0.5);
     }
 
   // render background

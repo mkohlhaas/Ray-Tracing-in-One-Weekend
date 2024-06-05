@@ -1,8 +1,8 @@
 #pragma once
 
-#include <glib.h>
+#include "hittable.h"
 
 // world
-extern GArray *world;
+extern hittable **world;
 
 void world_init (void);

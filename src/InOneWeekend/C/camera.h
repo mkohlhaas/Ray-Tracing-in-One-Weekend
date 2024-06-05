@@ -1,9 +1,9 @@
 #pragma once
 
+#include "hittable.h"
 #include "point.h"
-#include <glib.h>
 
-typedef struct
+typedef struct camera
 {
   double aspect_ratio;
   int    image_width;
@@ -22,5 +22,6 @@ typedef struct
 } camera;
 
 extern camera cam;
-void          camera_init (void);
-void          render (camera c, GArray *const world);
+
+void camera_init (void);
+void render (camera c, hittable **world);

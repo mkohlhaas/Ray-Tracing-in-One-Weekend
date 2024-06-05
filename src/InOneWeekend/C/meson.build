@@ -5,8 +5,6 @@ project(
   default_options: ['warning_level=3', 'werror=false', 'c_std=gnu23'],
 )
 
-glib_deb = dependency('glib-2.0')
-
 # math library
 cc = meson.get_compiler('c')
 m_dep = cc.find_library('m')
@@ -26,4 +24,4 @@ source_files = files(
   'world.c',
 )
 
-executable('raytracer', source_files, dependencies: [m_dep, glib_deb], install: false)
+executable('raytracer', source_files, dependencies: [m_dep], install: false)

@@ -1,5 +1,9 @@
+#pragma once
+
 #include "camera.h"
 #include "world.h"
+#define STB_DS_IMPLEMENTATION
+#include "stb_ds.h"
 
 void
 init (void)
@@ -11,5 +15,9 @@ init (void)
 void
 cleanup (void)
 {
-  g_array_free (world, FALSE);
+  for (int i = 0; i < arrlen (world); i++)
+    {
+      free (world[i]);
+    }
+  arrfree (world);
 }
