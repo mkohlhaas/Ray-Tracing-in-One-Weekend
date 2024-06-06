@@ -1,18 +1,20 @@
 #include "sphere.h"
 #include "hit_record.h"
 #include "hittable.h"
+#include "material.h"
 #include "ray.h"
 #include <math.h>
 #include <stdlib.h>
 
 sphere *
-sphere_new (point3 center, double radius)
+sphere_new (point3 center, double radius, material *mat)
 {
   sphere *s = malloc (sizeof (*s));
   if (s)
     {
       s->center = center;
       s->radius = radius;
+      s->mat    = mat;
     }
   return s;
 }
@@ -47,6 +49,7 @@ hit_sphere (void *self, ray const r, interval i, hit_record *rec)
 
   rec->t              = root;
   rec->p              = point_at (r, root);
+  rec->mat            = s->mat;
   vec3 outward_normal = vec3_scalar_div (vec3_sub (rec->p, s->center), s->radius);
   set_face_normal (rec, r, outward_normal);
 

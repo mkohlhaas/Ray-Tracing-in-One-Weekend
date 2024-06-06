@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 typedef union vec3_union
 {
   double element[3];
@@ -37,3 +39,5 @@ vec3   vec3_random_min_max (double min, double max);
 vec3   vec3_random_in_unit_sphere (void);
 vec3   vec3_random_unit_vector (void);
 vec3   vec3_random_on_hemisphere (vec3 const normal);
+bool   vec3_near_zero (vec3 v);
+vec3   vec3_reflect (vec3 const v, vec3 const n);

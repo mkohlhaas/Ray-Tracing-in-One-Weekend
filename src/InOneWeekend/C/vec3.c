@@ -152,3 +152,17 @@ vec3_random_on_hemisphere (vec3 const normal)
       return vec3_minus (on_unit_sphere);
     }
 }
+
+// Return true if the vector is close to zero in all dimensions.
+bool
+vec3_near_zero (vec3 v)
+{
+  double s = 1e-8;
+  return fabs (v.x) < s && fabs (v.y) < s && fabs (v.z) < s;
+}
+
+vec3
+vec3_reflect (vec3 const v, vec3 const n)
+{
+  return vec3_sub (v, vec3_scalar_mult (n, 2 * vec3_dot_product (v, n)));
+}

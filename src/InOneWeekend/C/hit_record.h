@@ -7,7 +7,7 @@ typedef struct hit_record
 {
   point3    p;
   vec3      normal; // normals always point against the ray
+  material *mat;
   double    t;
   bool      front_face;
-  material *mat;
 } hit_record;

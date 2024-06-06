@@ -7,6 +7,18 @@
 #include "vec3.h"
 #include <math.h>
 
+ray *
+ray_new (point3 origin, vec3 direction)
+{
+  ray *r = malloc (sizeof (*r));
+  if (r)
+    {
+      r->origin    = origin;
+      r->direction = direction;
+    }
+  return r;
+}
+
 point3
 point_at (ray r, double t)
 {
@@ -14,7 +26,7 @@ point_at (ray r, double t)
 }
 
 color
-ray_color (ray const r, int depth, struct hittable **world)
+ray_color (ray const r, int depth, hittable *world[])
 {
   // If we've exceeded the ray bounce limit, no more light is gathered.
   if (depth <= 0)
@@ -25,26 +37,30 @@ ray_color (ray const r, int depth, struct hittable **world)
   // render world
   bool       hit_anything   = false;
   double     closest_so_far = INFINITY;
-  hit_record rec;
-  hit_record obj_rec;
+  hit_record hit_rec;
+  hit_record obj_hit;
   for (uint i = 0; i < arrlen (world); i++)
     {
       hittable *h = world[i];
-      if (h->hit (h->object, r, (interval){ 0.001, closest_so_far }, &obj_rec))
+      if (h->hit (h->object, r, (interval){ 0.001, closest_so_far }, &obj_hit))
         {
           hit_anything = true;
-          if (obj_rec.t < closest_so_far)
+          if (obj_hit.t < closest_so_far)
             {
-              rec            = obj_rec;
-              closest_so_far = rec.t;
+              hit_rec        = obj_hit;
+              closest_so_far = hit_rec.t;
             }
         };
     }
   if (hit_anything)
     {
-      vec3   direction   = vec3_add (rec.normal, vec3_random_unit_vector ());
-      double attenuation = 0.5;
-      return vec3_scalar_mult (ray_color ((ray){ rec.p, direction }, depth - 1, world), attenuation); // recursive call
+      ray   scattered;
+      color attenuation;
+      if (hit_rec.mat->scatter (hit_rec.mat->self, r, &hit_rec, &attenuation, &scattered))
+        {
+          return vec3_mul (attenuation, ray_color (scattered, depth - 1, world));
+        }
+      return black;
     }
 
   // render background
