@@ -1,3 +1,4 @@
+#include "dielectric.h"
 #include "hittable.h"
 #include "lambertian.h"
 #include "metal.h"
@@ -12,7 +13,7 @@ world_init (void)
 
   lambertian *material_ground = lambertian_new ((color){ .r = 0.8, .g = 0.8, .b = 0.0 });
   lambertian *material_center = lambertian_new ((color){ .r = 0.1, .g = 0.2, .b = 0.5 });
-  metal      *material_left   = metal_new ((color){ .r = 0.8, .g = 0.8, .b = 0.8 }, 0.3);
+  dielectric *material_left   = dielectric_new (1.5);
   metal      *material_right  = metal_new ((color){ .r = 0.8, .g = 0.6, .b = 0.2 }, 1.0);
 
   sphere *s1 = sphere_new (

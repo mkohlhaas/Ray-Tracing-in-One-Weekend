@@ -12,6 +12,7 @@ m_dep = cc.find_library('m')
 source_files = files(
   'camera.c',
   'color.c',
+  'dielectric.c',
   'hittable.c',
   'interval.c',
   'lambertian.c',

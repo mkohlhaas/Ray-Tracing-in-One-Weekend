@@ -167,3 +167,12 @@ vec3_reflect (vec3 const v, vec3 const n)
 {
   return vec3_sub (v, vec3_scalar_mult (n, 2 * vec3_dot_product (v, n)));
 }
+
+vec3
+refract (const vec3 uv, const vec3 n, double etai_over_etat)
+{
+  auto cos_theta      = fmin (vec3_dot_product (vec3_minus (uv), n), 1.0);
+  vec3 r_out_perp     = vec3_scalar_mult (vec3_add (uv, vec3_scalar_mult (n, cos_theta)), etai_over_etat);
+  vec3 r_out_parallel = vec3_scalar_mult (n, -sqrt (fabs (1.0 - vec3_length_squared (r_out_perp))));
+  return vec3_add(r_out_perp , r_out_parallel);
+}
