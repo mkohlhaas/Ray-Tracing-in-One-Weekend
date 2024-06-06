@@ -9,19 +9,21 @@ metal_scatter (ray const r_in, hit_record const *rec, color *attenuation, ray *s
 {
   metal *m         = (metal *)rec->mat;
   vec3   reflected = vec3_reflect (r_in.direction, rec->normal);
-  *attenuation     = m->albedo;
-  *scattered       = (ray){ rec->p, reflected };
+  reflected    = vec3_add (vec3_unit (reflected), vec3_scalar_mult (vec3_random_unit_vector (), m->fuzz));
+  *attenuation = m->albedo;
+  *scattered   = (ray){ rec->p, reflected };
   return true;
 }
 
 metal *
-metal_new (color albedo)
+metal_new (color albedo, double fuzz)
 {
   metal *met = malloc (sizeof (*met));
   if (met)
     {
       ((material *)met)->scatter = metal_scatter;
       met->albedo                = albedo;
+      met->fuzz                  = fuzz < 1 ? fuzz : 1;
     }
   return met;
 }

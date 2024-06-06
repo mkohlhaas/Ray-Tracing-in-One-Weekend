@@ -7,6 +7,7 @@ typedef struct metal
 {
   material *mat;
   color     albedo;
+  double    fuzz;
 } metal;
 
-metal *metal_new (color albedo);
+metal *metal_new (color albedo, double fuzz);

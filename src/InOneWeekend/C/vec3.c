@@ -88,6 +88,7 @@ vec3_length (vec3 v)
   return sqrt (vec3_length_squared (v));
 }
 
+// Returns unit vector of `v`.
 vec3
 vec3_unit (vec3 v)
 {
