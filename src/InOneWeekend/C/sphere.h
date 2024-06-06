@@ -14,5 +14,5 @@ typedef struct
 
 struct hit_record;
 struct ray;
-bool    hit_sphere (void *sphere, struct ray const r, interval i, struct hit_record *rec);
+bool    sphere_hit (struct ray const r, interval i, struct hit_record *rec);
 sphere *sphere_new (point3 center, double radius, material *mat);

@@ -2,7 +2,7 @@ project(
   'raytracer',
   'c',
   version: '0.1',
-  default_options: ['warning_level=3', 'werror=false', 'c_std=gnu23'],
+  default_options: ['warning_level=3', 'werror=false', 'c_std=gnu2x'],
 )
 
 # math library

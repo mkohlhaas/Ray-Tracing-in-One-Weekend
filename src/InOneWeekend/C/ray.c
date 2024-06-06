@@ -41,8 +41,9 @@ ray_color (ray const r, int depth, hittable *world[])
   hit_record obj_hit;
   for (uint i = 0; i < arrlen (world); i++)
     {
-      hittable *h = world[i];
-      if (h->hit (h->object, r, (interval){ 0.001, closest_so_far }, &obj_hit))
+      hittable *h    = world[i];
+      obj_hit.object = h->self;
+      if (h->hit (r, (interval){ 0.001, closest_so_far }, &obj_hit))
         {
           hit_anything = true;
           if (obj_hit.t < closest_so_far)
@@ -56,7 +57,7 @@ ray_color (ray const r, int depth, hittable *world[])
     {
       ray   scattered;
       color attenuation;
-      if (hit_rec.mat->scatter (hit_rec.mat->self, r, &hit_rec, &attenuation, &scattered))
+      if (hit_rec.mat->scatter (r, &hit_rec, &attenuation, &scattered))
         {
           return vec3_mul (attenuation, ray_color (scattered, depth - 1, world));
         }

@@ -5,6 +5,7 @@
 
 typedef struct hit_record
 {
+  void     *object;
   point3    p;
   vec3      normal; // normals always point against the ray
   material *mat;

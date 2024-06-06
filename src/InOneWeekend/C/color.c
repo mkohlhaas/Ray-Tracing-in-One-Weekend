@@ -22,5 +22,6 @@ write_color (FILE *out, color const pixel)
 color blue       = { .r = 0.0, .g = 0.0, .b = 1.0 };
 color light_blue = { .r = 0.5, .g = 0.7, .b = 1.0 };
 color red        = { .r = 1.0, .g = 0.0, .b = 0.0 };
+color yellow     = { .r = 1.0, .g = 1.0, .b = 0.0 };
 color white      = { .r = 1.0, .g = 1.0, .b = 1.0 };
 color black      = { .r = 0.0, .g = 0.0, .b = 0.0 };

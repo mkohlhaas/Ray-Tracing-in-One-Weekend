@@ -20,9 +20,9 @@ sphere_new (point3 center, double radius, material *mat)
 }
 
 bool
-hit_sphere (void *self, ray const r, interval i, hit_record *rec)
+sphere_hit (ray const r, interval i, hit_record *rec)
 {
-  sphere *s    = self;
+  sphere *s    = rec->object;
   vec3    c_q  = vec3_sub (s->center, r.origin);
   double  a    = vec3_length_squared (r.direction);
   double  h    = vec3_dot_product (r.direction, c_q);

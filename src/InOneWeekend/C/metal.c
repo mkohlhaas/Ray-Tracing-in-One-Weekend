@@ -5,26 +5,23 @@
 #include <stdlib.h>
 
 bool
-metal_scatter (void *self, ray const r_in, hit_record const *rec, color *attenuation, ray *scattered)
+metal_scatter (ray const r_in, hit_record const *rec, color *attenuation, ray *scattered)
 {
-  metal *m         = (metal *)self;
+  metal *m         = (metal *)rec->mat;
   vec3   reflected = vec3_reflect (r_in.direction, rec->normal);
   *attenuation     = m->albedo;
-  *scattered       = *ray_new (rec->p, reflected);
+  *scattered       = (ray){ rec->p, reflected };
   return true;
 }
 
 metal *
 metal_new (color albedo)
 {
-  metal    *m   = malloc (sizeof (*m));
-  material *mat = malloc (sizeof (material));
-  if (m && mat)
+  metal *met = malloc (sizeof (*met));
+  if (met)
     {
-      m->mat          = mat;
-      m->mat->scatter = metal_scatter;
-      m->mat->self    = m;
-      m->albedo       = albedo;
+      ((material *)met)->scatter = metal_scatter;
+      met->albedo                = albedo;
     }
-  return m;
+  return met;
 }

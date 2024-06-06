@@ -18,21 +18,21 @@ world_init (void)
   sphere *s1 = sphere_new (
       (point3){
           .x = 0.0,
-          .y = 0.0,
-          .z = -1.2,
+          .y = -100.5,
+          .z = -1.0,
       },
-      0.5, (material *)material_center);
-  hittable *sh1 = hittable_new (hit_sphere, s1);
+      100.0, (material *)material_ground);
+  hittable *sh1 = hittable_new (sphere_hit, s1);
   arrput (world, sh1);
 
   sphere *s2 = sphere_new (
       (point3){
           .x = 0.0,
-          .y = -100.5,
-          .z = -1.0,
+          .y = 0.0,
+          .z = -1.2,
       },
-      100.0, (material *)material_ground);
-  hittable *sh2 = hittable_new (hit_sphere, s2);
+      0.5, (material *)material_center);
+  hittable *sh2 = hittable_new (sphere_hit, s2);
   arrput (world, sh2);
 
   sphere *s3 = sphere_new (
@@ -42,7 +42,7 @@ world_init (void)
           .z = -1.0,
       },
       0.5, (material *)material_left);
-  hittable *sh3 = hittable_new (hit_sphere, s3);
+  hittable *sh3 = hittable_new (sphere_hit, s3);
   arrput (world, sh3);
 
   sphere *s4 = sphere_new (
@@ -52,6 +52,6 @@ world_init (void)
           .z = -1.0,
       },
       0.5, (material *)material_right);
-  hittable *sh4 = hittable_new (hit_sphere, s4);
+  hittable *sh4 = hittable_new (sphere_hit, s4);
   arrput (world, sh4);
 }
