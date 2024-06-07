@@ -7,6 +7,7 @@ typedef struct camera
   double aspect_ratio;
   int    image_width;
   int    image_height;
+  double vfov;
   double focal_length;
   point3 center;
   double viewport_width;

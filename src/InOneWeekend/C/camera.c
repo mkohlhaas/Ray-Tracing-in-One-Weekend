@@ -1,7 +1,9 @@
 #include "camera.h"
 #include "color.h"
 #include "ray.h"
+#include "utils.h"
 #include "vec3.h"
+#include <math.h>
 
 camera cam;
 
@@ -16,14 +18,17 @@ camera_init (void)
     .center            = origin,
     .samples_per_pixel = 10,
     .max_depth         = 50,
+    .vfov              = 90,
   };
 
   cam.image_height        = cam.image_width / cam.aspect_ratio;
   cam.image_height        = cam.image_height < 1 ? 1 : cam.image_height;
   cam.aspect_ratio        = (double)cam.image_width / cam.image_height;
-  cam.viewport_width      = cam.viewport_height * cam.aspect_ratio;
   cam.pixel_samples_scale = 1.0 / cam.samples_per_pixel;
-
+  double theta            = degrees_to_radians (cam.vfov);
+  double h                = tan (theta / 2);
+  cam.viewport_height     = 2 * h * cam.focal_length;
+  cam.viewport_width      = cam.viewport_height * cam.aspect_ratio;
   vec3 viewport_u         = { .x = cam.viewport_width };
   vec3 viewport_v         = { .y = -cam.viewport_height };
   cam.pixel_delta_u       = vec3_scalar_div (viewport_u, cam.image_width);

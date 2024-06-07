@@ -1,68 +1,39 @@
+#include "color.h"
 #include "dielectric.h"
 #include "hittable.h"
 #include "lambertian.h"
 #include "metal.h"
 #include "sphere.h"
 #include "stb_ds.h"
+#include <math.h>
 
 hittable **world = NULL;
 
 void
 world_init (void)
 {
-  lambertian *material_ground = lambertian_new ((color){ .r = 0.8, .g = 0.8, .b = 0.0 });
-  lambertian *material_center = lambertian_new ((color){ .r = 0.1, .g = 0.2, .b = 0.5 });
-  dielectric *material_left   = dielectric_new (1.50);        // glass
-  dielectric *material_bubble = dielectric_new (1.00 / 1.50); // air (1.00) to glass (1.50)
-  metal      *material_right  = metal_new ((color){ .r = 0.8, .g = 0.6, .b = 0.2 }, 1.0);
+  auto material_left  = lambertian_new (blue);
+  auto material_right = lambertian_new (red);
+
+  auto R = cos (M_PI / 4);
 
   sphere *s1 = sphere_new (
       (point3){
-          .x = 0.0,
-          .y = -100.5,
-          .z = -1.0,
+          .x = -R,
+          .y = 0,
+          .z = -1,
       },
-      100.0, (material *)material_ground);
+      R, (material *)material_left);
   hittable *sh1 = hittable_new (sphere_hit, s1);
   arrput (world, sh1);
 
   sphere *s2 = sphere_new (
       (point3){
-          .x = 0.0,
-          .y = 0.0,
-          .z = -1.2,
+          .x = R,
+          .y = 0,
+          .z = -1,
       },
-      0.5, (material *)material_center);
+      R, (material *)material_right);
   hittable *sh2 = hittable_new (sphere_hit, s2);
   arrput (world, sh2);
-
-  sphere *s3 = sphere_new (
-      (point3){
-          .x = -1.0,
-          .y = 0.0,
-          .z = -1.0,
-      },
-      0.5, (material *)material_left);
-  hittable *sh3 = hittable_new (sphere_hit, s3);
-  arrput (world, sh3);
-
-  sphere *s4 = sphere_new (
-      (point3){
-          .x = 1.0,
-          .y = 0.0,
-          .z = -1.0,
-      },
-      0.5, (material *)material_right);
-  hittable *sh4 = hittable_new (sphere_hit, s4);
-  arrput (world, sh4);
-
-  sphere *s5 = sphere_new (
-      (point3){
-          .x = -1.0,
-          .y = 0.0,
-          .z = -1.0,
-      },
-      0.4, (material *)material_bubble);
-  hittable *sh5 = hittable_new (sphere_hit, s5);
-  arrput (world, sh5);
 }
