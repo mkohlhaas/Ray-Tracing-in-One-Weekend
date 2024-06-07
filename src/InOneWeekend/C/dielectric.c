@@ -2,9 +2,19 @@
 #include "color.h"
 #include "hit_record.h"
 #include "ray.h"
+#include "utils.h"
 #include "vec3.h"
 #include <math.h>
 #include <stdlib.h>
+
+// Schlick's approximation for reflectance.
+static double
+dielectric_reflectance (double cosine, double refraction_index)
+{
+  auto r0 = (1 - refraction_index) / (1 + refraction_index);
+  r0      = r0 * r0;
+  return r0 + (1 - r0) * pow ((1 - cosine), 5);
+}
 
 bool
 dielectric_scatter (ray const r_in, hit_record const *rec, color *attenuation, ray *scattered)
@@ -19,7 +29,7 @@ dielectric_scatter (ray const r_in, hit_record const *rec, color *attenuation, r
   bool   cannot_refract = ri * sin_theta > 1.0;
 
   vec3 direction;
-  if (cannot_refract)
+  if (cannot_refract || dielectric_reflectance (cos_theta, ri) > random_double ())
     {
       direction = vec3_reflect (unit_direction, rec->normal);
     }
