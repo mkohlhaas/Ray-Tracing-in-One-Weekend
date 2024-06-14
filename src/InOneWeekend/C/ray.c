@@ -86,14 +86,14 @@ sample_square (void)
 }
 
 ray
-get_ray (camera c, int row, int col)
+get_ray (camera cam, int row, int col)
 {
   // Construct a camera ray originating from the origin and directed at randomly sampled
   // point around the pixel location i, j.
   vec3 offset        = sample_square ();
-  vec3 pixel_sample  = vec3_add (c.pixel_origin, vec3_add (vec3_scalar_mult (c.pixel_delta_u, col + offset.x),
-                                                           vec3_scalar_mult (c.pixel_delta_v, row + offset.y)));
-  vec3 ray_origin    = c.center;
+  vec3 pixel_sample  = vec3_add (cam.pixel_origin, vec3_add (vec3_scalar_mult (cam.pixel_delta_u, col + offset.x),
+                                                             vec3_scalar_mult (cam.pixel_delta_v, row + offset.y)));
+  vec3 ray_origin    = cam.lookfrom;
   vec3 ray_direction = vec3_sub (pixel_sample, ray_origin);
   return (ray){ ray_origin, ray_direction };
 }

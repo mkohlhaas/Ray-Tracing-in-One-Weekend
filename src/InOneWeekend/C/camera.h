@@ -9,7 +9,6 @@ typedef struct camera
   int    image_height;
   double vfov;
   double focal_length;
-  point3 center;
   double viewport_width;
   double viewport_height;
   point3 viewport_upper_left;
@@ -19,6 +18,10 @@ typedef struct camera
   int    samples_per_pixel;
   double pixel_samples_scale;
   int    max_depth;
+  point3 lookfrom;
+  point3 lookat;
+  vec3   vup;
+  vec3   u, v, w;
 } camera;
 
 extern camera cam;
