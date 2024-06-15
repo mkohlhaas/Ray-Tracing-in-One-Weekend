@@ -85,15 +85,25 @@ sample_square (void)
   };
 }
 
+static point3
+defocus_disk_sample ()
+{
+  // Returns a random point in the camera defocus disk.
+  auto p = vec3_random_in_unit_disk ();
+  return vec3_add (vec3_add (cam.lookfrom, vec3_scalar_mult (cam.defocus_disk_u, p.x)),
+                   vec3_scalar_mult (cam.defocus_disk_v, p.y));
+}
+
 ray
 get_ray (camera cam, int row, int col)
 {
-  // Construct a camera ray originating from the origin and directed at randomly sampled
-  // point around the pixel location i, j.
-  vec3 offset        = sample_square ();
-  vec3 pixel_sample  = vec3_add (cam.pixel_origin, vec3_add (vec3_scalar_mult (cam.pixel_delta_u, col + offset.x),
-                                                             vec3_scalar_mult (cam.pixel_delta_v, row + offset.y)));
-  vec3 ray_origin    = cam.lookfrom;
-  vec3 ray_direction = vec3_sub (pixel_sample, ray_origin);
+  // Construct a camera ray originating from the defocus disk and directed at a randomly
+  // sampled point around the pixel location i, j.
+
+  vec3   offset        = sample_square ();
+  vec3   pixel_sample  = vec3_add (cam.pixel_origin, vec3_add (vec3_scalar_mult (cam.pixel_delta_u, col + offset.x),
+                                                               vec3_scalar_mult (cam.pixel_delta_v, row + offset.y)));
+  point3 ray_origin    = (cam.defocus_angle <= 0) ? cam.lookfrom : defocus_disk_sample ();
+  vec3   ray_direction = vec3_sub (pixel_sample, ray_origin);
   return (ray){ ray_origin, ray_direction };
 }

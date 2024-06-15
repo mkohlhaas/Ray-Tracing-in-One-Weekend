@@ -41,3 +41,4 @@ vec3   vec3_random_unit_vector (void);
 vec3   vec3_random_on_hemisphere (vec3 const normal);
 bool   vec3_near_zero (vec3 v);
 vec3   vec3_reflect (vec3 const v, vec3 const n);
+vec3   vec3_random_in_unit_disk (void);

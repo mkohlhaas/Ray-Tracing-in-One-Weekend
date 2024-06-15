@@ -174,5 +174,18 @@ refract (const vec3 uv, const vec3 n, double etai_over_etat)
   auto cos_theta      = fmin (vec3_dot_product (vec3_minus (uv), n), 1.0);
   vec3 r_out_perp     = vec3_scalar_mult (vec3_add (uv, vec3_scalar_mult (n, cos_theta)), etai_over_etat);
   vec3 r_out_parallel = vec3_scalar_mult (n, -sqrt (fabs (1.0 - vec3_length_squared (r_out_perp))));
-  return vec3_add(r_out_perp , r_out_parallel);
+  return vec3_add (r_out_perp, r_out_parallel);
+}
+
+vec3
+vec3_random_in_unit_disk (void)
+{
+  while (true)
+    {
+      auto p = (vec3){ .x = random_double_min_max (-1.0, 1.0), .y = random_double_min_max (-1, 1), .z = 0 };
+      if (vec3_length_squared (p) < 1.0)
+        {
+          return p;
+        }
+    }
 }
