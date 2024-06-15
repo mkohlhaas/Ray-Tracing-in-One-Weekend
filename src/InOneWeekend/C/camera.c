@@ -15,14 +15,14 @@ camera_init (void)
     .aspect_ratio      = 16.0 / 9.0,
     .image_width       = 1200,
     .viewport_height   = 2.0,
-    .samples_per_pixel = 100,
-    .max_depth         = 10,
+    .samples_per_pixel = 500,
+    .max_depth         = 50,
     .vfov              = 20,
-    .lookfrom          = (point3){ .x = -2, .y = 2, .z = 1 },
-    .lookat            = (point3){ .x = 0, .y = 0, .z = -1 },
+    .lookat            = origin,
+    .lookfrom          = (point3){ .x = 13, .y = 2, .z = 3 },
     .vup               = (vec3){ .x = 0, .y = 1, .z = 0 },
-    .defocus_angle     = 10.0,
-    .focus_dist        = 3.4,
+    .defocus_angle     = 0.6,
+    .focus_dist        = 10.0,
   };
 
   cam.image_height        = cam.image_width / cam.aspect_ratio;
