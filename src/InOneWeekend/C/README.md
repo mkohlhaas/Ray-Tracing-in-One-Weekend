@@ -15,3 +15,4 @@ xdg-open fu.pnm
 - F8 tags
 - hitlist as hittable (with hit() function)
 - GNU Parallel & pamcat from netpbm
+- structure of struct with function pointers
