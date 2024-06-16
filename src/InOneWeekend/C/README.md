@@ -16,3 +16,4 @@ xdg-open fu.pnm
 - hitlist as hittable (with hit() function)
 - GNU Parallel & pamcat from netpbm
 - structure of struct with function pointers
+- new functions, e.g. for camera
