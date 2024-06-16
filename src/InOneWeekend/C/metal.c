@@ -9,9 +9,9 @@ metal_scatter (ray const r_in, hit_record const *rec, color *attenuation, ray *s
 {
   metal *m         = (metal *)rec->mat;
   vec3   reflected = vec3_reflect (r_in.direction, rec->normal);
-  reflected    = vec3_add (vec3_unit (reflected), vec3_scalar_mult (vec3_random_unit_vector (), m->fuzz));
-  *attenuation = m->albedo;
-  *scattered   = (ray){ rec->p, reflected };
+  reflected        = vec3_add (vec3_unit (reflected), vec3_scalar_mult (vec3_random_unit_vector (), m->fuzz));
+  *attenuation     = m->albedo;
+  *scattered       = (ray){ rec->p, reflected };
   return true;
 }
 
