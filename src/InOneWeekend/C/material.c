@@ -7,7 +7,7 @@ get_material (hit_able_t *object)
   switch (object->type)
     {
     case SPHERE:
-      sphere *s = (sphere *)object;
+      sphere_t *s = (sphere_t *)object;
       return s->mat;
       break;
     case LIST:

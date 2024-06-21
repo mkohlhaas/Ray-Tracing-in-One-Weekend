@@ -8,7 +8,7 @@ typedef void (*scatter_fn) (ray_t const r_in, hit_record_t const *rec, color_t *
 
 // Just for reference.
 // Every struct with scatter_fn as first entry is a material (lambertian, metal, dielectric,...).
-typedef struct material_t
+typedef struct material
 {
   scatter_fn scatter;
 } material_t;

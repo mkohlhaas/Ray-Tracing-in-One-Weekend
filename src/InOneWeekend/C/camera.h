@@ -2,7 +2,7 @@
 
 #include "point.h"
 
-typedef struct camera_t
+typedef struct camera
 {
   double aspect_ratio;
   int    image_width;
@@ -29,6 +29,6 @@ typedef struct camera_t
 
 extern camera_t cam;
 
-struct hit_able_t;
+struct hit_able;
 void camera_init (void);
-void render (camera_t cam, struct hit_able_t **world);
+void render (camera_t cam, struct hit_able **world);

@@ -6,6 +6,6 @@ typedef struct dielectric
 {
   scatter_fn scatter;
   double     refraction_index;
-} dielectric;
+} dielectric_t;
 
-dielectric *dielectric_new (double refraction_index);
+dielectric_t *dielectric_new (double refraction_index);

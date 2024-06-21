@@ -39,7 +39,7 @@ ray_color (ray_t const ray, int depth, hit_able_t *world[])
   for (uint i = 0; i < arrlen (world); i++)
     {
       obj_hit.object = world[i];
-      if (obj_hit.object->hit_fn (ray, (interval){ 0.001, closest_so_far }, &obj_hit))
+      if (obj_hit.object->hit_fn (ray, (interval_t){ 0.001, closest_so_far }, &obj_hit))
         {
           hit_anything = true;
           if (obj_hit.t < closest_so_far)

@@ -15,7 +15,7 @@ dielectric_reflectance (double cosine, double refraction_index)
 void
 dielectric_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuation, ray_t *scattered)
 {
-  dielectric *diel      = (dielectric *)get_material (rec->object);
+  dielectric_t *diel    = (dielectric_t *)get_material (rec->object);
   *attenuation          = white; // no attenuation
   double ri             = rec->front_face ? (1.0 / diel->refraction_index) : diel->refraction_index;
   vec3_t unit_direction = vec3_unit (ray.direction);
@@ -36,10 +36,10 @@ dielectric_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuati
   *scattered = (ray_t){ rec->p, direction };
 }
 
-dielectric *
+dielectric_t *
 dielectric_new (double refraction_index)
 {
-  dielectric *d = malloc (sizeof (*d));
+  dielectric_t *d = malloc (sizeof (*d));
   // TODO: exit/abort if failure
   if (d)
     {

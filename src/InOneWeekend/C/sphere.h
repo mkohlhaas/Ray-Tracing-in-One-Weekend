@@ -3,15 +3,15 @@
 #include "material.h"
 #include <stdbool.h>
 
-typedef struct
+typedef struct sphere
 {
   hit_type_t  type;
   hit_fn      hit_fn;
   point3      center;
   double      radius;
   material_t *mat;
-} sphere;
+} sphere_t;
 
 struct hit_record;
 struct ray;
-sphere *sphere_new (point3 center, double radius, material_t *mat);
+sphere_t *sphere_new (point3 center, double radius, material_t *mat);

@@ -5,7 +5,7 @@
 void
 write_color (FILE *out, color_t const pixel)
 {
-  interval intensity = { 0.000, 0.999 };
+  interval_t intensity = { 0.000, 0.999 };
 
   // Apply a linear to gamma transform for gamma 2
   double r = linear_to_gamma (pixel.x);
