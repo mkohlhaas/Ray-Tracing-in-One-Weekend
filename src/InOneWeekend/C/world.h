@@ -1,8 +1,8 @@
 #pragma once
 
-#include "hittable.h"
+#include "ray.h"
 
 // world
-extern hittable **world;
+extern hit_able_t **world;
 
 void world_init (void);

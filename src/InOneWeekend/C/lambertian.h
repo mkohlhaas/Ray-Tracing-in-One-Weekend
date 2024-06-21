@@ -5,8 +5,8 @@
 
 typedef struct lambertian
 {
-  material *mat;
-  color     albedo;
-} lambertian;
+  scatter_fn scatter;
+  color_t    albedo;
+} lambertian_t;
 
-lambertian *lambertian_new (color albedo);
+lambertian_t *lambertian_new (color_t albedo);

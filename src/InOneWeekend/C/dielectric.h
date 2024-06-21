@@ -4,8 +4,8 @@
 
 typedef struct dielectric
 {
-  material *mat;
-  double    refraction_index;
+  scatter_fn scatter;
+  double     refraction_index;
 } dielectric;
 
 dielectric *dielectric_new (double refraction_index);

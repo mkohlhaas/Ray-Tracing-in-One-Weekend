@@ -2,35 +2,27 @@
 #include <math.h>
 
 double
-size (interval i)
+itvl_size (interval i)
 {
   return i.max - i.min;
 }
 
 bool
-contains (interval i, double x)
+itvl_contains (interval i, double x)
 {
   return i.min <= x && x <= i.max;
 }
 
 bool
-surrounds (interval i, double x)
+itvl_surrounds (interval i, double x)
 {
   return i.min < x && x < i.max;
 }
 
 double
-clamp (interval i, double x)
+itvl_clamp (interval i, double x)
 {
-  if (x < i.min)
-    {
-      return i.min;
-    }
-  if (x > i.max)
-    {
-      return i.max;
-    }
-  return x;
+  return x < i.min ? i.min : x > i.max ? i.max : x;
 }
 
 interval empty    = { +INFINITY, -INFINITY };

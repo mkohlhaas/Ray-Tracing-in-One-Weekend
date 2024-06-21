@@ -10,7 +10,7 @@ typedef struct interval
 extern interval empty;
 extern interval universe;
 
-double size (interval i);
-bool   contains (interval i, double x);
-bool   surrounds (interval i, double x);
-double clamp (interval i, double x);
+double itvl_size (interval i);
+bool   itvl_contains (interval i, double x);
+bool   itvl_surrounds (interval i, double x);
+double itvl_clamp (interval i, double x);

@@ -3,11 +3,14 @@
 #include "ray.h"
 #include <stdbool.h>
 
-struct hit_record;
+// Returns `attenuation` and `scattered` ray.
+typedef void (*scatter_fn) (ray_t const r_in, hit_record_t const *rec, color_t *attenuation, ray_t *scattered);
 
-typedef bool (*scatter_fn) (ray const r_in, struct hit_record const *rec, color *attenuation, ray *scattered);
-
-typedef struct material
+// Just for reference.
+// Every struct with scatter_fn as first entry is a material (lambertian, metal, dielectric,...).
+typedef struct material_t
 {
   scatter_fn scatter;
-} material;
+} material_t;
+
+material_t *get_material (hit_able_t *object);

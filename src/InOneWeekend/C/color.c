@@ -3,25 +3,27 @@
 #include "utils.h"
 
 void
-write_color (FILE *out, color const pixel)
+write_color (FILE *out, color_t const pixel)
 {
+  interval intensity = { 0.000, 0.999 };
+
   // Apply a linear to gamma transform for gamma 2
   double r = linear_to_gamma (pixel.x);
   double g = linear_to_gamma (pixel.y);
   double b = linear_to_gamma (pixel.z);
 
-  interval intensity = { 0.000, 0.999 };
-  int      red       = (int)(256 * clamp (intensity, r));
-  int      green     = (int)(256 * clamp (intensity, g));
-  int      blue      = (int)(256 * clamp (intensity, b));
+  int red   = (int)(256 * itvl_clamp (intensity, r));
+  int green = (int)(256 * itvl_clamp (intensity, g));
+  int blue  = (int)(256 * itvl_clamp (intensity, b));
 
   // Write out the pixel color components.
   fprintf (out, "%d %d %d\n", red, green, blue);
 }
 
-color blue       = { .r = 0.0, .g = 0.0, .b = 1.0 };
-color light_blue = { .r = 0.5, .g = 0.7, .b = 1.0 };
-color red        = { .r = 1.0, .g = 0.0, .b = 0.0 };
-color yellow     = { .r = 1.0, .g = 1.0, .b = 0.0 };
-color white      = { .r = 1.0, .g = 1.0, .b = 1.0 };
-color black      = { .r = 0.0, .g = 0.0, .b = 0.0 };
+// global colors
+color_t blue       = { .r = 0.0, .g = 0.0, .b = 1.0 };
+color_t light_blue = { .r = 0.5, .g = 0.7, .b = 1.0 };
+color_t red        = { .r = 1.0, .g = 0.0, .b = 0.0 };
+color_t yellow     = { .r = 1.0, .g = 1.0, .b = 0.0 };
+color_t white      = { .r = 1.0, .g = 1.0, .b = 1.0 };
+color_t black      = { .r = 0.0, .g = 0.0, .b = 0.0 };

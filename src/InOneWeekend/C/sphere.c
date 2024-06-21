@@ -1,31 +1,16 @@
 #include "sphere.h"
-#include "hit_record.h"
-#include "hittable.h"
-#include "material.h"
-#include "ray.h"
 #include <math.h>
 #include <stdlib.h>
 
-sphere *
-sphere_new (point3 center, double radius, material *mat)
-{
-  sphere *s = malloc (sizeof (*s));
-  if (s)
-    {
-      s->center = center;
-      s->radius = radius;
-      s->mat    = mat;
-    }
-  return s;
-}
-
+// Returns false if disc is too small otherwise true.
+// Returns `hit_record` in `rec`.
 bool
-sphere_hit (ray const r, interval i, hit_record *rec)
+sphere_hit (ray_t const r, interval i, hit_record_t *rec)
 {
-  sphere *s    = rec->object;
-  vec3    c_q  = vec3_sub (s->center, r.origin);
+  sphere *s    = (sphere *)rec->object;
+  vec3_t  c_q  = vec3_sub (s->center, r.origin);
   double  a    = vec3_length_squared (r.direction);
-  double  h    = vec3_dot_product (r.direction, c_q);
+  double  h    = vec3_dot (r.direction, c_q);
   double  c    = vec3_length_squared (c_q) - (s->radius * s->radius);
   double  disc = h * h - a * c;
 
@@ -38,20 +23,34 @@ sphere_hit (ray const r, interval i, hit_record *rec)
 
   // Find the nearest root that lies in the acceptable range.
   double root = (h - sqrtd) / a;
-  if (!surrounds (i, root))
+  if (!itvl_surrounds (i, root))
     {
       root = (h + sqrtd) / a;
-      if (!surrounds (i, root))
+      if (!itvl_surrounds (i, root))
         {
           return false;
         }
     }
 
-  rec->t              = root;
-  rec->p              = point_at (r, root);
-  rec->mat            = s->mat;
-  vec3 outward_normal = vec3_scalar_div (vec3_sub (rec->p, s->center), s->radius);
+  rec->t                = root;
+  rec->p                = point_at (r, root);
+  vec3_t outward_normal = vec3_scalar_div (vec3_sub (rec->p, s->center), s->radius);
   set_face_normal (rec, r, outward_normal);
 
   return true;
+}
+
+sphere *
+sphere_new (point3 center, double radius, material_t *mat)
+{
+  sphere *s = malloc (sizeof (*s));
+  if (s)
+    {
+      s->type   = SPHERE;
+      s->hit_fn = sphere_hit;
+      s->center = center;
+      s->radius = radius;
+      s->mat    = mat;
+    }
+  return s;
 }

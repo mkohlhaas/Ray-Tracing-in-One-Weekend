@@ -1,0 +1,33 @@
+#pragma once
+
+#include "interval.h"
+#include "ray.h"
+#include <stdbool.h>
+
+typedef enum
+{
+  SPHERE,
+  LIST,
+} hit_type_t;
+
+struct hit_record_t;
+typedef bool (*hit_fn) (ray_t const r, interval i, struct hit_record_t *rec);
+
+// Just for reference.
+// Every struct with first members hit_type and hit_fn is a hit_able (sphere, list, ...)
+typedef struct hit_able_t
+{
+  hit_type_t type;
+  hit_fn     hit_fn;
+} hit_able_t;
+
+typedef struct hit_record_t
+{
+  struct hit_able_t *object;
+  point3             p;
+  vec3               normal; // normals always point against the ray
+  double             t;      // TODO: comment?
+  bool               front_face;
+} hit_record_t;
+
+void set_face_normal (hit_record_t *rec, ray_t const r, vec3 const outward_normal);

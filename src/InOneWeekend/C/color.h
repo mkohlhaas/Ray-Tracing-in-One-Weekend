@@ -3,13 +3,13 @@
 #include "vec3.h"
 #include <stdio.h>
 
-typedef vec3 color;
+typedef vec3_t color_t;
 
-extern color blue;
-extern color light_blue;
-extern color red;
-extern color white;
-extern color black;
-extern color yellow;
+extern color_t blue;
+extern color_t light_blue;
+extern color_t red;
+extern color_t white;
+extern color_t black;
+extern color_t yellow;
 
-void write_color (FILE *out, const color pixel_color);
+void write_color (FILE *out, const color_t pixel_color);
