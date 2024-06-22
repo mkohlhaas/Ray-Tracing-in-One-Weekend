@@ -170,9 +170,9 @@ vec3_reflect (vec3_t const v, vec3_t const n)
 vec3_t
 vec3_refract (const vec3_t uv, const vec3_t n, double etai_over_etat)
 {
-  auto   cos_theta      = fmin (vec3_dot (vec3_minus (uv), n), 1.0);
-  vec3_t r_out_perp     = vec3_scalar_mult (vec3_add (uv, vec3_scalar_mult (n, cos_theta)), etai_over_etat);
-  vec3_t r_out_parallel = vec3_scalar_mult (n, -sqrt (fabs (1.0 - vec3_length_squared (r_out_perp))));
+  auto cos_theta      = fmin (vec3_dot (vec3_minus (uv), n), 1.0);
+  auto r_out_perp     = vec3_scalar_mult (vec3_add (uv, vec3_scalar_mult (n, cos_theta)), etai_over_etat);
+  auto r_out_parallel = vec3_scalar_mult (n, -sqrt (fabs (1.0 - vec3_length_squared (r_out_perp))));
   return vec3_add (r_out_perp, r_out_parallel);
 }
 
@@ -181,7 +181,9 @@ vec3_random_in_unit_disk (void)
 {
   while (true)
     {
-      auto p = (vec3_t){ .x = random_double_min_max (-1.0, 1.0), .y = random_double_min_max (-1, 1), .z = 0 };
+      auto x_rnd = random_double_min_max (-1, 1);
+      auto y_rnd = random_double_min_max (-1, 1);
+      auto p     = (vec3_t){ .x = x_rnd, .y = y_rnd, .z = 0 };
       if (vec3_length_squared (p) < 1.0)
         {
           return p;

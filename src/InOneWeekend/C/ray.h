@@ -39,5 +39,5 @@ typedef struct hit_record
 ray_t  *ray_new (point3 origin, vec3_t direction);
 point3  point_at (ray_t r, double t);
 color_t ray_color (ray_t const r, int depth, hit_able_t *world[]);
-ray_t   get_ray (camera_t c, int row, int col);
+ray_t   random_ray (camera_t c, int row, int col);
 void    set_face_normal (hit_record_t *rec, ray_t const r, vec3_t const outward_unit_normal);

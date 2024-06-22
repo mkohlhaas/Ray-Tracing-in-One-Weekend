@@ -2,7 +2,7 @@
 
 #include "ray.h"
 
-// world
-extern hit_able_t **world;
+// global world
+extern hit_able_t **g_world;
 
 void world_init (void);

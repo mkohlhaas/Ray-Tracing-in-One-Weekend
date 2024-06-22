@@ -9,8 +9,10 @@ feh
 ```
 
 - hitlist as hittable (with hit() function)
-- command line arguments
-- GNU Parallel & pamcat from netpbm
-- new functions, e.g. for camera
 - TODO: check mallocs
 - TODO: static functions
+- write to file (instead of stdout)
+
+- command line arguments (file, scanline)
+- GNU Parallel & pamcat from netpbm
+- new functions? (e.g. for camera)

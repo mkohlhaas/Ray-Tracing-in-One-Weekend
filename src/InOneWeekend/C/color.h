@@ -5,6 +5,7 @@
 
 typedef vec3_t color_t;
 
+// global colors
 extern color_t blue;
 extern color_t light_blue;
 extern color_t red;

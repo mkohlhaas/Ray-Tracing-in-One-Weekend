@@ -4,6 +4,6 @@ int
 main (void)
 {
   init ();
-  render (cam, world);
+  render ();
   cleanup ();
 }

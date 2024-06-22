@@ -13,4 +13,6 @@ typedef struct material
   scatter_fn scatter;
 } material_t;
 
+typedef material_t mat_t;
+
 material_t *get_material (hit_able_t *object);
