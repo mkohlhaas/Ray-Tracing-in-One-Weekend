@@ -5,7 +5,7 @@
 
 // Returns false if disc is too small otherwise true.
 // Returns `hit_record` in `rec`.
-bool
+static bool
 sphere_hit (ray_t const r, interval_t i, hit_record_t *rec)
 {
   sphere_t *s    = (sphere_t *)rec->object;
@@ -35,17 +35,17 @@ sphere_hit (ray_t const r, interval_t i, hit_record_t *rec)
 
   rec->t                = root;
   rec->p                = point_at (r, root);
-  vec3_t outward_normal = vec3_scalar_div (vec3_sub (rec->p, s->center), s->radius);
+  vec3_t outward_normal = vec3_divt (vec3_sub (rec->p, s->center), s->radius);
   set_face_normal (rec, r, outward_normal);
 
   return true;
 }
 
+// Returns NULL if memory allocation failed.
 sphere_t *
 sphere_new (point3 center, double radius, material_t *mat)
 {
   sphere_t *s = malloc (sizeof (*s));
-  // TODO: check malloc
   if (s)
     {
       s->type   = SPHERE;

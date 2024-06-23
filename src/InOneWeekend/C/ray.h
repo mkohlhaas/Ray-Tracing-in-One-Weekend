@@ -36,7 +36,6 @@ typedef struct hit_record
   bool        front_face;
 } hit_record_t;
 
-ray_t  *ray_new (point3 origin, vec3_t direction);
 point3  point_at (ray_t r, double t);
 color_t ray_color (ray_t const r, int depth, hit_able_t *world[]);
 ray_t   random_ray (camera_t c, int row, int col);

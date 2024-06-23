@@ -1,6 +1,9 @@
 #include "interval.h"
 #include <math.h>
 
+interval_t empty    = { +INFINITY, -INFINITY };
+interval_t universe = { -INFINITY, +INFINITY };
+
 double
 itvl_size (interval_t i)
 {
@@ -24,6 +27,3 @@ itvl_clamp (interval_t i, double x)
 {
   return x < i.min ? i.min : x > i.max ? i.max : x;
 }
-
-interval_t empty    = { +INFINITY, -INFINITY };
-interval_t universe = { -INFINITY, +INFINITY };

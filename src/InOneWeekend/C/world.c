@@ -1,10 +1,17 @@
 #include "dielectric.h"
+#include "error.h"
 #include "lambertian.h"
 #include "metal.h"
 #include "point.h"
 #include "sphere.h"
 #include "stb_ds.h"
 #include "utils.h"
+
+#define CHECK_MEMORY                                                                                                   \
+  if (!m || s)                                                                                                         \
+    {                                                                                                                  \
+      logExit ("Out of memory");                                                                                       \
+    }
 
 // global world
 hit_able_t **g_world = NULL;
@@ -13,27 +20,33 @@ hit_able_t **g_world = NULL;
 static void
 create_ground ()
 {
-  auto m_ground = lambertian_new ((color_t){ .r = 0.5, .g = 0.5, .b = 0.5 });
-  auto s_ground = sphere_new ((point3){ .x = 0.0, .y = -1000.0, .z = 0.0 }, 1000.0, (mat_t *)m_ground);
-  arrput (g_world, (hit_able_t *)s_ground);
+  auto m = lambertian_new ((color_t){ .r = 0.5, .g = 0.5, .b = 0.5 });
+  auto s = sphere_new ((point3){ .x = 0.0, .y = -1000.0, .z = 0.0 }, 1000.0, (mat_t *)m);
+  CHECK_MEMORY;
+  arrput (g_world, (hit_able_t *)s);
 }
 
 static void
 create_big_spheres ()
 {
-  // materials
-  auto m1 = dielectric_new (1.50);
-  auto m2 = lambertian_new ((color_t){ .r = 0.4, .g = 0.2, .b = 0.1 });
-  auto m3 = metal_new ((color_t){ .r = 0.7, .g = 0.6, .b = 0.5 }, 0.0);
-
-  // spheres
-  auto s1 = sphere_new ((point3){ .x = 0, .y = 1, .z = 0 }, 1.0, (mat_t *)m1);
-  auto s2 = sphere_new ((point3){ .x = -4, .y = 1, .z = 0 }, 1.0, (mat_t *)m2);
-  auto s3 = sphere_new ((point3){ .x = 4, .y = 1, .z = 0 }, 1.0, (mat_t *)m3);
-
-  arrput (g_world, (hit_able_t *)s1);
-  arrput (g_world, (hit_able_t *)s2);
-  arrput (g_world, (hit_able_t *)s3);
+  {
+    auto m = dielectric_new (1.50);
+    auto s = sphere_new ((point3){ .x = 0, .y = 1, .z = 0 }, 1.0, (mat_t *)m);
+    CHECK_MEMORY;
+    arrput (g_world, (hit_able_t *)s);
+  }
+  {
+    auto m = lambertian_new ((color_t){ .r = 0.4, .g = 0.2, .b = 0.1 });
+    auto s = sphere_new ((point3){ .x = -4, .y = 1, .z = 0 }, 1.0, (mat_t *)m);
+    CHECK_MEMORY;
+    arrput (g_world, (hit_able_t *)s);
+  }
+  {
+    auto m = metal_new ((color_t){ .r = 0.7, .g = 0.6, .b = 0.5 }, 0.0);
+    auto s = sphere_new ((point3){ .x = 4, .y = 1, .z = 0 }, 1.0, (mat_t *)m);
+    CHECK_MEMORY;
+    arrput (g_world, (hit_able_t *)s);
+  }
 }
 
 // Create small spheres randomly.
@@ -55,9 +68,10 @@ create_small_spheres ()
               if (matte < 0.8)
                 {
                   // diffuse
-                  auto albedo = vec3_mul (vec3_random (), vec3_random ());
+                  auto albedo = vec3_mulv (vec3_random (), vec3_random ());
                   auto m      = lambertian_new (albedo);
                   auto s      = sphere_new (center, 0.2, (material_t *)m);
+                  CHECK_MEMORY;
                   arrput (g_world, (hit_able_t *)s);
                 }
               else if (matte < 0.95)
@@ -67,6 +81,7 @@ create_small_spheres ()
                   auto fuzz   = random_double_min_max (0, 0.5);
                   auto m      = metal_new (albedo, fuzz);
                   auto s      = sphere_new (center, 0.2, (material_t *)m);
+                  CHECK_MEMORY;
                   arrput (g_world, (hit_able_t *)s);
                 }
               else
@@ -74,6 +89,7 @@ create_small_spheres ()
                   // glass
                   auto m = dielectric_new (1.5);
                   auto s = sphere_new (center, 0.2, (material_t *)m);
+                  CHECK_MEMORY;
                   arrput (g_world, (hit_able_t *)s);
                 }
             }

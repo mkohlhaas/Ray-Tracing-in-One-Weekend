@@ -8,11 +8,7 @@ ninja
 feh
 ```
 
-- hitlist as hittable (with hit() function)
-- TODO: check mallocs
-- TODO: static functions
+- command line arguments (file, scanline#)
 - write to file (instead of stdout)
-
-- command line arguments (file, scanline)
+- hitlist as hittable (with hit() function)
 - GNU Parallel & pamcat from netpbm
-- new functions? (e.g. for camera)

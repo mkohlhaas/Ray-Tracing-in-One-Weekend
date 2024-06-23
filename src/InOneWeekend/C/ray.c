@@ -4,22 +4,10 @@
 #include "utils.h"
 #include <math.h>
 
-ray_t *
-ray_new (point3 origin, vec3_t direction)
-{
-  ray_t *r = malloc (sizeof (*r));
-  if (r)
-    {
-      r->origin    = origin;
-      r->direction = direction;
-    }
-  return r;
-}
-
 point3
 point_at (ray_t r, double t)
 {
-  return vec3_add (r.origin, vec3_scalar_mult (r.direction, t));
+  return vec3_add (r.origin, vec3_mult (r.direction, t));
 }
 
 color_t
@@ -56,15 +44,15 @@ ray_color (ray_t const ray, int depth, hit_able_t *world[])
 
       material_t *mat = get_material (hit_rec.object);
       mat->scatter (ray, &hit_rec, &attenuation, &scattered);
-      return vec3_mul (attenuation, ray_color (scattered, depth - 1, world));
+      return vec3_mulv (attenuation, ray_color (scattered, depth - 1, world));
     }
 
   // render background
   vec3_t unit_direction = vec3_unit (ray.direction);
   double a              = 0.5 * (unit_direction.y + 1); // -1.0 ≤ y ≤ 1.0 ⇒ 0.0 ≤ a ≤ 1.0
 
-  color_t blueish = vec3_scalar_mult (light_blue, a);
-  color_t whitish = vec3_scalar_mult (white, 1.0 - a);
+  color_t blueish = vec3_mult (light_blue, a);
+  color_t whitish = vec3_mult (white, 1.0 - a);
 
   return vec3_add (whitish, blueish);
 }
@@ -85,8 +73,8 @@ defocus_disk_sample ()
 {
   // Returns a random point in the camera defocus disk.
   auto p = vec3_random_in_unit_disk ();
-  return vec3_add (vec3_add (g_camera.lookfrom, vec3_scalar_mult (g_camera.defocus_disk_u, p.x)),
-                   vec3_scalar_mult (g_camera.defocus_disk_v, p.y));
+  return vec3_add (vec3_add (g_camera.lookfrom, vec3_mult (g_camera.defocus_disk_u, p.x)),
+                   vec3_mult (g_camera.defocus_disk_v, p.y));
 }
 
 // Construct a camera ray originating from the defocus disk and directed
@@ -95,8 +83,8 @@ ray_t
 random_ray (camera_t cam, int row, int col)
 {
   vec3_t offset        = sample_square ();
-  auto   p_u           = vec3_scalar_mult (cam.pixel_delta_u, col + offset.x);
-  auto   p_v           = vec3_scalar_mult (cam.pixel_delta_v, row + offset.y);
+  auto   p_u           = vec3_mult (cam.pixel_delta_u, col + offset.x);
+  auto   p_v           = vec3_mult (cam.pixel_delta_v, row + offset.y);
   auto   p_u_v         = vec3_add (p_u, p_v);
   vec3_t pixel_sample  = vec3_add (cam.pixel_origin, p_u_v);
   point3 ray_origin    = (cam.defocus_angle <= 0) ? cam.lookfrom : defocus_disk_sample ();

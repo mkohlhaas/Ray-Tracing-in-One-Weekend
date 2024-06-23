@@ -1,3 +1,4 @@
+#include "material.h"
 #include "sphere.h"
 #include <stdlib.h>
 

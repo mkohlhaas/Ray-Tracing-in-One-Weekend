@@ -20,11 +20,11 @@ lambertian_scatter (ray_t const r_in, hit_record_t const *rec, color_t *attenuat
   *scattered   = (ray_t){ rec->p, scatter_dir };
 }
 
+// Returns `NULL` if memory allocation failed.
 lambertian_t *
 lambertian_new (color_t albedo)
 {
   lambertian_t *lam = malloc (sizeof (*lam));
-  // TODO: exit/abort if failure | calling fn checks return value
   if (lam)
     {
       lam->scatter = lambertian_scatter;

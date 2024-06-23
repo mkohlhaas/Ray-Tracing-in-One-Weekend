@@ -12,7 +12,7 @@ dielectric_reflectance (double cosine, double refraction_index)
   return r0 + (1 - r0) * pow ((1 - cosine), 5);
 }
 
-void
+static void
 dielectric_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuation, ray_t *scattered)
 {
   // attenuation
@@ -39,11 +39,11 @@ dielectric_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuati
   *scattered = (ray_t){ rec->p, direction };
 }
 
+// Returns `NULL` if memory allocation failed.
 dielectric_t *
 dielectric_new (double refraction_index)
 {
   dielectric_t *d = malloc (sizeof (*d));
-  // TODO: exit/abort if failure | calling fn checks return value
   if (d)
     {
       d->scatter          = dielectric_scatter;

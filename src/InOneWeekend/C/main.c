@@ -1,7 +1,7 @@
 #include "main.h"
 
 int
-main (void)
+main (int argc, char *argv[])
 {
   init ();
   render ();
