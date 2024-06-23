@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "camera_defs.h"
+#include "globals.h"
 #include "ray.h"
 #include "utils.h"
 #include "world.h"
@@ -70,7 +71,7 @@ camera_init (void)
 static void
 write_ppm_header ()
 {
-  printf ("P3\n%d %d\n255\n", g_camera.image_width, g_camera.image_height);
+  fprintf (g_output_file, "P3\n%d %d\n255\n", g_camera.image_width, g_camera.image_height);
 }
 
 static void
@@ -89,7 +90,7 @@ write_image_body ()
               pixel_color  = vec3_add (pixel_color, ray_col);
             }
           auto color_res = vec3_divt (pixel_color, g_camera.samples_per_pixel);
-          write_color (stdout, color_res);
+          write_color (g_output_file, color_res);
         }
     }
   fprintf (stderr, "\rDone.                                   \n");

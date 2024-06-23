@@ -8,7 +8,7 @@
 #include "utils.h"
 
 #define CHECK_MEMORY                                                                                                   \
-  if (!m || s)                                                                                                         \
+  if (!m || !s)                                                                                                        \
     {                                                                                                                  \
       logExit ("Out of memory");                                                                                       \
     }

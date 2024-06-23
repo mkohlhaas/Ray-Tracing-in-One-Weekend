@@ -1,4 +1,5 @@
 #include "color.h"
+#include "globals.h"
 #include "interval.h"
 #include "utils.h"
 
