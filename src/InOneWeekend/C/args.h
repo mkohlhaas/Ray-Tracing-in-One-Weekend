@@ -7,7 +7,7 @@ typedef struct arguments
   char *output_file;
   int   image_width;
   int   image_height;
-  int   begin_scanline;
+  int   start_scanline;
   int   num_scanlines;
 } arguments_t;
 
