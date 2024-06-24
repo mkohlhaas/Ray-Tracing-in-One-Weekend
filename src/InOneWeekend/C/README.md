@@ -8,7 +8,6 @@ ninja
 feh
 ```
 
-- command line arguments (file, scanline#)
-- write to file (instead of stdout)
+- command line arguments
+  - GNU Parallel & pamcat from netpbm
 - hitlist as hittable (with hit() function)
-- GNU Parallel & pamcat from netpbm

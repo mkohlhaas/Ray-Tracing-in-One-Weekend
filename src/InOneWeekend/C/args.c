@@ -8,34 +8,31 @@ const char *argp_program_version = "raytracer 1.0";
 static char doc[] = "Raytracer based on \"Raytracer in a Weekend\"";
 
 static struct argp_option options[] = { {
-                                            .name = "output",
-                                            .key  = 'o',
-                                            .arg  = "FILE",
-                                            .doc  = "Output to FILE (default=stdout)",
+                                            .key   = 'o',
+                                            .arg   = "FILE",
+                                            .doc   = "Output to FILE (default=stdout)",
+                                            .group = 0,
                                         },
                                         {
-                                            .name = "image-width",
-                                            .key  = 'w',
-                                            .arg  = "width",
-                                            .doc  = "Image width (required)",
+                                            .key   = 'w',
+                                            .arg   = "WIDTH",
+                                            .doc   = "Image width (required)",
+                                            .group = 1,
                                         },
                                         {
-                                            .name = "image-height",
-                                            .key  = 'h',
-                                            .arg  = "height",
-                                            .doc  = "Image height (required)",
+                                            .key = 'h',
+                                            .arg = "HEIGHT",
+                                            .doc = "Image height (required)",
                                         },
                                         {
-                                            .name = "start-scanline",
-                                            .key  = 's',
-                                            .arg  = "start",
-                                            .doc  = "Starting scanline (required)",
+                                            .key = 's',
+                                            .arg = "START",
+                                            .doc = "Starting scanline (required)",
                                         },
                                         {
-                                            .name = "num-scanlines",
-                                            .key  = 'n',
-                                            .arg  = "num",
-                                            .doc  = "Number of scanlines (required)",
+                                            .key = 'n',
+                                            .arg = "NUM",
+                                            .doc = "Number of scanlines (required)",
                                         },
                                         { 0 } };
 

@@ -4,8 +4,6 @@
 
 typedef struct camera
 {
-  int    image_width;
-  int    image_height;
   vec3_t pixel_delta_u;
   vec3_t pixel_delta_v;
   point3 pixel_origin;

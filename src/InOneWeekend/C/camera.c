@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "args.h"
 #include "camera_defs.h"
 #include "globals.h"
 #include "ray.h"
@@ -13,8 +14,6 @@ static void
 camera_defaults ()
 {
   g_camera = (camera_t){
-    .image_width       = IMAGE_WIDTH,
-    .image_height      = IMAGE_HEIGHT,
     .samples_per_pixel = SAMPLES_PER_PIXEL,
     .max_depth         = MAX_DEPTH,
     .lookat            = LOOKAT,
@@ -31,15 +30,12 @@ camera_init (void)
   double vfov       = VFOV;
   point3 vup        = VUP;
 
-  // Calculate image height
-  // g_camera.image_height = g_camera.image_width / aspect_ratio;
-  // g_camera.image_height = g_camera.image_height < 1 ? 1 : g_camera.image_height;
-
   // Calculate viewport width and height
+  auto aspect_ratio    = (double)args.image_width / args.image_height;
   auto theta           = degrees_to_radians (vfov);
   auto h               = tan (theta / 2);
   auto viewport_height = 2 * h * focus_dist;
-  auto viewport_width  = viewport_height * ASPECT_RATIO;
+  auto viewport_width  = viewport_height * aspect_ratio;
 
   // Calculate the u,v,w unit basis vectors for the camera coordinate frame.
   auto w = vec3_unit (vec3_sub (g_camera.lookfrom, g_camera.lookat));
@@ -56,8 +52,8 @@ camera_init (void)
                   vec3_divt (viewport_v, 2));
 
   // Calculate pixel origin and pixel u, v  vectors.
-  g_camera.pixel_delta_u = vec3_divt (viewport_u, g_camera.image_width);
-  g_camera.pixel_delta_v = vec3_divt (viewport_v, g_camera.image_height);
+  g_camera.pixel_delta_u = vec3_divt (viewport_u, args.image_width);
+  g_camera.pixel_delta_v = vec3_divt (viewport_v, args.image_height);
   auto pixel_center      = vec3_add (g_camera.pixel_delta_u, g_camera.pixel_delta_v);
   pixel_center           = vec3_divt (pixel_center, 2.0);
   g_camera.pixel_origin  = vec3_add (viewport_upper_left, pixel_center);
@@ -71,16 +67,16 @@ camera_init (void)
 static void
 write_ppm_header ()
 {
-  fprintf (g_output_file, "P3\n%d %d\n255\n", g_camera.image_width, g_camera.image_height);
+  fprintf (g_output_file, "P3\n%d %d\n255\n", args.image_width, args.num_scanlines);
 }
 
 static void
 write_image_body ()
 {
-  for (int row = 0; row < g_camera.image_height; row++)
+  for (int row = args.start_scanline; row < args.start_scanline + args.num_scanlines; row++)
     {
-      fprintf (stderr, "\rScanlines remaining: %6d", g_camera.image_height - row);
-      for (int col = 0; col < g_camera.image_width; col++)
+      fprintf (stderr, "\rScanlines remaining: %6d", args.num_scanlines - (row - args.start_scanline));
+      for (int col = 0; col < args.image_width; col++)
         {
           color_t pixel_color = black;
           for (int sample = 0; sample < g_camera.samples_per_pixel; sample++)
