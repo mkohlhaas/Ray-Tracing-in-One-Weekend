@@ -1,6 +1,7 @@
 #include "utils.h"
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
 double
 degrees_to_radians (double degrees)
@@ -37,4 +38,14 @@ inline double
 squared (double x)
 {
   return x * x;
+}
+
+char *
+remove_leading_0s (char *s)
+{
+  while (*s == '0' && strlen (s) > 1)
+    {
+      s++;
+    }
+  return s;
 }

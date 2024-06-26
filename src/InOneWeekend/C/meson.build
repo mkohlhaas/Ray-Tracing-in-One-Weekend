@@ -15,6 +15,7 @@ source_files = files(
   'color.c',
   'dielectric.c',
   'globals.c',
+  'hittable_list.c',
   'interval.c',
   'lambertian.c',
   'main.c',

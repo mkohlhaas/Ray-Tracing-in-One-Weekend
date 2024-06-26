@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 material_t *
-get_material (hit_able_t *object)
+get_material (hittable_t *object)
 {
   switch (object->type)
     {

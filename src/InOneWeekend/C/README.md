@@ -8,6 +8,5 @@ ninja
 feh
 ```
 
-- command line arguments
-  - GNU Parallel & pamcat from netpbm
-- hitlist as hittable (with hit() function)
+- #hittables? (484? != 488)
+- reread book and comment code

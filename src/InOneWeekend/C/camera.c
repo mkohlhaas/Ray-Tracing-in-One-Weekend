@@ -71,7 +71,7 @@ write_ppm_header ()
 }
 
 static void
-write_image_body ()
+render_image_body ()
 {
   for (int row = args.start_scanline; row < args.start_scanline + args.num_scanlines; row++)
     {
@@ -96,5 +96,5 @@ void
 render ()
 {
   write_ppm_header ();
-  write_image_body ();
+  render_image_body ();
 }

@@ -3,7 +3,7 @@
 #define MAX_DEPTH         50
 #define DEFOCUS_ANGLE     0.6
 #define FOCUS_DIST        10.0;
-#define VFOV              20;
+#define VFOV              10;
 #define VUP               up;
 #define LOOKAT            origin
 #define LOOKFROM                                                                                                       \

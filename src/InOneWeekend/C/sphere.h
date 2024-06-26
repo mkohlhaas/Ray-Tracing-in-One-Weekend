@@ -5,7 +5,7 @@
 
 typedef struct sphere
 {
-  hit_type_t  type;
+  hit_type_t  type; // SPHERE
   hit_fn      hit_fn;
   point3      center;
   double      radius;

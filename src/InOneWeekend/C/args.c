@@ -1,4 +1,5 @@
 #include "args.h"
+#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -66,8 +67,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
         }
       break;
     case 's':
-      arguments->start_scanline = atoi (arg);
-      if (!arguments->start_scanline && strcmp (arg, "0"))
+      char *arg_tmp             = remove_leading_0s (arg);
+      arguments->start_scanline = atoi (arg_tmp);
+      if (!arguments->start_scanline && strcmp (arg_tmp, "0"))
         {
           fprintf (stderr, "Starting scanline must be a valid integer value.\n");
           argp_usage (state);

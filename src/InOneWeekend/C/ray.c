@@ -1,4 +1,5 @@
 #include "ray.h"
+#include "hittable_list.h"
 #include "material.h"
 #include "stb_ds.h"
 #include "utils.h"
@@ -10,8 +11,9 @@ point_at (ray_t r, double t)
   return vec3_add (r.origin, vec3_mult (r.direction, t));
 }
 
+// Recursive function to calculate effective color.
 color_t
-ray_color (ray_t const ray, int depth, hit_able_t *world[])
+ray_color (ray_t const ray, int depth, hittable_list_t *world)
 {
   // If we've exceeded the ray bounce limit, no more light is gathered.
   if (depth <= 0)
@@ -20,30 +22,17 @@ ray_color (ray_t const ray, int depth, hit_able_t *world[])
     }
 
   // render world
-  bool         hit_anything   = false;
   double       closest_so_far = INFINITY;
   hit_record_t hit_rec;
-  hit_record_t obj_hit;
-  for (uint i = 0; i < arrlen (world); i++)
-    {
-      obj_hit.object = world[i];
-      if (obj_hit.object->hit_fn (ray, (interval_t){ 0.001, closest_so_far }, &obj_hit))
-        {
-          hit_anything = true;
-          if (obj_hit.t < closest_so_far)
-            {
-              hit_rec        = obj_hit;
-              closest_so_far = hit_rec.t;
-            }
-        };
-    }
+  hit_rec.object    = (hittable_t *)world;
+  bool hit_anything = world->hit_fn (ray, (interval_t){ 0.001, closest_so_far }, &hit_rec);
   if (hit_anything)
     {
-      ray_t   scattered;
-      color_t attenuation;
-
+      ray_t       scattered;
+      color_t     attenuation;
       material_t *mat = get_material (hit_rec.object);
       mat->scatter (ray, &hit_rec, &attenuation, &scattered);
+      // Recursion happens here.
       return vec3_mulv (attenuation, ray_color (scattered, depth - 1, world));
     }
 

@@ -6,12 +6,12 @@
 // Returns false if disc is too small otherwise true.
 // Returns `hit_record` in `rec`.
 static bool
-sphere_hit (ray_t const r, interval_t i, hit_record_t *rec)
+sphere_hit (ray_t const ray, interval_t itvl, hit_record_t *rec)
 {
   sphere_t *s    = (sphere_t *)rec->object;
-  vec3_t    c_q  = vec3_sub (s->center, r.origin);
-  double    a    = vec3_length_squared (r.direction);
-  double    h    = vec3_dot (r.direction, c_q);
+  vec3_t    c_q  = vec3_sub (s->center, ray.origin);
+  double    a    = vec3_length_squared (ray.direction);
+  double    h    = vec3_dot (ray.direction, c_q);
   double    c    = vec3_length_squared (c_q) - squared (s->radius);
   double    disc = h * h - a * c;
 
@@ -24,19 +24,19 @@ sphere_hit (ray_t const r, interval_t i, hit_record_t *rec)
 
   // Find the nearest root that lies in the acceptable range.
   double root = (h - sqrtd) / a;
-  if (!itvl_surrounds (i, root))
+  if (!itvl_surrounds (itvl, root))
     {
       root = (h + sqrtd) / a;
-      if (!itvl_surrounds (i, root))
+      if (!itvl_surrounds (itvl, root))
         {
           return false;
         }
     }
 
   rec->t                = root;
-  rec->p                = point_at (r, root);
+  rec->p                = point_at (ray, root);
   vec3_t outward_normal = vec3_divt (vec3_sub (rec->p, s->center), s->radius);
-  set_face_normal (rec, r, outward_normal);
+  set_face_normal (rec, ray, outward_normal);
 
   return true;
 }
