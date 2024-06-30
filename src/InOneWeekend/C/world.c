@@ -7,16 +7,17 @@
 #include "sphere.h"
 #include "stb_ds.h"
 #include "utils.h"
+#include <stdio.h>
+
+// global world
+// hittable_t **g_world = NULL;
+hittable_list_t *g_world = NULL;
 
 #define CHECK_MEMORY                                                                                                   \
   if (!m || !s)                                                                                                        \
     {                                                                                                                  \
       logExit ("Out of memory");                                                                                       \
     }
-
-// global world
-// hittable_t **g_world = NULL;
-hittable_list_t *g_world = NULL;
 
 // Ground is a just a very huge sphere.
 static void

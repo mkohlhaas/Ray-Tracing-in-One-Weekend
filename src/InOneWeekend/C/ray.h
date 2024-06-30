@@ -4,6 +4,9 @@
 #include "color.h"
 #include "interval.h"
 
+// minimum t value (see 9.3 Fixing Shadow Acne)
+extern double min_t;
+
 typedef struct ray
 {
   point3 origin;
@@ -28,11 +31,11 @@ typedef struct hittable
 
 typedef struct hit_record
 {
-  hittable_t *object;
-  point3      p;
-  vec3_t      normal; // normals always point against the ray
-  double      t;      // TODO: comment?
-  bool        front_face;
+  hittable_t *object;      // the object being hit
+  point3      p;           // hit point
+  vec3_t      unit_normal; // normals always point against the ray and are unit vectors
+  double      t;           // ray = ray.origin + t * ray.direction
+  bool        front_face;  // needed b/c we can't use dot product of ray and unit_normal
 } hit_record_t;
 
 struct hittable_list;

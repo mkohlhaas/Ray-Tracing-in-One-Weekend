@@ -3,8 +3,9 @@
 #include <math.h>
 #include <stdio.h>
 
+// Invert direction of vector `v` (unary minus).
 vec3_t
-vec3_minus (vec3_t v)
+vec3_uminus (vec3_t v)
 {
   return (vec3_t){
     .x = -v.x,
@@ -46,7 +47,7 @@ vec3_mulv (vec3_t v1, vec3_t v2)
 
 // Scalar vector multiplication.
 vec3_t
-vec3_mult (vec3_t v, double t)
+vec3_mult (double t, vec3_t v)
 {
   return (vec3_t){
     .x = t * v.x,
@@ -59,7 +60,7 @@ vec3_mult (vec3_t v, double t)
 vec3_t
 vec3_divt (vec3_t v, double t)
 {
-  return vec3_mult (v, 1 / t);
+  return vec3_mult (1 / t, v);
 }
 
 double
@@ -123,6 +124,7 @@ vec3_random_min_max (double min, double max)
   };
 }
 
+// Random vector in unit sphere.
 vec3_t
 vec3_random_in_unit_sphere (void)
 {
@@ -136,49 +138,7 @@ vec3_random_in_unit_sphere (void)
     }
 }
 
-vec3_t
-vec3_random_unit_vector (void)
-{
-  return vec3_unit (vec3_random_in_unit_sphere ());
-}
-
-vec3_t
-vec3_random_on_hemisphere (vec3_t const normal)
-{
-  vec3_t on_unit_sphere = vec3_random_unit_vector ();
-  if (vec3_dot (on_unit_sphere, normal) > 0.0) // in the same hemisphere as the normal
-    {
-      return on_unit_sphere;
-    }
-  else
-    {
-      return vec3_minus (on_unit_sphere);
-    }
-}
-
-// Returns `true` if the vector is close to zero in all dimensions.
-bool
-vec3_near_zero (vec3_t v)
-{
-  double s = 1e-8;
-  return fabs (v.x) < s && fabs (v.y) < s && fabs (v.z) < s;
-}
-
-vec3_t
-vec3_reflect (vec3_t const v, vec3_t const n)
-{
-  return vec3_sub (v, vec3_mult (n, 2 * vec3_dot (v, n)));
-}
-
-vec3_t
-vec3_refract (const vec3_t uv, const vec3_t n, double etai_over_etat)
-{
-  auto cos_theta      = fmin (vec3_dot (vec3_minus (uv), n), 1.0);
-  auto r_out_perp     = vec3_mult (vec3_add (uv, vec3_mult (n, cos_theta)), etai_over_etat);
-  auto r_out_parallel = vec3_mult (n, -sqrt (fabs (1.0 - vec3_length_squared (r_out_perp))));
-  return vec3_add (r_out_perp, r_out_parallel);
-}
-
+// Random vector in unit circle.
 vec3_t
 vec3_random_in_unit_disk (void)
 {
@@ -192,4 +152,48 @@ vec3_random_in_unit_disk (void)
           return p;
         }
     }
+}
+
+vec3_t
+vec3_random_unit_vector_in_sphere (void)
+{
+  return vec3_unit (vec3_random_in_unit_sphere ());
+}
+
+vec3_t
+vec3_random_on_hemisphere (vec3_t const normal)
+{
+  vec3_t on_unit_sphere = vec3_random_unit_vector_in_sphere ();
+  if (vec3_dot (on_unit_sphere, normal) > 0.0) // in the same hemisphere as the normal
+    {
+      return on_unit_sphere;
+    }
+  else
+    {
+      return vec3_uminus (on_unit_sphere);
+    }
+}
+
+// Returns `true` if the vector is close to zero in all dimensions.
+bool
+vec3_near_zero (vec3_t v)
+{
+  double const s = 1e-8;
+  return fabs (v.x) < s && fabs (v.y) < s && fabs (v.z) < s;
+}
+
+// Returns reflected vector `v` at `n`.
+vec3_t
+vec3_reflect (vec3_t const v, vec3_t const n)
+{
+  return vec3_sub (v, vec3_mult (2 * vec3_dot (v, n), n));
+}
+
+vec3_t
+vec3_refract (const vec3_t uv, const vec3_t n, double etai_over_etat)
+{
+  auto cos_theta      = fmin (vec3_dot (vec3_uminus (uv), n), 1.0);
+  auto r_out_perp     = vec3_mult (etai_over_etat, vec3_add (uv, vec3_mult (cos_theta, n)));
+  auto r_out_parallel = vec3_mult (-sqrt (fabs (1.0 - vec3_length_squared (r_out_perp))), n);
+  return vec3_add (r_out_perp, r_out_parallel);
 }

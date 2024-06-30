@@ -6,7 +6,7 @@
 // Returns `attenuation` and `scattered` ray.
 typedef void (*scatter_fn) (ray_t const r_in, hit_record_t const *rec, color_t *attenuation, ray_t *scattered);
 
-// Every struct with scatter_fn as first entry is a material (lambertian, metal, dielectric,...).
+// A material (lambertian, metal, dielectric,...) is every struct with scatter_fn as first entry.
 typedef struct material
 {
   scatter_fn scatter;

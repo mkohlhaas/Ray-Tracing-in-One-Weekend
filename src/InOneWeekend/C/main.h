@@ -39,8 +39,6 @@ cleanup (void)
 {
   fclose (g_output_file);
 
-  fprintf (stderr, "#hittables: %td\n", arrlen (g_world->hittables));
-
   for (int i = 0; i < arrlen (g_world->hittables); i++)
     {
       free (g_world->hittables[i]);

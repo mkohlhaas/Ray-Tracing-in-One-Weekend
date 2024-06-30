@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "color.h"
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,7 +24,7 @@ random_double_min_max (double min, double max)
   return min + (max - min) * random_double ();
 }
 
-// gamma 2
+// gamma 2 correction
 double
 linear_to_gamma (double linear_component)
 {
@@ -31,7 +32,10 @@ linear_to_gamma (double linear_component)
     {
       return sqrt (linear_component);
     }
-  return 0;
+  else
+    {
+      return 0;
+    }
 }
 
 inline double
@@ -48,4 +52,13 @@ remove_leading_0s (char *s)
       s++;
     }
   return s;
+}
+
+// `a` should be in the range [0;1]
+color_t
+lerp (color_t start_color, color_t end_color, double a)
+{
+  color_t c1 = vec3_mult (a, start_color);
+  color_t c2 = vec3_mult (1.0 - a, end_color);
+  return vec3_add (c1, c2);
 }

@@ -13,7 +13,7 @@ hittable_list_hit (ray_t const ray, interval_t itvl, hit_record_t *rec)
   for (uint i = 0; i < arrlen (l->hittables); i++)
     {
       obj_hit.object = (hittable_t *)l->hittables[i];
-      if (obj_hit.object->hit_fn (ray, (interval_t){ 0.001, closest_so_far }, &obj_hit))
+      if (obj_hit.object->hit_fn (ray, (interval_t){ min_t, closest_so_far }, &obj_hit))
         {
           hit_anything = true;
           if (obj_hit.t < closest_so_far)

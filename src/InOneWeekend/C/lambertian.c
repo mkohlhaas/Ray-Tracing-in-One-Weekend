@@ -7,16 +7,16 @@ lambertian_scatter (ray_t const r_in, hit_record_t const *rec, color_t *attenuat
 {
   (void)r_in;
 
-  auto lam         = (lambertian_t *)get_material (rec->object);
-  auto scatter_dir = vec3_add (rec->normal, vec3_random_unit_vector ());
+  auto l           = (lambertian_t *)get_material (rec->object);
+  auto scatter_dir = vec3_add (rec->unit_normal, vec3_random_unit_vector_in_sphere ());
 
   // Catch degenerate scatter direction.
   if (vec3_near_zero (scatter_dir))
     {
-      scatter_dir = rec->normal;
+      scatter_dir = rec->unit_normal;
     }
 
-  *attenuation = lam->albedo;
+  *attenuation = l->albedo;
   *scattered   = (ray_t){ rec->p, scatter_dir };
 }
 

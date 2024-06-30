@@ -1,10 +1,10 @@
 // Set these values appropriately.
 #define SAMPLES_PER_PIXEL 100
 #define MAX_DEPTH         50
-#define DEFOCUS_ANGLE     0.6
-#define FOCUS_DIST        10.0;
-#define VFOV              10;
-#define VUP               up;
-#define LOOKAT            origin
+#define DEFOCUS_ANGLE     0.6          /* defocus blur = depth of field */
+#define FOCUS_DIST        10.0;        /* focus distance = focus length (in our model) */
+#define VFOV              70;          /* vertical field of view in degrees (edge to edte) */
+#define VUP               up;          /* view up */
+#define LOOKAT            origin       /* look at vector */
 #define LOOKFROM                                                                                                       \
-  (point3) { .x = 13, .y = 2, .z = 3 }
+  (point3) { .x = 13, .y = 2, .z = 3 } /* eye/camera */
