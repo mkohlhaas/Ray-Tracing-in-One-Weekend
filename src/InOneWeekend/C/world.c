@@ -10,7 +10,6 @@
 #include <stdio.h>
 
 // global world
-// hittable_t **g_world = NULL;
 hittable_list_t *g_world = NULL;
 
 #define CHECK_MEMORY                                                                                                   \
@@ -23,7 +22,8 @@ hittable_list_t *g_world = NULL;
 static void
 create_ground ()
 {
-  auto m = lambertian_new ((color_t){ .r = 0.5, .g = 0.5, .b = 0.5 });
+  // auto m = lambertian_new ((color_t){ .r = 0.5, .g = 0.5, .b = 0.5 });
+  auto m = metal_new ((color_t){ .r = 0.7, .g = 0.6, .b = 0.5 }, 0.0);
   auto s = sphere_new ((point3){ .x = 0.0, .y = -1000.0, .z = 0.0 }, 1000.0, (mat_t *)m);
   CHECK_MEMORY;
   arrput (g_world->hittables, (hittable_t *)s);
@@ -33,7 +33,7 @@ static void
 create_big_spheres ()
 {
   {
-    auto m = dielectric_new (1.50);
+    auto m = dielectric_new (2.50);
     auto s = sphere_new ((point3){ .x = 0, .y = 1, .z = 0 }, 1.0, (mat_t *)m);
     CHECK_MEMORY;
     arrput (g_world->hittables, (hittable_t *)s);
@@ -68,7 +68,7 @@ create_small_spheres ()
 
           if (dist_from_center > 0.9)
             {
-              if (matte < 0.8)
+              if (matte < 0.5)
                 {
                   // diffuse
                   auto albedo = vec3_mulv (vec3_random (), vec3_random ());
@@ -77,11 +77,12 @@ create_small_spheres ()
                   CHECK_MEMORY;
                   arrput (g_world->hittables, (hittable_t *)s);
                 }
-              else if (matte < 0.95)
+              else if (matte < 0.80)
                 {
                   // metal
+                  // auto fuzz   = random_double_min_max (0, 0.05);
                   auto albedo = vec3_random_min_max (0.5, 1);
-                  auto fuzz   = random_double_min_max (0, 0.5);
+                  auto fuzz   = 0.0;
                   auto m      = metal_new (albedo, fuzz);
                   auto s      = sphere_new (center, 0.2, (material_t *)m);
                   CHECK_MEMORY;
