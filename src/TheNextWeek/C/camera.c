@@ -38,9 +38,9 @@ void
 camera_init (void)
 {
   camera_defaults ();
-  double focus_dist = FOCUS_DIST;
-  double vfov       = VFOV; // vertical field of view in degrees
-  point3 vup        = VUP;
+  double   focus_dist = FOCUS_DIST;
+  double   vfov       = VFOV; // vertical field of view in degrees
+  point3_t vup        = VUP;
 
   // Calculate viewport width and height
   auto aspect_ratio    = (double)args.image_width / args.image_height;

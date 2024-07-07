@@ -10,6 +10,7 @@ cc = meson.get_compiler('c')
 m_dep = cc.find_library('m')
 
 source_files = files(
+  'aabb.c',
   'args.c',
   'camera.c',
   'color.c',

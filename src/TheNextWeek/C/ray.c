@@ -1,6 +1,7 @@
 #include "ray.h"
 #include "color.h"
 #include "hittable_list.h"
+#include "interval.h"
 #include "material.h"
 #include "stb_ds.h"
 #include "utils.h"
@@ -8,7 +9,7 @@
 
 double min_t = 0.001;
 
-point3
+point3_t
 point_at (ray_t r, double t)
 {
   return vec3_add (r.origin, vec3_mult (t, r.direction));
@@ -58,7 +59,7 @@ sample_square (void)
 }
 
 // Returns a random point in the camera defocus disk.
-static point3
+static point3_t
 defocus_disk_sample ()
 {
   auto p   = vec3_random_in_unit_disk ();

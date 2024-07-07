@@ -1,14 +1,17 @@
 #include "hittable_list.h"
+#include "aabb.h"
+#include "interval.h"
 #include "ray.h"
+#include "stb_ds.h"
 
 // Returns `true` if something got hit.
 // Returns `hit_record` in `rec` if something got hit.
 static bool
-hittable_list_hit (ray_t const ray, interval_t itvl, hit_record_t *rec)
+hittable_list_hit (ray_t const ray, interval_t intvl, hit_record_t *rec)
 {
   hittable_list_t *l = (hittable_list_t *)rec->object;
   hit_record_t     obj_hit;
-  auto             closest_so_far = itvl.max;
+  auto             closest_so_far = intvl.max;
   bool             hit_anything   = false;
   for (uint i = 0; i < arrlen (l->hittables); i++)
     {
@@ -34,9 +37,16 @@ hittable_list_new ()
   hittable_list_t *h = malloc (sizeof (*h));
   if (h)
     {
-      h->type      = LIST;
+      h->type      = HITTABLE_LIST;
       h->hit_fn    = hittable_list_hit;
+      h->bbox      = aabb_new_empty ();
       h->hittables = NULL;
     }
   return h;
+}
+
+void
+hittable_list_add (hittable_list_t *l, hittable_t *h)
+{
+  arrput (l->hittables, h);
 }

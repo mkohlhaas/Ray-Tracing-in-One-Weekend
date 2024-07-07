@@ -11,7 +11,7 @@ get_material (hittable_t *object)
       sphere_t *s = (sphere_t *)object;
       return s->mat;
       break;
-    case LIST:
+    case HITTABLE_LIST:
       exit (EXIT_FAILURE); // should never happen
       break;
     default:

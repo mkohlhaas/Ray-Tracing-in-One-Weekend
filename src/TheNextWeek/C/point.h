@@ -2,8 +2,8 @@
 
 #include "vec3.h"
 
-typedef vec3_t point3;
+typedef vec3_t point3_t;
 
 // global point
-extern const point3 origin;
-extern const point3 up;
+extern const point3_t origin;
+extern const point3_t up;

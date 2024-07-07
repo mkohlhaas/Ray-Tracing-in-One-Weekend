@@ -1,3 +1,4 @@
+#include "world.h"
 #include "dielectric.h"
 #include "error.h"
 #include "hittable_list.h"
@@ -24,36 +25,36 @@ hittable_list_t *g_world = NULL;
 static void
 create_ground ()
 {
-  auto m      = lambertian_new ((color_t){ .r = 0.5, .g = 0.5, .b = 0.5 });
-  auto center = (point3){ .x = 0.0, .y = -1000.0, .z = 0.0 };
-  auto s      = sphere_new (center, center, 1000.0, (mat_t *)m);
+  auto m = lambertian_new ((color_t){ .r = 0.5, .g = 0.5, .b = 0.5 });
+  auto c = (point3_t){ .x = 0.0, .y = -1000.0, .z = 0.0 };
+  auto s = sphere_new (c, c, 1000.0, (mat_t *)m);
   CHECK_MEMORY;
-  arrput (g_world->hittables, (hittable_t *)s);
+  hittable_list_add (g_world, (hittable_t *)s);
 }
 
 static void
 create_big_spheres ()
 {
   {
-    auto m      = dielectric_new (1.50);
-    auto center = (point3){ .x = 0, .y = 1, .z = 0 };
-    auto s      = sphere_new (center, center, 1.0, (mat_t *)m);
+    auto m = dielectric_new (1.50);
+    auto c = (point3_t){ .x = 0, .y = 1, .z = 0 };
+    auto s = sphere_new (c, c, 1.0, (mat_t *)m);
     CHECK_MEMORY;
-    arrput (g_world->hittables, (hittable_t *)s);
+    hittable_list_add (g_world, (hittable_t *)s);
   }
   {
-    auto m      = lambertian_new ((color_t){ .r = 0.4, .g = 0.2, .b = 0.1 });
-    auto center = (point3){ .x = -4, .y = 1, .z = 0 };
-    auto s      = sphere_new (center, center, 1.0, (mat_t *)m);
+    auto m = lambertian_new ((color_t){ .r = 0.4, .g = 0.2, .b = 0.1 });
+    auto c = (point3_t){ .x = -4, .y = 1, .z = 0 };
+    auto s = sphere_new (c, c, 1.0, (mat_t *)m);
     CHECK_MEMORY;
-    arrput (g_world->hittables, (hittable_t *)s);
+    hittable_list_add (g_world, (hittable_t *)s);
   }
   {
-    auto m      = metal_new ((color_t){ .r = 0.7, .g = 0.6, .b = 0.5 }, 0.0);
-    auto center = (point3){ .x = 4, .y = 1, .z = 0 };
-    auto s      = sphere_new (center, center, 1.0, (mat_t *)m);
+    auto m = metal_new ((color_t){ .r = 0.7, .g = 0.6, .b = 0.5 }, 0.0);
+    auto c = (point3_t){ .x = 4, .y = 1, .z = 0 };
+    auto s = sphere_new (c, c, 1.0, (mat_t *)m);
     CHECK_MEMORY;
-    arrput (g_world->hittables, (hittable_t *)s);
+    hittable_list_add (g_world, (hittable_t *)s);
   }
 }
 
@@ -67,22 +68,22 @@ create_small_spheres ()
     {
       for (int b = -n; b < n; b++)
         {
-          auto matte        = random_double ();
-          auto center_start = (point3){ .x = a + 0.9 * random_double (), .y = 0.2, .z = b + 0.9 * random_double () };
-          auto dist_from_center = vec3_length (vec3_sub (center_start, (point3){ .x = 4, .y = 0.2, .z = 0 }));
+          auto matte   = random_double ();
+          auto c_start = (point3_t){ .x = a + 0.9 * random_double (), .y = 0.2, .z = b + 0.9 * random_double () };
+          auto dist_from_center = vec3_length (vec3_sub (c_start, (point3_t){ .x = 4, .y = 0.2, .z = 0 }));
 
           if (dist_from_center > 0.9)
             {
               if (matte < 0.8)
                 {
                   // diffuse
-                  auto albedo     = vec3_mulv (vec3_random (), vec3_random ());
-                  auto m          = lambertian_new (albedo);
-                  auto y_rnd      = random_double_min_max (0, .5);
-                  auto center_end = vec3_add (center_start, (vec3_t){ .x = 0, .y = y_rnd, .z = 0 });
-                  auto s          = sphere_new (center_start, center_end, 0.2, (material_t *)m);
+                  auto albedo = vec3_mulv (vec3_random (), vec3_random ());
+                  auto m      = lambertian_new (albedo);
+                  auto y_rnd  = random_double_min_max (0, .5);
+                  auto c_end  = vec3_add (c_start, (vec3_t){ .x = 0, .y = y_rnd, .z = 0 });
+                  auto s      = sphere_new (c_start, c_end, 0.2, (material_t *)m);
                   CHECK_MEMORY;
-                  arrput (g_world->hittables, (hittable_t *)s);
+                  hittable_list_add (g_world, (hittable_t *)s);
                 }
               else if (matte < 0.95)
                 {
@@ -90,17 +91,17 @@ create_small_spheres ()
                   auto albedo = vec3_random_min_max (0.5, 1);
                   auto fuzz   = random_double_min_max (0, 0.5);
                   auto m      = metal_new (albedo, fuzz);
-                  auto s      = sphere_new (center_start, center_start, 0.2, (material_t *)m);
+                  auto s      = sphere_new (c_start, c_start, 0.2, (material_t *)m);
                   CHECK_MEMORY;
-                  arrput (g_world->hittables, (hittable_t *)s);
+                  hittable_list_add (g_world, (hittable_t *)s);
                 }
               else
                 {
                   // glass
                   auto m = dielectric_new (1.5);
-                  auto s = sphere_new (center_start, center_start, 0.2, (material_t *)m);
+                  auto s = sphere_new (c_start, c_start, 0.2, (material_t *)m);
                   CHECK_MEMORY;
-                  arrput (g_world->hittables, (hittable_t *)s);
+                  hittable_list_add (g_world, (hittable_t *)s);
                 }
             }
         }

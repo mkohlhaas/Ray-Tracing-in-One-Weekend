@@ -13,9 +13,9 @@ write_color (FILE *out, color_t const pixel)
   double g = linear_to_gamma (pixel.y);
   double b = linear_to_gamma (pixel.z);
 
-  int red   = (int)(256 * itvl_clamp (intensity, r));
-  int green = (int)(256 * itvl_clamp (intensity, g));
-  int blue  = (int)(256 * itvl_clamp (intensity, b));
+  int red   = (int)(256 * intvl_clamp (intensity, r));
+  int green = (int)(256 * intvl_clamp (intensity, g));
+  int blue  = (int)(256 * intvl_clamp (intensity, b));
 
   // Write out the pixel color components.
   fprintf (out, "%d %d %d\n", red, green, blue);
