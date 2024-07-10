@@ -19,17 +19,17 @@ typedef enum
 {
   SPHERE,
   HITTABLE_LIST,
-  BVH_NODE, // TODO: is bvh-node a hittable ?
+  BVH_NODE,
 } hit_type_t;
 
 struct hit_record;
-typedef bool (*hit_fn) (ray_t const r, interval_t i, struct hit_record *rec);
+typedef bool (*hit_fn_t) (ray_t const r, interval_t intvl, struct hit_record *rec);
 
 // Every struct with first members `hit_type`, `hit_fn` and `*aabb_t` is a `hittable_t` (sphere, hittable_list, ...)
 typedef struct hittable
 {
-  hit_type_t type;
-  hit_fn     hit_fn;
+  hit_type_t hit_type;
+  hit_fn_t   hit;
   aabb_t    *bbox;
 } hittable_t;
 
@@ -44,8 +44,8 @@ typedef struct hit_record
   bool        front_face;  // needed b/c we can't use dot product of ray and unit_normal
 } hit_record_t;
 
-struct hittable_list;
+// struct hittable_list;
 point3_t point_at (ray_t r, double t);
-color_t  ray_color (ray_t const ray, int depth, struct hittable_list *world);
+color_t  ray_color (ray_t const ray, int depth, hittable_t *world);
 ray_t    random_ray (camera_t c, int row, int col);
 void     set_face_normal (hit_record_t *rec, ray_t const r, vec3_t const outward_unit_normal);

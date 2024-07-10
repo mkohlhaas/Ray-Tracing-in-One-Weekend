@@ -1,4 +1,5 @@
 #include "world.h"
+#include "bvh_node.h"
 #include "dielectric.h"
 #include "error.h"
 #include "hittable_list.h"
@@ -12,8 +13,8 @@
 #include <stdio.h>
 
 // global world
-// hittable_t **g_world = NULL;
 hittable_list_t *g_world = NULL;
+bvh_node_t      *world   = NULL;
 
 #define CHECK_MEMORY                                                                                                   \
   if (!m || !s)                                                                                                        \
@@ -42,6 +43,7 @@ create_big_spheres ()
     CHECK_MEMORY;
     hittable_list_add (g_world, (hittable_t *)s);
   }
+
   {
     auto m = lambertian_new ((color_t){ .r = 0.4, .g = 0.2, .b = 0.1 });
     auto c = (point3_t){ .x = -4, .y = 1, .z = 0 };
@@ -49,6 +51,7 @@ create_big_spheres ()
     CHECK_MEMORY;
     hittable_list_add (g_world, (hittable_t *)s);
   }
+
   {
     auto m = metal_new ((color_t){ .r = 0.7, .g = 0.6, .b = 0.5 }, 0.0);
     auto c = (point3_t){ .x = 4, .y = 1, .z = 0 };
@@ -62,7 +65,7 @@ create_big_spheres ()
 static void
 create_small_spheres ()
 {
-  int const n = 11;
+  int const n = 3;
 
   for (int a = -n; a < n; a++)
     {
@@ -109,6 +112,12 @@ create_small_spheres ()
 }
 
 static void
+create_bvh ()
+{
+  world = bvh_node_new (g_world->hittables);
+}
+
+static void
 init_g_world ()
 {
   g_world = hittable_list_new ();
@@ -122,7 +131,9 @@ void
 world_init (void)
 {
   init_g_world ();
-  create_ground ();
+  // create_ground ();
   create_big_spheres ();
   create_small_spheres ();
+  create_bvh ();
+  print_bvh (world, 0);
 }

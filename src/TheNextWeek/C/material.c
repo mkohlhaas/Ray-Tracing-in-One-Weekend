@@ -5,7 +5,7 @@
 material_t *
 get_material (hittable_t *object)
 {
-  switch (object->type)
+  switch (object->hit_type)
     {
     case SPHERE:
       sphere_t *s = (sphere_t *)object;

@@ -1,3 +1,5 @@
+#pragma once
+
 // Set these values appropriately.
 #define SAMPLES_PER_PIXEL 100
 #define MAX_DEPTH         50

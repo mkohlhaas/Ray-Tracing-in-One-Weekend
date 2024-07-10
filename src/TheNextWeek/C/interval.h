@@ -4,8 +4,8 @@
 
 typedef struct interval
 {
-  double min;
-  double max;
+  double low;
+  double high;
 } interval_t;
 
 extern interval_t const intvl_empty;

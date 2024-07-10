@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "vec3.h"
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 // Linearly interpolate from center_start to center_end according to time `tm`,
@@ -60,17 +61,31 @@ sphere_new (point3_t center_start, point3_t center_end, double radius, material_
   sphere_t *s = malloc (sizeof (*s));
   if (s)
     {
-      s->type   = SPHERE;
-      s->hit_fn = sphere_hit;
-      // TODO: bounding box
-      auto rvec       = (vec3_t){ .x = radius, .y = radius, .z = radius };
-      auto box1       = aabb_from_points (vec3_sub (center_start, rvec), vec3_add (center_start, rvec));
-      auto box2       = aabb_from_points (vec3_sub (center_end, rvec), vec3_add (center_end, rvec));
-      s->bbox         = aabb_from_aabbs (box1, box2);
+      s->hit_type     = SPHERE;
+      s->hit          = sphere_hit;
       s->center_start = center_start;
       s->center_vec   = vec3_sub (center_end, center_start);
       s->radius       = radius;
       s->mat          = mat;
+
+      auto rvec = (vec3_t){ .x = radius, .y = radius, .z = radius };
+
+      auto box1_min = vec3_sub (center_start, rvec);
+      auto box1_max = vec3_add (center_start, rvec);
+      auto box2_min = vec3_sub (center_end, rvec);
+      auto box2_max = vec3_add (center_end, rvec);
+
+      auto box1 = aabb_from_points (&box1_min, &box1_max);
+      auto box2 = aabb_from_points (&box2_min, &box2_max);
+
+      s->bbox = aabb_from_aabbs (box1, box2);
     }
   return s;
+}
+
+void
+print_sphere (sphere_t *s, int indent_lvl)
+{
+  fprintf (stderr, "%*sSphere (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", s->bbox->x_intvl.low, s->bbox->x_intvl.high,
+           s->bbox->y_intvl.low, s->bbox->y_intvl.high, s->bbox->z_intvl.low, s->bbox->z_intvl.high);
 }

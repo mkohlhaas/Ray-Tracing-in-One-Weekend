@@ -7,11 +7,12 @@
 // `hittable_list_t` is a `hittable_t`
 typedef struct hittable_list
 {
-  hit_type_t   type; // LIST
-  hit_fn       hit_fn;
+  hit_type_t   hit_type; // LIST
+  hit_fn_t     hit;
   aabb_t      *bbox;
   hittable_t **hittables;
 } hittable_list_t;
 
 hittable_list_t *hittable_list_new ();
 void             hittable_list_add (hittable_list_t *l, hittable_t *h);
+void             print_hittable_list (hittable_list_t *l, int indent_lvl);

@@ -12,6 +12,7 @@ m_dep = cc.find_library('m')
 source_files = files(
   'aabb.c',
   'args.c',
+  'bvh_node.c',
   'camera.c',
   'color.c',
   'dielectric.c',

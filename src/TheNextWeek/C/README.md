@@ -8,11 +8,10 @@ ninja
 feh
 ```
 
-- reread book and comment code
-
-  - ray should be part of hit_record_t
-  - set ray and object in hit_record_t before calling hit functions
-
+- provide `object*` as separate input parameter for hit functions not in hit record parameter
+- maybe in hit_fn_t ray should be a pointer
+- rr debug
+- reduce malloc calls!
 - Notes:
   - inline seems to be `obsolete`
     - disassembly code in gdb with 'layout asm'

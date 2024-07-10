@@ -1,6 +1,6 @@
 #include "ray.h"
 #include "color.h"
-#include "hittable_list.h"
+// #include "hittable_list.h"
 #include "interval.h"
 #include "material.h"
 #include "stb_ds.h"
@@ -17,7 +17,7 @@ point_at (ray_t r, double t)
 
 // Recursive function to calculate effective color.
 color_t
-ray_color (ray_t const ray, int depth, hittable_list_t *world)
+ray_color (ray_t const ray, int depth, hittable_t *world)
 {
   // If we've exceeded the ray bounce limit, no more light is gathered.
   if (depth <= 0)
@@ -29,7 +29,7 @@ ray_color (ray_t const ray, int depth, hittable_list_t *world)
   double       closest_so_far = INFINITY;
   hit_record_t hit_rec;
   hit_rec.object    = (hittable_t *)world;
-  bool hit_anything = world->hit_fn (ray, (interval_t){ min_t, closest_so_far }, &hit_rec);
+  bool hit_anything = world->hit (ray, (interval_t){ min_t, closest_so_far }, &hit_rec);
   if (hit_anything)
     {
       ray_t       scattered;

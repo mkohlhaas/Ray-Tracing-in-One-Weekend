@@ -17,11 +17,19 @@ random_double (void)
   return rand () / (RAND_MAX + 1.0);
 }
 
-// Returns a random real in [min,max).
+// Returns a random real in [min,max].
 double
 random_double_min_max (double min, double max)
 {
   return min + (max - min) * random_double ();
+}
+
+// Returns a random integer in [min,max].
+int
+random_int_min_max (int min, int max)
+{
+  auto rnd = rand () % (max - min + 1);
+  return min + rnd;
 }
 
 // gamma 2 correction
