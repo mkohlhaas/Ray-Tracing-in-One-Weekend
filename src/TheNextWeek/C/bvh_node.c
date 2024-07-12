@@ -9,28 +9,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Returns `true` if ray hits an object.
+// Returns `true` if `ray` hits `object`.
 // Return values are in `rec`.
 static bool
-bvh_node_hit (ray_t const r, interval_t intvl, hit_record_t *rec)
+bvh_node_hit (ray_t const ray, interval_t intvl, hit_record_t *rec)
 {
   bvh_node_t *bvh_node = (bvh_node_t *)rec->object;
 
-  if (!aabb_hit (bvh_node->bbox, &r, intvl))
+  if (!aabb_hit (bvh_node->bbox, &ray, intvl))
     {
       return false;
     }
+  else
+    {
+      // recurse left
+      hit_record_t rec_left = (hit_record_t){ .object = bvh_node->left };
+      auto         hit_left = bvh_node->left->hit (ray, intvl, &rec_left);
+      if (hit_left)
+        {
+          *rec = rec_left;
+        }
 
-  // recurse left
-  rec->object   = bvh_node->left;
-  auto hit_left = bvh_node->left->hit (r, intvl, rec);
+      // recurse right
+      hit_record_t rec_right = (hit_record_t){ .object = bvh_node->right };
+      auto         intvl_tmp = (interval_t){ intvl.low, hit_left ? rec_left.t : intvl.high };
+      auto         hit_right = bvh_node->right->hit (ray, intvl_tmp, &rec_right);
+      if (hit_right)
+        {
+          *rec = rec_right;
+        }
 
-  // recurse right
-  rec->object    = bvh_node->right;
-  auto intvl_tmp = (interval_t){ intvl.low, hit_left ? rec->t : intvl.high };
-  auto hit_right = bvh_node->right->hit (r, intvl_tmp, rec);
-
-  return hit_left || hit_right;
+      return hit_left || hit_right;
+    }
 }
 
 // Compare Functions
@@ -108,23 +118,30 @@ bvh_node_new (hittable_t **objects)
   return bvh_node_new_hierarchy (objects, 0, arrlen (objects));
 }
 
-void
-print_bvh (bvh_node_t *node, int indent_lvl)
+static void
+print_bvh_internal (bvh_node_t *node, int indent_lvl)
 {
+  auto n = 1;
   switch (node->hit_type)
     {
     case SPHERE:
-      print_sphere ((sphere_t *)node, indent_lvl + 2);
+      sphere_print ((sphere_t *)node, indent_lvl);
       break;
     case HITTABLE_LIST:
-      print_hittable_list ((hittable_list_t *)node, indent_lvl + 2);
+      hittable_list_print ((hittable_list_t *)node, indent_lvl);
       break;
     case BVH_NODE:
-      fprintf (stderr, "%*sBVH (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", node->bbox->x_intvl.low,
-               node->bbox->x_intvl.high, node->bbox->z_intvl.low, node->bbox->z_intvl.high, node->bbox->z_intvl.low,
+      fprintf (stderr, "%*sBVH %p, (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", (void *)node, node->bbox->x_intvl.low,
+               node->bbox->x_intvl.high, node->bbox->y_intvl.low, node->bbox->y_intvl.high, node->bbox->z_intvl.low,
                node->bbox->z_intvl.high);
-      print_bvh ((bvh_node_t *)node->left, indent_lvl + 2);
-      print_bvh ((bvh_node_t *)node->right, indent_lvl + 2);
+      print_bvh_internal ((bvh_node_t *)node->left, indent_lvl + n);
+      print_bvh_internal ((bvh_node_t *)node->right, indent_lvl + n);
       break;
     }
+}
+
+void
+bvh_print (bvh_node_t *node)
+{
+  print_bvh_internal (node, 0);
 }

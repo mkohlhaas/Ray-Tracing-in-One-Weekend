@@ -3,7 +3,6 @@
 #include "interval.h"
 #include "point.h"
 #include "ray.h"
-#include <stdio.h>
 
 // Returns `true` if `ray` hits `bbox`.
 bool
@@ -100,10 +99,6 @@ aabb_from_points (point3_t *p1, point3_t *p2)
 aabb_t *
 aabb_from_aabbs (aabb_t const *bbox0, aabb_t const *bbox1)
 {
-  fprintf (stderr, "bbox 1: (%f %f) (%f %f) (%f %f)\n", bbox0->x_intvl.low, bbox0->x_intvl.high, bbox0->y_intvl.low,
-           bbox0->y_intvl.high, bbox0->z_intvl.low, bbox0->z_intvl.high);
-  fprintf (stderr, "bbox 2: (%f %f) (%f %f) (%f %f)\n", bbox1->x_intvl.low, bbox1->x_intvl.high, bbox1->y_intvl.low,
-           bbox1->y_intvl.high, bbox1->z_intvl.low, bbox1->z_intvl.high);
   aabb_t *bbox = malloc (sizeof *bbox);
   if (bbox)
     {
@@ -111,8 +106,6 @@ aabb_from_aabbs (aabb_t const *bbox0, aabb_t const *bbox1)
       bbox->y_intvl = intvl_from_intvls (bbox0->y_intvl, bbox1->y_intvl);
       bbox->z_intvl = intvl_from_intvls (bbox0->z_intvl, bbox1->z_intvl);
     }
-  fprintf (stderr, "bbox  : (%f %f) (%f %f) (%f %f)\n\n", bbox->x_intvl.low, bbox->x_intvl.high, bbox->y_intvl.low,
-           bbox->y_intvl.high, bbox->z_intvl.low, bbox->z_intvl.high);
   return bbox;
 }
 

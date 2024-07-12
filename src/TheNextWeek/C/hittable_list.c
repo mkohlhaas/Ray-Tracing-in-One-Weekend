@@ -53,7 +53,7 @@ hittable_list_add (hittable_list_t *l, hittable_t *h)
 }
 
 void
-print_hittable_list (hittable_list_t *l, int indent_lvl)
+hittable_list_print (hittable_list_t *l, int indent_lvl)
 {
 
   fprintf (stderr, "%*sHittable list: (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", l->bbox->x_intvl.low,

@@ -30,6 +30,7 @@ sphere_hit (ray_t const ray, interval_t intvl, hit_record_t *rec)
 
   if (disc < 0)
     {
+      // fprintf (stderr, "returns false\n");
       return false;
     }
 
@@ -84,7 +85,7 @@ sphere_new (point3_t center_start, point3_t center_end, double radius, material_
 }
 
 void
-print_sphere (sphere_t *s, int indent_lvl)
+sphere_print (sphere_t *s, int indent_lvl)
 {
   fprintf (stderr, "%*sSphere (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", s->bbox->x_intvl.low, s->bbox->x_intvl.high,
            s->bbox->y_intvl.low, s->bbox->y_intvl.high, s->bbox->z_intvl.low, s->bbox->z_intvl.high);

@@ -65,7 +65,7 @@ create_big_spheres ()
 static void
 create_small_spheres ()
 {
-  int const n = 3;
+  int const n = 11;
 
   for (int a = -n; a < n; a++)
     {
@@ -131,9 +131,9 @@ void
 world_init (void)
 {
   init_g_world ();
-  // create_ground ();
+  create_ground ();
   create_big_spheres ();
   create_small_spheres ();
   create_bvh ();
-  print_bvh (world, 0);
+  // print_bvh (world);
 }

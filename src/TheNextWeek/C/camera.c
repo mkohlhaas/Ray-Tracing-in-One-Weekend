@@ -81,7 +81,7 @@ write_ppm_header ()
 static void
 print_num_remaining_scanlines (int row)
 {
-  fprintf (stderr, "\rScanlines remaining: %6d", args.num_scanlines - (row - args.start_scanline));
+  fprintf (stderr, "Scanlines remaining: %d      \r", args.num_scanlines - (row - args.start_scanline));
 }
 
 static void

@@ -14,4 +14,4 @@ typedef struct bvh_node
 } bvh_node_t;
 
 bvh_node_t *bvh_node_new (hittable_t **objects);
-void        print_bvh (bvh_node_t *bvh, int indent_lvl);
+void        bvh_print (bvh_node_t *bvh);

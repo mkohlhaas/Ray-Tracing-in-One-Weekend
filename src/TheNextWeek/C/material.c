@@ -1,4 +1,5 @@
 #include "material.h"
+#include "error.h"
 #include "sphere.h"
 #include <stdlib.h>
 
@@ -12,10 +13,10 @@ get_material (hittable_t *object)
       return s->mat;
       break;
     case HITTABLE_LIST:
-      exit (EXIT_FAILURE); // should never happen
+      logExit ("Should never happen");
       break;
     default:
-      exit (EXIT_FAILURE); // should never happen
+      logExit ("Should never happen");
     }
-  return NULL;             // just to make compiler happy
+  return NULL; // just to make compiler happy
 }
