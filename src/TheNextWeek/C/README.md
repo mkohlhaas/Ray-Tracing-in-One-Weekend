@@ -8,7 +8,6 @@ ninja
 feh
 ```
 
-- separate g_world, world ?
 - reduce malloc calls!
   - maybe in hit_fn_t ray should be a pointer
 - Notes:

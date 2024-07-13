@@ -39,9 +39,9 @@ cleanup (void)
 {
   fclose (g_output_file);
 
-  for (int i = 0; i < arrlen (g_world->hittables); i++)
+  for (int i = 0; i < arrlen (g_world_list->hittables); i++)
     {
-      free (g_world->hittables[i]);
+      free (g_world_list->hittables[i]);
     }
-  free (g_world);
+  free (g_world_list);
 }

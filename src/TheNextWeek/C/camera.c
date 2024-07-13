@@ -102,7 +102,7 @@ render_image_body ()
           for (int sample = 0; sample < g_camera.samples_per_pixel; sample++)
             {
               auto ray     = random_ray (g_camera, row, col);
-              auto ray_col = ray_color (ray, g_camera.max_depth, (hittable_t *)world);
+              auto ray_col = ray_color (ray, g_camera.max_depth, (hittable_t *)g_world_bvh);
               pixel_col    = vec3_add (pixel_col, ray_col);
             }
           auto color = vec3_divt (pixel_col, g_camera.samples_per_pixel);

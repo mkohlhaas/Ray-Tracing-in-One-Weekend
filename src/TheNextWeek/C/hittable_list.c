@@ -48,7 +48,7 @@ hittable_list_new ()
 void
 hittable_list_add (hittable_list_t *l, hittable_t *h)
 {
-  l->bbox = aabb_from_aabbs (l->bbox, h->bbox);
+  l->bbox = aabb_from_aabbs (&l->bbox, &h->bbox);
   arrput (l->hittables, h);
 }
 
@@ -56,7 +56,6 @@ void
 hittable_list_print (hittable_list_t *l, int indent_lvl)
 {
 
-  fprintf (stderr, "%*sHittable list: (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", l->bbox->x_intvl.low,
-           l->bbox->x_intvl.high, l->bbox->z_intvl.low, l->bbox->z_intvl.high, l->bbox->z_intvl.low,
-           l->bbox->z_intvl.high);
+  fprintf (stderr, "%*sHittable list: (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", l->bbox.x_intvl.low,
+           l->bbox.x_intvl.high, l->bbox.z_intvl.low, l->bbox.z_intvl.high, l->bbox.z_intvl.low, l->bbox.z_intvl.high);
 }

@@ -16,7 +16,7 @@ bvh_node_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_record_
 {
   bvh_node_t *bvh_node = (bvh_node_t *)object;
 
-  if (!aabb_hit (bvh_node->bbox, &ray, intvl))
+  if (!aabb_hit (&bvh_node->bbox, &ray, intvl))
     {
       return false;
     }
@@ -48,8 +48,8 @@ bvh_node_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_record_
 static int
 box_compare (hittable_t const **a, hittable_t const **b, int axis_index)
 {
-  auto a_axis_interval = aabb_axis_interval ((*a)->bbox, axis_index);
-  auto b_axis_interval = aabb_axis_interval ((*b)->bbox, axis_index);
+  auto a_axis_interval = aabb_axis_interval (&(*a)->bbox, axis_index);
+  auto b_axis_interval = aabb_axis_interval (&(*b)->bbox, axis_index);
   return a_axis_interval.low - b_axis_interval.low;
 }
 
@@ -107,7 +107,7 @@ bvh_node_new_hierarchy (hittable_t **objects, size_t start, size_t end)
       bvh_node->right = (hittable_t *)bvh_node_new_hierarchy (objects, mid, end);
     }
 
-  bvh_node->bbox = aabb_from_aabbs (bvh_node->left->bbox, bvh_node->right->bbox);
+  bvh_node->bbox = aabb_from_aabbs (&bvh_node->left->bbox, &bvh_node->right->bbox);
   return bvh_node;
 }
 
@@ -131,9 +131,9 @@ print_bvh_internal (bvh_node_t *node, int indent_lvl)
       hittable_list_print ((hittable_list_t *)node, indent_lvl);
       break;
     case BVH_NODE:
-      fprintf (stderr, "%*sBVH %p, (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", (void *)node, node->bbox->x_intvl.low,
-               node->bbox->x_intvl.high, node->bbox->y_intvl.low, node->bbox->y_intvl.high, node->bbox->z_intvl.low,
-               node->bbox->z_intvl.high);
+      fprintf (stderr, "%*sBVH %p, (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", (void *)node, node->bbox.x_intvl.low,
+               node->bbox.x_intvl.high, node->bbox.y_intvl.low, node->bbox.y_intvl.high, node->bbox.z_intvl.low,
+               node->bbox.z_intvl.high);
       print_bvh_internal ((bvh_node_t *)node->left, indent_lvl + n);
       print_bvh_internal ((bvh_node_t *)node->right, indent_lvl + n);
       break;

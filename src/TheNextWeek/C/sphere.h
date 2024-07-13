@@ -10,7 +10,7 @@ typedef struct sphere
 {
   hit_type_t  hit_type; // SPHERE
   hit_fn_t    hit;
-  aabb_t     *bbox;
+  aabb_t      bbox;
   point3_t    center_start;
   vec3_t      center_vec;
   double      radius;

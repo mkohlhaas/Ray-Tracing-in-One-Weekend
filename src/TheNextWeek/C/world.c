@@ -13,8 +13,8 @@
 #include <stdio.h>
 
 // global world
-hittable_list_t *g_world = NULL;
-bvh_node_t      *world   = NULL;
+hittable_list_t *g_world_list = NULL;
+bvh_node_t      *g_world_bvh  = NULL;
 
 #define CHECK_MEMORY                                                                                                   \
   if (!m || !s)                                                                                                        \
@@ -30,7 +30,7 @@ create_ground ()
   auto c = (point3_t){ .x = 0.0, .y = -1000.0, .z = 0.0 };
   auto s = sphere_new (c, c, 1000.0, (mat_t *)m);
   CHECK_MEMORY;
-  hittable_list_add (g_world, (hittable_t *)s);
+  hittable_list_add (g_world_list, (hittable_t *)s);
 }
 
 static void
@@ -41,7 +41,7 @@ create_big_spheres ()
     auto c = (point3_t){ .x = 0, .y = 1, .z = 0 };
     auto s = sphere_new (c, c, 1.0, (mat_t *)m);
     CHECK_MEMORY;
-    hittable_list_add (g_world, (hittable_t *)s);
+    hittable_list_add (g_world_list, (hittable_t *)s);
   }
 
   {
@@ -49,7 +49,7 @@ create_big_spheres ()
     auto c = (point3_t){ .x = -4, .y = 1, .z = 0 };
     auto s = sphere_new (c, c, 1.0, (mat_t *)m);
     CHECK_MEMORY;
-    hittable_list_add (g_world, (hittable_t *)s);
+    hittable_list_add (g_world_list, (hittable_t *)s);
   }
 
   {
@@ -57,7 +57,7 @@ create_big_spheres ()
     auto c = (point3_t){ .x = 4, .y = 1, .z = 0 };
     auto s = sphere_new (c, c, 1.0, (mat_t *)m);
     CHECK_MEMORY;
-    hittable_list_add (g_world, (hittable_t *)s);
+    hittable_list_add (g_world_list, (hittable_t *)s);
   }
 }
 
@@ -86,7 +86,7 @@ create_small_spheres ()
                   auto c_end  = vec3_add (c_start, (vec3_t){ .x = 0, .y = y_rnd, .z = 0 });
                   auto s      = sphere_new (c_start, c_end, 0.2, (material_t *)m);
                   CHECK_MEMORY;
-                  hittable_list_add (g_world, (hittable_t *)s);
+                  hittable_list_add (g_world_list, (hittable_t *)s);
                 }
               else if (matte < 0.95)
                 {
@@ -96,7 +96,7 @@ create_small_spheres ()
                   auto m      = metal_new (albedo, fuzz);
                   auto s      = sphere_new (c_start, c_start, 0.2, (material_t *)m);
                   CHECK_MEMORY;
-                  hittable_list_add (g_world, (hittable_t *)s);
+                  hittable_list_add (g_world_list, (hittable_t *)s);
                 }
               else
                 {
@@ -104,7 +104,7 @@ create_small_spheres ()
                   auto m = dielectric_new (1.5);
                   auto s = sphere_new (c_start, c_start, 0.2, (material_t *)m);
                   CHECK_MEMORY;
-                  hittable_list_add (g_world, (hittable_t *)s);
+                  hittable_list_add (g_world_list, (hittable_t *)s);
                 }
             }
         }
@@ -114,14 +114,14 @@ create_small_spheres ()
 static void
 create_bvh ()
 {
-  world = bvh_node_new (g_world->hittables);
+  g_world_bvh = bvh_node_new (g_world_list->hittables);
 }
 
 static void
 init_g_world ()
 {
-  g_world = hittable_list_new ();
-  if (!g_world)
+  g_world_list = hittable_list_new ();
+  if (!g_world_list)
     {
       logExit ("Out of memory");
     }

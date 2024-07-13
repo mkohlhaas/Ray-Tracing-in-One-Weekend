@@ -8,7 +8,7 @@ typedef struct bvh_node
 {
   hit_type_t  hit_type; // BVH_NODE
   hit_fn_t    hit;
-  aabb_t     *bbox;
+  aabb_t      bbox;
   hittable_t *left;
   hittable_t *right;
 } bvh_node_t;

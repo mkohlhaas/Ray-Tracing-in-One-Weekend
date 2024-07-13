@@ -80,7 +80,7 @@ sphere_new (point3_t center_start, point3_t center_end, double radius, material_
       auto box1 = aabb_from_points (&box1_min, &box1_max);
       auto box2 = aabb_from_points (&box2_min, &box2_max);
 
-      s->bbox = aabb_from_aabbs (box1, box2);
+      s->bbox = aabb_from_aabbs (&box1, &box2);
     }
   return s;
 }
@@ -88,6 +88,6 @@ sphere_new (point3_t center_start, point3_t center_end, double radius, material_
 void
 sphere_print (sphere_t *s, int indent_lvl)
 {
-  fprintf (stderr, "%*sSphere (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", s->bbox->x_intvl.low, s->bbox->x_intvl.high,
-           s->bbox->y_intvl.low, s->bbox->y_intvl.high, s->bbox->z_intvl.low, s->bbox->z_intvl.high);
+  fprintf (stderr, "%*sSphere (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", s->bbox.x_intvl.low, s->bbox.x_intvl.high,
+           s->bbox.y_intvl.low, s->bbox.y_intvl.high, s->bbox.z_intvl.low, s->bbox.z_intvl.high);
 }

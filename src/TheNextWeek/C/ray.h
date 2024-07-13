@@ -31,7 +31,7 @@ typedef struct hittable
 {
   hit_type_t hit_type;
   hit_fn_t   hit;
-  aabb_t    *bbox;
+  aabb_t     bbox;
 } hittable_t;
 
 // Return values from hit functions.

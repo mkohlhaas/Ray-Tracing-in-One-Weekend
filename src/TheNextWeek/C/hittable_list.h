@@ -9,7 +9,7 @@ typedef struct hittable_list
 {
   hit_type_t   hit_type; // LIST
   hit_fn_t     hit;
-  aabb_t      *bbox;
+  aabb_t       bbox;
   hittable_t **hittables;
 } hittable_list_t;
 
