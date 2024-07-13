@@ -28,8 +28,8 @@ ray_color (ray_t const ray, int depth, hittable_t *world)
   // render world
   double       closest_so_far = INFINITY;
   hit_record_t hit_rec;
-  hit_rec.object    = (hittable_t *)world;
-  bool hit_anything = world->hit (ray, (interval_t){ min_t, closest_so_far }, &hit_rec);
+  // hit_rec.object    = (hittable_t *)world;
+  bool hit_anything = world->hit (ray, world, (interval_t){ min_t, closest_so_far }, &hit_rec);
   if (hit_anything)
     {
       ray_t       scattered;

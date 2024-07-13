@@ -12,9 +12,9 @@
 // Returns `true` if `ray` hits `object`.
 // Return values are in `rec`.
 static bool
-bvh_node_hit (ray_t const ray, interval_t intvl, hit_record_t *rec)
+bvh_node_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_record_t *rec)
 {
-  bvh_node_t *bvh_node = (bvh_node_t *)rec->object;
+  bvh_node_t *bvh_node = (bvh_node_t *)object;
 
   if (!aabb_hit (bvh_node->bbox, &ray, intvl))
     {
@@ -23,17 +23,17 @@ bvh_node_hit (ray_t const ray, interval_t intvl, hit_record_t *rec)
   else
     {
       // recurse left
-      hit_record_t rec_left = (hit_record_t){ .object = bvh_node->left };
-      auto         hit_left = bvh_node->left->hit (ray, intvl, &rec_left);
+      hit_record_t rec_left = (hit_record_t){};
+      auto         hit_left = bvh_node->left->hit (ray, bvh_node->left, intvl, &rec_left);
       if (hit_left)
         {
           *rec = rec_left;
         }
 
       // recurse right
-      hit_record_t rec_right = (hit_record_t){ .object = bvh_node->right };
+      hit_record_t rec_right = (hit_record_t){};
       auto         intvl_tmp = (interval_t){ intvl.low, hit_left ? rec_left.t : intvl.high };
-      auto         hit_right = bvh_node->right->hit (ray, intvl_tmp, &rec_right);
+      auto         hit_right = bvh_node->right->hit (ray, bvh_node->right, intvl_tmp, &rec_right);
       if (hit_right)
         {
           *rec = rec_right;

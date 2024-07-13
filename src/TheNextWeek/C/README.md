@@ -8,7 +8,7 @@ ninja
 feh
 ```
 
-- provide `object*` as separate input parameter for hit functions not in hit record parameter
+- separate g_world, world ?
 - reduce malloc calls!
   - maybe in hit_fn_t ray should be a pointer
 - Notes:
@@ -17,3 +17,13 @@ feh
     - compiler in-lines in release build automagically
   - performance debug : release = 2 : 1 (release build needs half of debug's execution time)
   - rr debug
+    - [Debugging with rr: Start at the End](https://www.youtube.com/watch?v=S6EQiSu_zNI&t=373s&pp=ygUTcnIgc3RhcnQgYXQgdGhlIGVuZA%3D%3D)
+    - [rr Time-Traveling Debugger](https://www.youtube.com/watch?v=eOrpuc89baE)
+  - GDB:
+    - [GDB Documentation](https://www.sourceware.org/gdb/documentation/)
+    - [GDB Getting Started](https://developers.redhat.com/articles/the-gdb-developers-gnu-debugger-tutorial-part-1-getting-started-with-the-debugger)
+    - [Printf Style Debugging using GDB, Part 1](https://developers.redhat.com/articles/2021/10/05/printf-style-debugging-using-gdb-part-1)
+    - [Printf Style Debugging using GDB, Part 2](https://developers.redhat.com/articles/2021/10/13/printf-style-debugging-using-gdb-part-2)
+    - [Printf Style Debugging using GDB, Part 3](https://developers.redhat.com/articles/2021/12/09/printf-style-debugging-using-gdb-part-3)
+    - [Debug Info](https://developers.redhat.com/articles/2022/01/10/gdb-developers-gnu-debugger-tutorial-part-2-all-about-debuginfo#)
+    - [Learn How to use Breakpoints](https://developers.redhat.com/articles/2022/11/08/introduction-debug-events-learn-how-use-breakpoints#what_is_a_breakpoint_)

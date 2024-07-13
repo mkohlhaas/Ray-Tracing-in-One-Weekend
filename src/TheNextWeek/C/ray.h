@@ -5,7 +5,7 @@
 #include "color.h"
 #include "interval.h"
 
-// minimum t value (see 9.3 Fixing Shadow Acne)
+// minimum `t` value (see 9.3 Fixing Shadow Acne)
 extern double min_t;
 
 typedef struct ray
@@ -23,7 +23,8 @@ typedef enum
 } hit_type_t;
 
 struct hit_record;
-typedef bool (*hit_fn_t) (ray_t const r, interval_t intvl, struct hit_record *rec);
+struct hittable;
+typedef bool (*hit_fn_t) (ray_t const r, struct hittable *object, interval_t intvl, struct hit_record *rec);
 
 // Every struct with first members `hit_type`, `hit_fn` and `*aabb_t` is a `hittable_t` (sphere, hittable_list, ...)
 typedef struct hittable
@@ -33,11 +34,10 @@ typedef struct hittable
   aabb_t    *bbox;
 } hittable_t;
 
-// `object` must be set before calling hit functions.
-// All other members are return values from hit functions.
+// Return values from hit functions.
 typedef struct hit_record
 {
-  hittable_t *object;      // the object being hit (to be set before callling hit functions)
+  hittable_t *object;      // the object being hit (only primitives, e.g. sphere, not bvh_nodes, hittable_lists, ...)
   point3_t    p;           // hit point
   vec3_t      unit_normal; // normals always point against the ray and are unit vectors
   double      t;           // ray = ray.origin + t * ray.direction

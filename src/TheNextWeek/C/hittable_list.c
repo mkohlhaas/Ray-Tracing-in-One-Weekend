@@ -7,16 +7,16 @@
 // Returns `true` if something got hit.
 // Returns `hit_record` in `rec` if something got hit.
 static bool
-hittable_list_hit (ray_t const ray, interval_t intvl, hit_record_t *rec)
+hittable_list_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_record_t *rec)
 {
-  hittable_list_t *l = (hittable_list_t *)rec->object;
+  hittable_list_t *l = (hittable_list_t *)object;
   hit_record_t     obj_hit;
   auto             closest_so_far = intvl.high;
   bool             hit_anything   = false;
   for (uint i = 0; i < arrlen (l->hittables); i++)
     {
-      obj_hit.object = (hittable_t *)l->hittables[i];
-      if (obj_hit.object->hit (ray, (interval_t){ min_t, closest_so_far }, &obj_hit))
+      // obj_hit.object = (hittable_t *)l->hittables[i];
+      if (obj_hit.object->hit (ray, l->hittables[i], (interval_t){ min_t, closest_so_far }, &obj_hit))
         {
           hit_anything = true;
           if (obj_hit.t < closest_so_far)

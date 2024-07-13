@@ -19,9 +19,9 @@ sphere_center (sphere_t *s, double tm)
 // Returns `false` if disc is too small, otherwise `true`.
 // Returns `hit_record` in `rec`.
 static bool
-sphere_hit (ray_t const ray, interval_t intvl, hit_record_t *rec)
+sphere_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_record_t *rec)
 {
-  sphere_t *s    = (sphere_t *)rec->object;
+  sphere_t *s    = (sphere_t *)object;
   vec3_t    c_q  = vec3_sub (sphere_center (s, ray.tm), ray.origin);
   double    a    = vec3_length_squared (ray.direction);
   double    h    = vec3_dot (ray.direction, c_q);
@@ -47,6 +47,7 @@ sphere_hit (ray_t const ray, interval_t intvl, hit_record_t *rec)
         }
     }
 
+  rec->object           = object;
   rec->t                = root;
   rec->p                = point_at (ray, root);
   vec3_t outward_normal = vec3_divt (vec3_sub (rec->p, s->center_start), s->radius);
