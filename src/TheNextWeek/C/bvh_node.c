@@ -5,7 +5,6 @@
 #include "interval.h"
 #include "ray.h"
 #include "sphere.h"
-#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -75,7 +74,14 @@ box_z_compare (const void *a, const void *b)
 static bvh_node_t *
 bvh_node_new_hierarchy (hittable_t **objects, size_t start, size_t end)
 {
-  int axis = random_int_min_max (0, 2);
+  // calc bounding box
+  auto bbox = aabb_empty;
+  for (size_t i = start; i < end; i++)
+    {
+      bbox = aabb_from_aabbs (&bbox, &objects[i]->bbox);
+    }
+
+  int axis = longest_axis (&bbox);
 
   auto comparator = (axis == 0) ? box_x_compare : (axis == 1) ? box_y_compare : box_z_compare;
 
@@ -89,6 +95,7 @@ bvh_node_new_hierarchy (hittable_t **objects, size_t start, size_t end)
 
   bvh_node->hit_type = BVH_NODE;
   bvh_node->hit      = bvh_node_hit;
+  bvh_node->bbox     = bbox;
 
   switch (object_span)
     {
@@ -107,7 +114,6 @@ bvh_node_new_hierarchy (hittable_t **objects, size_t start, size_t end)
       bvh_node->right = (hittable_t *)bvh_node_new_hierarchy (objects, mid, end);
     }
 
-  bvh_node->bbox = aabb_from_aabbs (&bvh_node->left->bbox, &bvh_node->right->bbox);
   return bvh_node;
 }
 

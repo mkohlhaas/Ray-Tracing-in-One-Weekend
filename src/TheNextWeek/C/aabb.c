@@ -3,6 +3,19 @@
 #include "interval.h"
 #include "point.h"
 #include "ray.h"
+#include <math.h>
+
+aabb_t const aabb_empty = {
+  .x_intvl = { +INFINITY, -INFINITY },
+  .y_intvl = { +INFINITY, -INFINITY },
+  .z_intvl = { +INFINITY, -INFINITY },
+};
+
+aabb_t const aabb_universe = {
+  .x_intvl = { -INFINITY, +INFINITY },
+  .y_intvl = { -INFINITY, +INFINITY },
+  .z_intvl = { -INFINITY, +INFINITY },
+};
 
 // Returns `true` if `ray` hits `bbox`.
 bool
@@ -116,5 +129,19 @@ aabb_axis_interval (aabb_t const *bbox, int n)
       return bbox->z_intvl;
     default:
       logExit ("Should never happen!");
+    }
+}
+
+// Returns the index of the longest axis of the bounding box.
+int
+longest_axis (aabb_t const *bbox)
+{
+  if (intvl_size (bbox->x_intvl) > intvl_size (bbox->y_intvl))
+    {
+      return intvl_size (bbox->x_intvl) > intvl_size (bbox->z_intvl) ? 0 : 2;
+    }
+  else
+    {
+      return intvl_size (bbox->y_intvl) > intvl_size (bbox->z_intvl) ? 1 : 2;
     }
 }
