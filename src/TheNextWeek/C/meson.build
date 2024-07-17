@@ -12,9 +12,11 @@ m_dep = cc.find_library('m')
 source_files = files(
   'aabb.c',
   'args.c',
+  'bounding_spheres_scene.c',
   'bvh_node.c',
   'camera.c',
   'checker_texture.c',
+  'checkered_spheres_scene.c',
   'color.c',
   'dielectric.c',
   'globals.c',
