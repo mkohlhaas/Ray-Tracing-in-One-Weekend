@@ -21,7 +21,7 @@ metal_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuation, r
 metal *
 metal_new (color_t albedo, double fuzz)
 {
-  metal *met = malloc (sizeof (*met));
+  metal *met = malloc (sizeof *met);
   if (met)
     {
       met->scatter = metal_scatter;

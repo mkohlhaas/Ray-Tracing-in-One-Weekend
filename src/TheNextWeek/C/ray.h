@@ -39,8 +39,10 @@ typedef struct hit_record
 {
   hittable_t *object;      // the object being hit (only primitives, e.g. sphere, not bvh_nodes, hittable_lists, ...)
   point3_t    p;           // hit point
-  vec3_t      unit_normal; // normals always point against the ray and are unit vectors
   double      t;           // ray = ray.origin + t * ray.direction
+  double      u;           // texture coordinate
+  double      v;           // texture coordinate
+  vec3_t      unit_normal; // normals always point against the ray and are unit vectors
   bool        front_face;  // needed b/c we can't use dot product of ray and unit_normal
 } hit_record_t;
 

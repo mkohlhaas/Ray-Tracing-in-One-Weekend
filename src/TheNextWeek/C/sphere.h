@@ -17,7 +17,5 @@ typedef struct sphere
   material_t *mat;
 } sphere_t;
 
-struct hit_record;
-struct ray;
 sphere_t *sphere_new (point3_t center_start, point3_t center_end, double radius, material_t *mat);
 void      sphere_print (sphere_t *s, int indent_lvl);

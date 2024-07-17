@@ -1,5 +1,6 @@
 #include "world.h"
 #include "bvh_node.h"
+#include "checker_texture.h"
 #include "dielectric.h"
 #include "error.h"
 #include "hittable_list.h"
@@ -26,9 +27,20 @@ bvh_node_t      *g_world_bvh  = NULL;
 static void
 create_ground ()
 {
-  auto m = lambertian_new ((color_t){ .r = 0.5, .g = 0.5, .b = 0.5 });
-  auto c = (point3_t){ .x = 0.0, .y = -1000.0, .z = 0.0 };
-  auto s = sphere_new (c, c, 1000.0, (mat_t *)m);
+  auto checker = checker_texture_from_colors (0.32,
+                                              &((color_t){
+                                                  .r = .2,
+                                                  .g = .3,
+                                                  .b = .1,
+                                              }),
+                                              &((color_t){
+                                                  .r = .9,
+                                                  .g = .9,
+                                                  .b = .9,
+                                              }));
+  auto m       = lambertian_new_with_tex ((texture_t *)checker);
+  auto c       = (point3_t){ .x = 0.0, .y = -1000.0, .z = 0.0 };
+  auto s       = sphere_new (c, c, 1000.0, (mat_t *)m);
   CHECK_MEMORY;
   hittable_list_add (g_world_list, (hittable_t *)s);
 }

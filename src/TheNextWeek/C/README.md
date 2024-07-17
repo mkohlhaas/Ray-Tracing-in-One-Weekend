@@ -26,3 +26,4 @@ feh
     - [Printf Style Debugging using GDB, Part 3](https://developers.redhat.com/articles/2021/12/09/printf-style-debugging-using-gdb-part-3)
     - [Debug Info](https://developers.redhat.com/articles/2022/01/10/gdb-developers-gnu-debugger-tutorial-part-2-all-about-debuginfo#)
     - [Learn How to use Breakpoints](https://developers.redhat.com/articles/2022/11/08/introduction-debug-events-learn-how-use-breakpoints#what_is_a_breakpoint_)
+  - Performance: By introducing u,v coords in hit_record performance goes from 1:23m to 1:49m !!!

@@ -90,7 +90,7 @@ bvh_node_new_hierarchy (hittable_t **objects, size_t start, size_t end)
   bvh_node_t *bvh_node = malloc (sizeof *bvh_node);
   if (!bvh_node)
     {
-      logExit ("Not enough memory");
+      logExit ("Out of memory");
     }
 
   bvh_node->hit_type = BVH_NODE;
