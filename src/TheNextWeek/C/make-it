@@ -1,0 +1,9 @@
+n=10
+w=3440
+h=1440
+
+ninja
+rm *.pnm
+time parallel ./raytracer -s {1} -n {2} -w {3} -h {4} -o {1}.pnm ::: $(seq -w $(echo "$h - $n" | bc) -$n 0) ::: $n ::: $w ::: $h
+pnmcat -tb *.pnm > res.pnm
+feh res.pnm
