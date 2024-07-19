@@ -8,6 +8,7 @@ ninja
 feh
 ```
 
+- subdirectories for scenes and textures
 - check return values of mallocs (are they leading to immediate failure or returned back to calling functions?)
 - reduce malloc calls!
   - maybe in hit_fn_t ray should be a pointer

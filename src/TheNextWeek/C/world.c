@@ -5,6 +5,7 @@
 #include "earth_scene.h"
 #include "error.h"
 #include "hittable_list.h"
+#include "perlin_spheres_scene.h"
 #include "stb_ds.h"
 #include <stdio.h>
 
@@ -34,7 +35,7 @@ world_init (void)
   init_g_world ();
 
   // choose scene
-  switch (3)
+  switch (4)
     {
     case 1:
       bouncing_spheres ();
@@ -44,6 +45,9 @@ world_init (void)
       break;
     case 3:
       earth ();
+      break;
+    case 4:
+      perlin_spheres ();
       break;
     }
 
