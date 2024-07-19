@@ -2,6 +2,7 @@
 #include "bounding_spheres_scene.h"
 #include "bvh_node.h"
 #include "checkered_spheres_scene.h"
+#include "earth_scene.h"
 #include "error.h"
 #include "hittable_list.h"
 #include "stb_ds.h"
@@ -33,13 +34,16 @@ world_init (void)
   init_g_world ();
 
   // choose scene
-  switch (2)
+  switch (3)
     {
     case 1:
       bouncing_spheres ();
       break;
     case 2:
       checkered_spheres ();
+      break;
+    case 3:
+      earth ();
       break;
     }
 

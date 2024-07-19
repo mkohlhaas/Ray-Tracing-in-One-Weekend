@@ -5,6 +5,13 @@ project(
   default_options: ['warning_level=3', 'werror=false', 'c_std=gnu2x'],
 )
 
+# filesystem module
+fs = import('fs')
+fs.copyfile('earthmap.jpg')
+fs.copyfile('earthmap.png')
+fs.copyfile('world-map.jpg')
+fs.copyfile('HR-World-Map.jpg')
+
 # math library
 cc = meson.get_compiler('c')
 m_dep = cc.find_library('m')
@@ -19,8 +26,11 @@ source_files = files(
   'checkered_spheres_scene.c',
   'color.c',
   'dielectric.c',
+  'earth_scene.c',
   'globals.c',
   'hittable_list.c',
+  'image.c',
+  'image_texture.c',
   'interval.c',
   'lambertian.c',
   'main.c',

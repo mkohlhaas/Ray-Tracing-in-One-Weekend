@@ -7,6 +7,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// `p` is a given point on the unit sphere, centered at the origin.
+// `u` is the returned value [0,1] of the angle around the Y axis from X=-1.
+// `v` is the returned value [0,1] of the angle from Y=-1 to Y=+1.
+//  <1 0 0> yields <0.50 0.50>, <-1  0  0> yields <0.00 0.50>,
+//  <0 1 0> yields <0.50 1.00>, < 0 -1  0> yields <0.50 0.00>,
+//  <0 0 1> yields <0.25 0.50>, < 0  0 -1> yields <0.75 0.50>,
+static void
+set_texture_coords (point3_t const *p, double *u, double *v)
+{
+  auto theta = acos (-p->y);
+  auto phi   = atan2 (-p->z, p->x) + M_PI;
+
+  *u = phi / (2 * M_PI);
+  *v = theta / M_PI;
+}
+
 // Linearly interpolate from center_start to center_end according to time `tm`,
 // where `tm` = 0 yields center_start, and `tm` = 1 yields center_end.
 static point3_t
@@ -30,7 +46,6 @@ sphere_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_record_t 
 
   if (disc < 0)
     {
-      // fprintf (stderr, "returns false\n");
       return false;
     }
 
@@ -52,6 +67,7 @@ sphere_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_record_t 
   rec->p                = point_at (ray, root);
   vec3_t outward_normal = vec3_divt (vec3_sub (rec->p, s->center_start), s->radius);
   set_face_normal (rec, ray, outward_normal);
+  set_texture_coords (&outward_normal, &rec->u, &rec->v);
 
   return true;
 }
