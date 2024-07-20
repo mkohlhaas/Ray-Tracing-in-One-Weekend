@@ -1,13 +1,13 @@
 #pragma once
 
-#include "args.h"
-#include "camera.h"
-#include "error.h"
-#include "globals.h"
-#include "world.h"
+#include "args/args.h"
+#include "camera/camera.h"
+#include "error/error.h"
+#include "globals/globals.h"
+#include "world/world.h"
 #include <stdio.h>
 #define STB_DS_IMPLEMENTATION
-#include "stb_ds.h"
+#include "3rd_party/stb_ds.h"
 
 static void
 open_output_file ()

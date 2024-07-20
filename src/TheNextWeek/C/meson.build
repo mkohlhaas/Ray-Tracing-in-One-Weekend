@@ -7,46 +7,58 @@ project(
 
 # filesystem module
 fs = import('fs')
-fs.copyfile('earthmap.jpg')
-fs.copyfile('earthmap.png')
-fs.copyfile('world-map.jpg')
-fs.copyfile('HR-World-Map.jpg')
+fs.copyfile('make-it')
+fs.copyfile('assets/earthmap.jpg')
+fs.copyfile('assets/earthmap.png')
+fs.copyfile('assets/world-map.jpg')
+fs.copyfile('assets/HR-World-Map.jpg')
 
 # math library
 cc = meson.get_compiler('c')
 m_dep = cc.find_library('m')
 
 source_files = files(
-  'aabb.c',
-  'args.c',
-  'bounding_spheres_scene.c',
-  'bvh_node.c',
-  'camera.c',
-  'checker_texture.c',
-  'checkered_spheres_scene.c',
-  'color.c',
-  'dielectric.c',
-  'earth_scene.c',
-  'globals.c',
-  'hittable_list.c',
-  'image.c',
-  'image_texture.c',
-  'interval.c',
-  'lambertian.c',
   'main.c',
-  'material.c',
-  'metal.c',
-  'noise_texture.c',
-  'perlin.c',
-  'perlin_spheres_scene.c',
-  'point.c',
-  'ray.c',
-  'solid_color.c',
-  'sphere.c',
-  'sphere.c',
-  'utils.c',
-  'vec3.c',
-  'world.c',
 )
 
-executable('raytracer', source_files, dependencies: [m_dep], install: false)
+subdir('args')
+subdir('bbox')
+subdir('camera')
+subdir('globals')
+subdir('image')
+subdir('hittables')
+subdir('materials')
+subdir('math')
+subdir('noise')
+subdir('ray')
+subdir('scenes')
+subdir('textures')
+subdir('utils')
+subdir('world')
+
+incdir = include_directories(
+  '3rd_party',
+  'args',
+  'bbox',
+  'camera',
+  'error',
+  'globals',
+  'hittables',
+  'image',
+  'materials',
+  'math',
+  'noise',
+  'ray',
+  'scenes',
+  'textures',
+  'utils',
+  'world',
+)
+
+executable(
+  'raytracer',
+  source_files,
+  dependencies: [m_dep],
+  include_directories: incdir,
+  install: false,
+)
