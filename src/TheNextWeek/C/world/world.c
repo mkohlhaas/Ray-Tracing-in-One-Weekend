@@ -6,7 +6,13 @@
 #include "scenes/bounding_spheres.h"
 #include "scenes/checkered_spheres.h"
 #include "scenes/earth.h"
+#include "scenes/perlin_freq_spheres.h"
+#include "scenes/perlin_hermitian_spheres.h"
+#include "scenes/perlin_lattice_spheres.h"
+#include "scenes/perlin_phase_spheres.h"
+#include "scenes/perlin_smooth_spheres.h"
 #include "scenes/perlin_spheres.h"
+#include "scenes/perlin_turb_spheres.h"
 #include <stdio.h>
 
 // global world
@@ -35,7 +41,7 @@ world_init (void)
   init_g_world ();
 
   // choose scene
-  switch (4)
+  switch (10)
     {
     case 1:
       bouncing_spheres ();
@@ -48,6 +54,24 @@ world_init (void)
       break;
     case 4:
       perlin_spheres ();
+      break;
+    case 5:
+      perlin_smooth_spheres ();
+      break;
+    case 6:
+      perlin_hermitian_spheres ();
+      break;
+    case 7:
+      perlin_freq_spheres ();
+      break;
+    case 8:
+      perlin_lattice_spheres ();
+      break;
+    case 9:
+      perlin_turb_spheres ();
+      break;
+    case 10:
+      perlin_phase_spheres ();
       break;
     }
 

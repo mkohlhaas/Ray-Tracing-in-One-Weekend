@@ -2,5 +2,11 @@ source_files += files(
   'bounding_spheres.c',
   'checkered_spheres.c',
   'earth.c',
+  'perlin_freq_spheres.c',
+  'perlin_hermitian_spheres.c',
+  'perlin_lattice_spheres.c',
+  'perlin_phase_spheres.c',
+  'perlin_smooth_spheres.c',
   'perlin_spheres.c',
+  'perlin_turb_spheres.c',
 )

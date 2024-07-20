@@ -12,6 +12,7 @@ extern color_t red;
 extern color_t white;
 extern color_t black;
 extern color_t grey;
+extern color_t light_grey;
 extern color_t yellow;
 
 void color_write (FILE *out, const color_t pixel_color);
