@@ -143,6 +143,10 @@ print_bvh_internal (bvh_node_t *node, int indent_lvl)
       print_bvh_internal ((bvh_node_t *)node->left, indent_lvl + n);
       print_bvh_internal ((bvh_node_t *)node->right, indent_lvl + n);
       break;
+      // case TRIANGLE:
+      //   break;
+      // case QUAD:
+      //   break;
     }
 }
 

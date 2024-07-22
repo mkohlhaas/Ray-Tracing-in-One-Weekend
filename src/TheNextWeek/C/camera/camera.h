@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math/point.h"
+#include <stdio.h>
 
 typedef struct camera
 {
@@ -17,8 +18,5 @@ typedef struct camera
   vec3_t   defocus_disk_v; // Defocus disk vertical radius
 } camera_t;
 
-// global camera
-extern camera_t g_camera;
-
 void camera_init (void);
-void render ();
+void render (FILE *output_file);

@@ -3,23 +3,24 @@
 #include "args/args.h"
 #include "camera/camera.h"
 #include "error/error.h"
-#include "globals/globals.h"
 #include "world/world.h"
 #include <stdio.h>
 #define STB_DS_IMPLEMENTATION
 #include "3rd_party/stb_ds.h"
+
+static FILE *output_file = NULL;
 
 static void
 open_output_file ()
 {
   if (args.output_file == NULL)
     {
-      g_output_file = stdout;
+      output_file = stdout;
     }
   else
     {
-      g_output_file = fopen (args.output_file, "w");
-      if (!g_output_file)
+      output_file = fopen (args.output_file, "w");
+      if (!output_file)
         {
           logExit ("Couldn't open file %s", args.output_file);
         }
@@ -37,7 +38,7 @@ init (void)
 void
 cleanup (void)
 {
-  fclose (g_output_file);
+  fclose (output_file);
 
   for (int i = 0; i < arrlen (g_world_list->hittables); i++)
     {

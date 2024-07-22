@@ -1,6 +1,7 @@
 #include "materials/dielectric.h"
 #include "utils/utils.h"
 #include <math.h>
+#include <stdbool.h>
 #include <stdlib.h>
 
 // Reflectivity varies with angle.
@@ -14,7 +15,7 @@ dielectric_reflectance (double cosine, double refraction_index)
 }
 
 // Our dielectric material always refracts if physically possible.
-static void
+static bool
 dielectric_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuation, ray_t *scattered)
 {
   // scattered ray
@@ -38,6 +39,8 @@ dielectric_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuati
   // return values
   *attenuation = white; // no attenuation
   *scattered   = (ray_t){ rec->p, direction, ray.tm };
+
+  return true;          // material, not light source
 }
 
 // Returns `NULL` if memory allocation failed.

@@ -1,25 +1,22 @@
 #include "camera/camera.h"
 #include "args/args.h"
-#include "camera/camera_defs.h"
 #include "globals/globals.h"
 #include "math/vec3.h"
 #include "ray/ray.h"
 #include "utils/utils.h"
 #include "world/world.h"
 #include <math.h>
-
-// global camera
-camera_t g_camera;
+#include <stdio.h>
 
 static void
 camera_defaults ()
 {
   g_camera = (camera_t){
-    .samples_per_pixel = SAMPLES_PER_PIXEL,
-    .max_depth         = MAX_DEPTH,
-    .lookat            = LOOKAT,
-    .lookfrom          = LOOKFROM,
-    .defocus_angle     = DEFOCUS_ANGLE,
+    .samples_per_pixel = g_samples_per_pixel,
+    .max_depth         = g_max_depth,
+    .lookat            = g_lookat,
+    .lookfrom          = g_lookfrom,
+    .defocus_angle     = g_defocus_angle,
   };
 }
 
@@ -38,9 +35,9 @@ void
 camera_init (void)
 {
   camera_defaults ();
-  double   focus_dist = FOCUS_DIST;
-  double   vfov       = VFOV; // vertical field of view in degrees
-  point3_t vup        = VUP;
+  double   focus_dist = g_focus_dist;
+  double   vfov       = g_vfov; // vertical field of view in degrees
+  point3_t vup        = g_vup;
 
   // Calculate viewport width and height
   auto aspect_ratio    = (double)args.image_width / args.image_height;
@@ -73,9 +70,9 @@ camera_init (void)
 }
 
 static void
-write_ppm_header ()
+write_ppm_header (FILE *output_file)
 {
-  fprintf (g_output_file, "P3\n%d %d\n255\n", args.image_width, args.num_scanlines);
+  fprintf (output_file, "P3\n%d %d\n255\n", args.image_width, args.num_scanlines);
 }
 
 static void
@@ -93,7 +90,7 @@ print_done (void)
 }
 
 static void
-render_image_body ()
+render_image_body (FILE *output_file)
 {
   for (int row = args.start_scanline; row < args.start_scanline + args.num_scanlines; row++)
     {
@@ -108,15 +105,15 @@ render_image_body ()
               pixel_col    = vec3_add (pixel_col, ray_col);
             }
           auto color = vec3_divt (pixel_col, g_camera.samples_per_pixel);
-          color_write (g_output_file, color);
+          color_write (output_file, color);
         }
     }
   print_done ();
 }
 
 void
-render ()
+render (FILE *output_file)
 {
-  write_ppm_header ();
-  render_image_body ();
+  write_ppm_header (output_file);
+  render_image_body (output_file);
 }

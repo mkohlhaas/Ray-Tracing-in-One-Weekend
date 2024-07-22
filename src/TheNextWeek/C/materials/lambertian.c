@@ -1,10 +1,11 @@
 #include "materials/lambertian.h"
 #include "textures/solid_color.h"
 #include "textures/texture.h"
+#include <stdbool.h>
 #include <stdlib.h>
 
 // Returns `attenuation` and `scattered` ray.
-static void
+static bool
 lambertian_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuation, ray_t *scattered)
 {
   auto l           = (lambertian_t *)get_material (rec->object);
@@ -19,6 +20,8 @@ lambertian_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuati
   // *attenuation = l->albedo;
   *attenuation = l->tex->value (l->tex, rec->u, rec->v, &rec->p);
   *scattered   = (ray_t){ rec->p, scatter_dir, ray.tm };
+
+  return true; // material, not light source
 }
 
 // Returns `NULL` if memory allocation failed.

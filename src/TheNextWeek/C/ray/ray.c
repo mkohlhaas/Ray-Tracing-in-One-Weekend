@@ -1,12 +1,11 @@
 #include "ray/ray.h"
 #include "3rd_party/stb_ds.h"
+#include "globals/globals.h"
 #include "materials/material.h"
 #include "math/color.h"
 #include "math/interval.h"
 #include "utils/utils.h"
 #include <math.h>
-
-double min_t = 0.001;
 
 point3_t
 point_at (ray_t r, double t)
@@ -28,15 +27,15 @@ ray_color (ray_t const ray, int depth, hittable_t *world)
   double       closest_so_far = INFINITY;
   hit_record_t hit_rec;
   // hit_rec.object    = (hittable_t *)world;
-  bool hit_anything = world->hit (ray, world, (interval_t){ min_t, closest_so_far }, &hit_rec);
+  bool hit_anything = world->hit (ray, world, (interval_t){ g_min_t, closest_so_far }, &hit_rec);
   if (hit_anything)
     {
-      ray_t       scattered;
-      color_t     attenuation;
       material_t *mat = get_material (hit_rec.object);
+
+      ray_t   scattered;
+      color_t attenuation;
       mat->scatter (ray, &hit_rec, &attenuation, &scattered);
-      // Recursion happens here.
-      return vec3_mulv (attenuation, ray_color (scattered, depth - 1, world));
+      return vec3_mulv (attenuation, ray_color (scattered, depth - 1, world)); // recursion happens here
     }
 
   // render background
