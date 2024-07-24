@@ -21,7 +21,7 @@ aabb_t const aabb_universe = {
 bool
 aabb_hit (aabb_t *bbox, ray_t const *ray, interval_t intvl)
 {
-  for (int axis = 0; axis < 3; axis++)
+  for (int axis = X_Axis; axis < MAX_AXIS; axis++)
     {
       auto axis_intvl = aabb_axis_interval (bbox, axis);
       auto adinv      = 1.0 / ray->direction.element[axis];                   // axis direction reciprocal
@@ -59,8 +59,27 @@ aabb_hit (aabb_t *bbox, ray_t const *ray, interval_t intvl)
   return true;
 }
 
+// Adjust the bounding box so that no side is narrower than some delta, padding if necessary.
+static void
+pad_to_minimums (aabb_t *bbox)
+{
+  static double const delta = 0.0001;
+
+  if (intvl_size (bbox->x_intvl) < delta)
+    {
+      bbox->x_intvl = intvl_expand (bbox->x_intvl, delta);
+    }
+  if (intvl_size (bbox->y_intvl) < delta)
+    {
+      bbox->y_intvl = intvl_expand (bbox->y_intvl, delta);
+    }
+  if (intvl_size (bbox->z_intvl) < delta)
+    {
+      bbox->z_intvl = intvl_expand (bbox->z_intvl, delta);
+    }
+}
+
 // New empty `aabb_t`.
-// Returns `NULL` if memory allocation failed.
 aabb_t
 aabb_new_empty ()
 {
@@ -69,11 +88,11 @@ aabb_new_empty ()
     .y_intvl = intvl_empty,
     .z_intvl = intvl_empty,
   };
+  pad_to_minimums (&bbox);
   return bbox;
 }
 
 // New `aabb_t` from intervals.
-// Returns `NULL` if memory allocation failed.
 aabb_t
 aabb_from_intervals (interval_t *x_intvl, interval_t *y_intvl, interval_t *z_intvl)
 {
@@ -82,12 +101,12 @@ aabb_from_intervals (interval_t *x_intvl, interval_t *y_intvl, interval_t *z_int
     .y_intvl = *y_intvl,
     .z_intvl = *z_intvl,
   };
+  pad_to_minimums (&bbox);
   return bbox;
 }
 
 // Treat the two points `p1` and `p2` as extrema for the bounding box,
 // so we don't require a particular minimum/maximum coordinate order.
-// Returns `NULL` if memory allocation failed.
 aabb_t
 aabb_from_points (point3_t *p1, point3_t *p2)
 {
@@ -100,6 +119,7 @@ aabb_from_points (point3_t *p1, point3_t *p2)
     .y_intvl = y,
     .z_intvl = z,
   };
+  pad_to_minimums (&bbox);
   return bbox;
 }
 
@@ -111,21 +131,22 @@ aabb_from_aabbs (aabb_t const *bbox0, aabb_t const *bbox1)
     .y_intvl = intvl_from_intvls (bbox0->y_intvl, bbox1->y_intvl),
     .z_intvl = intvl_from_intvls (bbox0->z_intvl, bbox1->z_intvl),
   };
+  pad_to_minimums (&bbox);
   return bbox;
 }
 
 // Returns interval for specified axis.
 // x-axis => `n`=0, y-axis => `n`=1, z-axis => `n`=2.
 interval_t
-aabb_axis_interval (aabb_t const *bbox, int n)
+aabb_axis_interval (aabb_t const *bbox, axis_t n)
 {
   switch (n)
     {
-    case 0:
+    case X_Axis:
       return bbox->x_intvl;
-    case 1:
+    case Y_Axis:
       return bbox->y_intvl;
-    case 2:
+    case Z_Axis:
       return bbox->z_intvl;
     default:
       logExit ("Should never happen!");

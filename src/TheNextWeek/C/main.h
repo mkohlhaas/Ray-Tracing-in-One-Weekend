@@ -33,6 +33,7 @@ init (void)
   open_output_file ();
   world_init ();
   camera_init ();
+  // print_global_camera ();
 }
 
 void

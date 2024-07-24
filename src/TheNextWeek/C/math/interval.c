@@ -10,6 +10,7 @@ intvl_size (interval_t intvl)
   return intvl.high - intvl.low;
 }
 
+// Value `x` is in interval `intvl`.
 bool
 intvl_contains (interval_t intvl, double x)
 {

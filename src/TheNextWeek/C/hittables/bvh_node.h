@@ -1,7 +1,7 @@
 #pragma once
 
 #include "bbox/aabb.h"
-#include "ray/ray.h"
+#include "hittables/hittable.h"
 
 // `bvh_node_t` is a `hittable_t`.
 typedef struct bvh_node

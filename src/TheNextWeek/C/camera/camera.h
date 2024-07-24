@@ -20,3 +20,4 @@ typedef struct camera
 
 void camera_init (void);
 void render (FILE *output_file);
+void print_global_camera ();

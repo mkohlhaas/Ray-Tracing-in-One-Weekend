@@ -29,7 +29,7 @@ typedef struct hittable
 // Return values from hit functions.
 typedef struct hit_record
 {
-  hittable_t *object;      // the object being hit (only primitives, e.g. sphere, not bvh_nodes, hittable_lists, ...)
+  hittable_t *object;      // the object being hit (sphere, quads, triangles,... NOT bvh_nodes, hittable_lists, ...)
   point3_t    p;           // hit point
   double      t;           // ray = ray.origin + t * ray.direction
   double      u;           // texture coordinate

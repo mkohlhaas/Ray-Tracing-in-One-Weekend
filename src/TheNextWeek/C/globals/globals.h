@@ -1,8 +1,14 @@
 #pragma once
 
+#include "bvh_node.h"
 #include "camera/camera.h"
+#include "hittable_list.h"
 #include "math/color.h"
 #include "math/vec3.h"
+
+// global world
+extern hittable_list_t *g_world_list;
+extern bvh_node_t      *g_world_bvh;
 
 // scene background color
 extern color_t const g_background;

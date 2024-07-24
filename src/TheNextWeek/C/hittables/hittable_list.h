@@ -2,7 +2,7 @@
 
 #include "3rd_party/stb_ds.h"
 #include "bbox/aabb.h"
-#include "ray/ray.h"
+#include "hittables/hittable.h"
 
 // `hittable_list_t` is a `hittable_t`
 typedef struct hittable_list

@@ -45,7 +45,7 @@ bvh_node_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_record_
 // Compare Functions
 
 static int
-box_compare (hittable_t const **a, hittable_t const **b, int axis_index)
+box_compare (hittable_t const **a, hittable_t const **b, axis_t axis_index)
 {
   auto a_axis_interval = aabb_axis_interval (&(*a)->bbox, axis_index);
   auto b_axis_interval = aabb_axis_interval (&(*b)->bbox, axis_index);

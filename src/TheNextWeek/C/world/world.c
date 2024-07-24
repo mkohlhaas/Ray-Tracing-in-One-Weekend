@@ -1,6 +1,7 @@
 #include "world.h"
 #include "3rd_party/stb_ds.h"
 #include "error/error.h"
+#include "globals/globals.h"
 #include "hittables/bvh_node.h"
 #include "hittables/hittable_list.h"
 #include "scenes/bounding_spheres.h"
@@ -13,11 +14,7 @@
 #include "scenes/perlin_smooth_spheres.h"
 #include "scenes/perlin_spheres.h"
 #include "scenes/perlin_turb_spheres.h"
-#include <stdio.h>
-
-// global world
-hittable_list_t *g_world_list = NULL;
-bvh_node_t      *g_world_bvh  = NULL;
+#include "scenes/quads.h"
 
 static void
 init_g_world ()
@@ -41,7 +38,7 @@ world_init (void)
   init_g_world ();
 
   // choose scene
-  switch (10)
+  switch (11)
     {
     case 1:
       bouncing_spheres ();
@@ -72,6 +69,9 @@ world_init (void)
       break;
     case 10:
       perlin_phase_spheres ();
+      break;
+    case 11:
+      quads ();
       break;
     }
 

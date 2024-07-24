@@ -1,6 +1,8 @@
 #include "materials/material.h"
 #include "error/error.h"
+#include "hittable.h"
 #include "hittables/sphere.h"
+#include "quad.h"
 
 material_t *
 get_material (hittable_t *object)
@@ -10,6 +12,10 @@ get_material (hittable_t *object)
     case SPHERE:
       sphere_t *s = (sphere_t *)object;
       return s->mat;
+      break;
+    case QUAD:
+      quadrilateral_t *q = (quadrilateral_t *)object;
+      return q->mat;
       break;
     default:
       logExit ("Should never happen");

@@ -13,6 +13,14 @@ point_at (ray_t r, double t)
   return vec3_add (r.origin, vec3_mult (t, r.direction));
 }
 
+// static color_t
+// render_background (ray_t const ray)
+// {
+//   vec3_t unit_direction = vec3_unit (ray.direction);
+//   double a              = 0.5 * (unit_direction.y + 1); // -1.0 ≤ y ≤ 1.0 ⇒ 0.0 ≤ a ≤ 1.0
+//   return lerp (light_blue, white, a);
+// }
+
 // Recursive function to calculate effective color.
 color_t
 ray_color (ray_t const ray, int depth, hittable_t *world)
@@ -26,8 +34,7 @@ ray_color (ray_t const ray, int depth, hittable_t *world)
   // render world
   double       closest_so_far = INFINITY;
   hit_record_t hit_rec;
-  // hit_rec.object    = (hittable_t *)world;
-  bool hit_anything = world->hit (ray, world, (interval_t){ g_min_t, closest_so_far }, &hit_rec);
+  bool         hit_anything = world->hit (ray, world, (interval_t){ g_min_t, closest_so_far }, &hit_rec);
   if (hit_anything)
     {
       material_t *mat = get_material (hit_rec.object);
@@ -38,11 +45,7 @@ ray_color (ray_t const ray, int depth, hittable_t *world)
       return vec3_mulv (attenuation, ray_color (scattered, depth - 1, world)); // recursion happens here
     }
 
-  // render background
-  vec3_t unit_direction = vec3_unit (ray.direction);
-  double a              = 0.5 * (unit_direction.y + 1); // -1.0 ≤ y ≤ 1.0 ⇒ 0.0 ≤ a ≤ 1.0
-
-  return lerp (light_blue, white, a);
+  return g_background;
 }
 
 // Returns the vector to a random point in the [-.5,-.5]-[+.5,+.5] unit square.

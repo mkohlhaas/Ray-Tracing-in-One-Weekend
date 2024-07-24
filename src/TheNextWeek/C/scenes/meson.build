@@ -9,4 +9,5 @@ source_files += files(
   'perlin_smooth_spheres.c',
   'perlin_spheres.c',
   'perlin_turb_spheres.c',
+  'quads.c',
 )
