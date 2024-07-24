@@ -3,4 +3,5 @@ source_files += files(
   'hittable_list.c',
   'quad.c',
   'sphere.c',
+  'triangle.c',
 )
