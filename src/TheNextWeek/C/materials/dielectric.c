@@ -1,4 +1,5 @@
 #include "materials/dielectric.h"
+#include "color.h"
 #include "utils/utils.h"
 #include <math.h>
 #include <stdbool.h>
@@ -43,6 +44,14 @@ dielectric_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuati
   return true;          // material, not light source
 }
 
+static color_t
+dielectric_emit (hit_record_t const *rec)
+{
+  (void)rec;
+
+  return black;
+}
+
 // Returns `NULL` if memory allocation failed.
 dielectric_t *
 dielectric_new (double refraction_index)
@@ -51,6 +60,7 @@ dielectric_new (double refraction_index)
   if (d)
     {
       d->scatter          = dielectric_scatter;
+      d->emit             = dielectric_emit;
       d->refraction_index = refraction_index;
     }
   return d;

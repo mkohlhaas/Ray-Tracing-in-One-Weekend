@@ -8,6 +8,7 @@
 typedef struct lambertian
 {
   scatter_fn scatter;
+  emit_fn    emit;
   texture_t *tex;
 } lambertian_t;
 

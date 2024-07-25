@@ -97,3 +97,10 @@ quad_new (point3_t const Q, vec3_t const u, vec3_t const v, material_t *mat)
     }
   return q;
 }
+
+void
+quad_print (quadrilateral_t *q, int indent_lvl)
+{
+  fprintf (stderr, "%*sQuad (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", q->bbox.x_intvl.low, q->bbox.x_intvl.high,
+           q->bbox.y_intvl.low, q->bbox.y_intvl.high, q->bbox.z_intvl.low, q->bbox.z_intvl.high);
+}

@@ -15,6 +15,7 @@
 #include "scenes/perlin_spheres.h"
 #include "scenes/perlin_turb_spheres.h"
 #include "scenes/quads.h"
+#include "scenes/simple_light.h"
 #include "scenes/triangles.h"
 
 static void
@@ -39,7 +40,7 @@ world_init (void)
   init_g_world ();
 
   // choose scene
-  switch (12)
+  switch (13)
     {
     case 1:
       bouncing_spheres ();
@@ -76,6 +77,9 @@ world_init (void)
       break;
     case 12:
       triangles ();
+      break;
+    case 13:
+      simple_light ();
       break;
     }
 

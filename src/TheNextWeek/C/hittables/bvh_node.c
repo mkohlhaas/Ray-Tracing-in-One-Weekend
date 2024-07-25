@@ -1,8 +1,11 @@
 #include "hittables/bvh_node.h"
 #include "bbox/aabb.h"
 #include "error/error.h"
+#include "hittables/hittable.h"
 #include "hittables/hittable_list.h"
+#include "hittables/quad.h"
 #include "hittables/sphere.h"
+#include "hittables/triangle.h"
 #include "math/interval.h"
 #include "ray/ray.h"
 #include <stdio.h>
@@ -136,6 +139,12 @@ print_bvh_internal (bvh_node_t *node, int indent_lvl)
     case HITTABLE_LIST:
       hittable_list_print ((hittable_list_t *)node, indent_lvl);
       break;
+    case QUAD:
+      quad_print ((quadrilateral_t *)node, indent_lvl);
+      break;
+    case TRIANGLE:
+      triangle_print ((triangle_t *)node, indent_lvl);
+      break;
     case BVH_NODE:
       fprintf (stderr, "%*sBVH %p, (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", (void *)node, node->bbox.x_intvl.low,
                node->bbox.x_intvl.high, node->bbox.y_intvl.low, node->bbox.y_intvl.high, node->bbox.z_intvl.low,
@@ -143,10 +152,6 @@ print_bvh_internal (bvh_node_t *node, int indent_lvl)
       print_bvh_internal ((bvh_node_t *)node->left, indent_lvl + n);
       print_bvh_internal ((bvh_node_t *)node->right, indent_lvl + n);
       break;
-      // case TRIANGLE:
-      //   break;
-      // case QUAD:
-      //   break;
     }
 }
 

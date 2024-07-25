@@ -20,3 +20,4 @@ typedef struct triangle
 } triangle_t;
 
 triangle_t *triangle_new (point3_t const Q, vec3_t const u, vec3_t const v, material_t *mat);
+void        triangle_print (triangle_t *t, int indent_lvl);

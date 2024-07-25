@@ -24,6 +24,14 @@ lambertian_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuati
   return true; // material, not light source
 }
 
+static color_t
+lambertian_emit (hit_record_t const *rec)
+{
+  (void)rec;
+
+  return black;
+}
+
 // Returns `NULL` if memory allocation failed.
 lambertian_t *
 lambertian_new (color_t albedo)
@@ -32,6 +40,7 @@ lambertian_new (color_t albedo)
   if (lam)
     {
       lam->scatter = lambertian_scatter;
+      lam->emit    = lambertian_emit;
       lam->tex     = (texture_t *)solid_color_from_color (albedo);
     }
   return lam;
@@ -45,6 +54,7 @@ lambertian_new_with_tex (texture_t *tex)
   if (lam)
     {
       lam->scatter = lambertian_scatter;
+      lam->emit    = lambertian_emit;
       lam->tex     = tex;
     }
   return lam;

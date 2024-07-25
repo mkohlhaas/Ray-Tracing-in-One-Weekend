@@ -5,6 +5,7 @@
 #include "math/color.h"
 #include "math/interval.h"
 #include "utils/utils.h"
+#include "vec3.h"
 #include <math.h>
 
 point3_t
@@ -34,18 +35,31 @@ ray_color (ray_t const ray, int depth, hittable_t *world)
   // render world
   double       closest_so_far = INFINITY;
   hit_record_t hit_rec;
-  bool         hit_anything = world->hit (ray, world, (interval_t){ g_min_t, closest_so_far }, &hit_rec);
-  if (hit_anything)
+  bool         got_hit = world->hit (ray, world, (interval_t){ g_min_t, closest_so_far }, &hit_rec);
+
+  if (got_hit)
     {
       material_t *mat = get_material (hit_rec.object);
 
+      color_t color_from_emission = mat->emit (&hit_rec);
+
       ray_t   scattered;
       color_t attenuation;
-      mat->scatter (ray, &hit_rec, &attenuation, &scattered);
-      return vec3_mulv (attenuation, ray_color (scattered, depth - 1, world)); // recursion happens here
-    }
+      if (mat->scatter (ray, &hit_rec, &attenuation, &scattered))
+        {
+          color_t color_from_scatter = vec3_mulv (attenuation, ray_color (scattered, depth - 1, world));
 
-  return g_background;
+          return vec3_add (color_from_emission, color_from_scatter);
+        }
+      else
+        {
+          return color_from_emission;
+        }
+    }
+  else
+    {
+      return g_background;
+    }
 }
 
 // Returns the vector to a random point in the [-.5,-.5]-[+.5,+.5] unit square.

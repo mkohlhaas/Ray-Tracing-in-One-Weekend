@@ -18,3 +18,4 @@ typedef struct quadrilateral
 } quadrilateral_t;
 
 quadrilateral_t *quad_new (point3_t const Q, vec3_t const u, vec3_t const v, material_t *mat);
+void             quad_print (quadrilateral_t *q, int indent_lvl);

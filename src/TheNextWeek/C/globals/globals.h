@@ -1,8 +1,8 @@
 #pragma once
 
-#include "bvh_node.h"
 #include "camera/camera.h"
-#include "hittable_list.h"
+#include "hittables/bvh_node.h"
+#include "hittables/hittable_list.h"
 #include "math/color.h"
 #include "math/vec3.h"
 

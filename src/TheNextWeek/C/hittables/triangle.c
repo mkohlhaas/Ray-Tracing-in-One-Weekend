@@ -79,7 +79,7 @@ triangle_new (point3_t const Q, vec3_t const u, vec3_t const v, material_t *mat)
   triangle_t *q = malloc (sizeof *q);
   if (q)
     {
-      q->hit_type = QUAD;
+      q->hit_type = TRIANGLE;
       q->hit      = triangle_hit;
       q->Q        = Q;
       q->u        = u;
@@ -94,4 +94,11 @@ triangle_new (point3_t const Q, vec3_t const u, vec3_t const v, material_t *mat)
       set_bounding_box (q);
     }
   return q;
+}
+
+void
+triangle_print (triangle_t *t, int indent_lvl)
+{
+  fprintf (stderr, "%*sTriangle (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", t->bbox.x_intvl.low, t->bbox.x_intvl.high,
+           t->bbox.y_intvl.low, t->bbox.y_intvl.high, t->bbox.z_intvl.low, t->bbox.z_intvl.high);
 }
