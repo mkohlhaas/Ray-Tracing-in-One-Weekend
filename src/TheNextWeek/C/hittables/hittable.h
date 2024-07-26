@@ -11,6 +11,8 @@ typedef enum
   BVH_NODE,
   TRIANGLE,
   QUAD,
+  TRANSLATE,
+  ROTATE,
 } hit_type_t;
 
 struct hit_record;

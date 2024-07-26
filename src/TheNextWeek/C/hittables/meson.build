@@ -4,4 +4,5 @@ source_files += files(
   'quad.c',
   'sphere.c',
   'triangle.c',
+  'translate.c',
 )

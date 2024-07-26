@@ -5,6 +5,7 @@
 #include "hittables/hittable_list.h"
 #include "hittables/quad.h"
 #include "hittables/sphere.h"
+#include "hittables/translate.h"
 #include "hittables/triangle.h"
 #include "math/interval.h"
 #include "ray/ray.h"
@@ -144,6 +145,10 @@ print_bvh_internal (bvh_node_t *node, int indent_lvl)
       break;
     case TRIANGLE:
       triangle_print ((triangle_t *)node, indent_lvl);
+      break;
+    case TRANSLATE:
+      auto object = ((translate_t *)node)->object;
+      print_bvh_internal ((bvh_node_t *)object, indent_lvl);
       break;
     case BVH_NODE:
       fprintf (stderr, "%*sBVH %p, (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", (void *)node, node->bbox.x_intvl.low,

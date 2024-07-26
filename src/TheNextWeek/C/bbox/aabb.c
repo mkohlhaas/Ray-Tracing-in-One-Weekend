@@ -166,3 +166,12 @@ aabb_longest_axis (aabb_t const *bbox)
       return intvl_size (bbox->y_intvl) > intvl_size (bbox->z_intvl) ? 1 : 2;
     }
 }
+
+aabb_t
+aabb_add_offset (aabb_t const bbox, vec3_t const offset)
+{
+  auto x_intvl_offset = intvl_add_displacement (bbox.x_intvl, offset.x);
+  auto y_intvl_offset = intvl_add_displacement (bbox.y_intvl, offset.y);
+  auto z_intvl_offset = intvl_add_displacement (bbox.z_intvl, offset.z);
+  return (aabb_t){ .x_intvl = x_intvl_offset, .y_intvl = y_intvl_offset, .z_intvl = z_intvl_offset };
+}

@@ -2,6 +2,7 @@
 
 #include "math/interval.h"
 #include "math/point.h"
+#include "vec3.h"
 
 typedef enum axis
 {
@@ -34,3 +35,4 @@ aabb_t     aabb_from_intervals (interval_t *x_intvl, interval_t *y_intvl, interv
 aabb_t     aabb_from_points (point3_t *p1, point3_t *p2);
 interval_t aabb_axis_interval (aabb_t const *bbox, axis_t n);
 int        aabb_longest_axis (aabb_t const *bbox);
+aabb_t     aabb_add_offset (aabb_t const bbox, vec3_t const offset);

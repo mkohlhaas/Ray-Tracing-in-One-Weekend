@@ -44,3 +44,9 @@ intvl_from_intvls (interval_t const a, interval_t const b)
   auto max = fmax (a.high, b.high);
   return (interval_t){ min, max };
 }
+
+interval_t
+intvl_add_displacement (interval_t const intvl, double displacement)
+{
+  return (interval_t){ intvl.low + displacement, intvl.high + displacement };
+}

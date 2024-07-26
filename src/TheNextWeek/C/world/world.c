@@ -1,6 +1,7 @@
 #include "world.h"
 #include "3rd_party/stb_ds.h"
 #include "cornell_box.h"
+#include "cornell_box_real.h"
 #include "cornell_box_with_blocks.h"
 #include "error/error.h"
 #include "globals/globals.h"
@@ -42,7 +43,7 @@ world_init (void)
   init_g_world ();
 
   // choose scene
-  switch (15)
+  switch (16)
     {
     case 1:
       bouncing_spheres ();
@@ -88,6 +89,9 @@ world_init (void)
       break;
     case 15:
       cornell_box_with_boxes ();
+      break;
+    case 16:
+      cornell_box_real ();
       break;
     }
 

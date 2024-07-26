@@ -17,3 +17,4 @@ bool       intvl_surrounds (interval_t intvl, double x);
 double     intvl_clamp (interval_t intvl, double x);
 interval_t intvl_expand (interval_t intvl, double delta);
 interval_t intvl_from_intvls (interval_t const a, interval_t const b);
+interval_t intvl_add_displacement (interval_t const a, double displacement);

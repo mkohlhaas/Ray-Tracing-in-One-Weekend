@@ -3,6 +3,7 @@ source_files += files(
   'checkered_spheres.c',
   'cornell_box.c',
   'cornell_box_with_blocks.c',
+  'cornell_box_real.c',
   'earth.c',
   'perlin_freq_spheres.c',
   'perlin_hermitian_spheres.c',
