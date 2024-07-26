@@ -19,11 +19,11 @@ camera_t g_camera;
 double g_min_t = 0.001;
 
 // camera settings
-double const   g_defocus_angle     = 0.0;                         /* defocus blur = depth of field */
-double const   g_focus_dist        = 20.0;                        /* focus distance = focus length (in our model) */
-double const   g_vfov              = 20.0;                        /* vertical field of view in degrees (edge to edge) */
-vec3_t const   g_vup               = { .x = 0, .y = 1, .z = 0 };  /* view up */
-point3_t const g_lookfrom          = { .x = 26, .y = 3, .z = 6 }; /* eye/camera */
-point3_t const g_lookat            = { .x = 0, .y = 2, .z = 0 };  /* look at vector */
+double const   g_defocus_angle     = 0.0;                        /* defocus blur = depth of field */
+double const   g_focus_dist        = 20.0;                       /* focus distance = focus length (in our model) */
+double const   g_vfov              = 40.0;                       /* vertical field of view in degrees (edge to edge) */
+vec3_t const   g_vup               = { .x = 0, .y = 1, .z = 0 }; /* view up */
+point3_t const g_lookfrom          = { .x = 278, .y = 278, .z = -800 }; /* eye/camera */
+point3_t const g_lookat            = { .x = 278, .y = 278, .z = 0 };    /* look at vector */
 int const      g_samples_per_pixel = 100;
 int const      g_max_depth         = 50;
