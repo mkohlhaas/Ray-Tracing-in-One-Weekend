@@ -25,5 +25,5 @@ double const   g_vfov              = 40.0;                       /* vertical fie
 vec3_t const   g_vup               = { .x = 0, .y = 1, .z = 0 }; /* view up */
 point3_t const g_lookfrom          = { .x = 278, .y = 278, .z = -800 }; /* eye/camera */
 point3_t const g_lookat            = { .x = 278, .y = 278, .z = 0 };    /* look at vector */
-int const      g_samples_per_pixel = 100;
-int const      g_max_depth         = 50;
+int const      g_samples_per_pixel = 1000;
+int const      g_max_depth         = 150;

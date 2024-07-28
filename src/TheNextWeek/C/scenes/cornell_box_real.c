@@ -5,6 +5,7 @@
 #include "materials/lambertian.h"
 #include "point.h"
 #include "quad.h"
+#include "rotate_y.h"
 #include "scenes/scenes.h"
 #include "translate.h"
 #include "vec3.h"
@@ -102,15 +103,15 @@ cornell_box_real ()
   CHECK_MEMORY;
   hittable_list_add (g_world_list, (hittable_t *)s);
 
-  // small box in foregroudn
-  auto box1 = box (&((point3_t){ .x = 130, .y = 0, .z = 65 }), &((point3_t){ .x = 295, .y = 165, .z = 230 }), box_mat);
-  auto box1_r = translate_new ((hittable_t *)box1, (vec3_t){ .x = 265, .y = 0, .z = 295 });
-  hittable_list_add (g_world_list, (hittable_t *)box1);
-  hittable_list_add (g_world_list, (hittable_t *)box1_r);
-
   // larger box in background
-  auto box2 = box (&((point3_t){ .x = 265, .y = 0, .z = 295 }), &((point3_t){ .x = 430, .y = 330, .z = 460 }), box_mat);
-  auto box2_r = translate_new ((hittable_t *)box2, (vec3_t){ .x = -265, .y = 0, .z = 0 });
-  hittable_list_add (g_world_list, (hittable_t *)box2);
-  hittable_list_add (g_world_list, (hittable_t *)box2_r);
+  auto box1   = box (&((point3_t){ .x = 0, .y = 0, .z = 0 }), &((point3_t){ .x = 165, .y = 330, .z = 165 }), box_mat);
+  auto box1_r = rotate_y_new ((hittable_t *)box1, 15);
+  auto box1_t = translate_new ((hittable_t *)box1_r, (vec3_t){ .x = 265, .y = 0, .z = 295 });
+  hittable_list_add (g_world_list, (hittable_t *)box1_t);
+
+  // smaller box in foreground
+  auto box2   = box (&((point3_t){ .x = 0, .y = 0, .z = 0 }), &((point3_t){ .x = 165, .y = 165, .z = 165 }), box_mat);
+  auto box2_r = rotate_y_new ((hittable_t *)box2, -18);
+  auto box2_t = translate_new ((hittable_t *)box2_r, (vec3_t){ .x = 130, .y = 0, .z = 65 });
+  hittable_list_add (g_world_list, (hittable_t *)box2_t);
 }
