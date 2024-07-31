@@ -1,7 +1,6 @@
 #include "hittables/hittable_list.h"
 #include "3rd_party/stb_ds.h"
 #include "bbox/aabb.h"
-#include "globals/globals.h"
 #include "math/interval.h"
 #include "ray/ray.h"
 
@@ -16,7 +15,7 @@ hittable_list_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_re
   bool             hit_anything   = false;
   for (uint i = 0; i < arrlen (l->hittables); i++)
     {
-      if (l->hittables[i]->hit (ray, l->hittables[i], (interval_t){ g_min_t, closest_so_far }, &obj_hit))
+      if (l->hittables[i]->hit (ray, l->hittables[i], (interval_t){ intvl.low, closest_so_far }, &obj_hit))
         {
           hit_anything = true;
           if (obj_hit.t < closest_so_far)

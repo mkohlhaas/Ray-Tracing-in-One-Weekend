@@ -13,6 +13,7 @@ typedef enum
   QUAD,
   TRANSLATE,
   ROTATE,
+  VOLUME,
 } hit_type_t;
 
 struct hit_record;

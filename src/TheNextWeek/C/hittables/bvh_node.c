@@ -1,9 +1,11 @@
 #include "hittables/bvh_node.h"
 #include "bbox/aabb.h"
+#include "constant_medium.h"
 #include "error/error.h"
 #include "hittables/hittable.h"
 #include "hittables/hittable_list.h"
 #include "hittables/quad.h"
+#include "hittables/rotate_y.h"
 #include "hittables/sphere.h"
 #include "hittables/translate.h"
 #include "hittables/triangle.h"
@@ -147,8 +149,16 @@ print_bvh_internal (bvh_node_t *node, int indent_lvl)
       triangle_print ((triangle_t *)node, indent_lvl);
       break;
     case TRANSLATE:
-      auto object = ((translate_t *)node)->object;
-      print_bvh_internal ((bvh_node_t *)object, indent_lvl);
+      auto trans = ((translate_t *)node)->object;
+      print_bvh_internal ((bvh_node_t *)trans, indent_lvl);
+      break;
+    case ROTATE:
+      auto rot = ((rotate_y_t *)node)->object;
+      print_bvh_internal ((bvh_node_t *)rot, indent_lvl);
+      break;
+    case VOLUME:
+      auto vol = ((volume_t *)node)->boundary;
+      print_bvh_internal ((bvh_node_t *)vol, indent_lvl);
       break;
     case BVH_NODE:
       fprintf (stderr, "%*sBVH %p, (%f %f) (%f %f) (%f %f)\n", indent_lvl, "", (void *)node, node->bbox.x_intvl.low,

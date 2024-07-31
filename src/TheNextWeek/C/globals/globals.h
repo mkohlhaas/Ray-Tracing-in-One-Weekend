@@ -19,6 +19,8 @@ extern camera_t g_camera;
 // minimum `t` value (see 9.3 Fixing Shadow Acne)
 extern double g_min_t;
 
+extern bool const g_enableDebug;
+
 // camera settings
 extern const double   g_defocus_angle; /* defocus blur = depth of field */
 extern const double   g_focus_dist;    /* focus distance = focus length (in our model) */

@@ -1,7 +1,8 @@
 source_files += files(
-    'dielectric.c',
-    'diffuse_light.c',
-    'lambertian.c',
-    'material.c',
-    'metal.c',
+  'dielectric.c',
+  'diffuse_light.c',
+  'isotropic.c',
+  'lambertian.c',
+  'material.c',
+  'metal.c',
 )
