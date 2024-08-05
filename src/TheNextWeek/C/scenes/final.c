@@ -13,7 +13,6 @@
 #include "quad.h"
 #include "sphere.h"
 #include "texture.h"
-#include "translate.h"
 #include "utils.h"
 #include "vec3.h"
 #include <math.h>
@@ -80,11 +79,11 @@ final ()
   hittable_list_add (g_world_list, (hittable_t *)quad1);
 
   // brown moving ball
-  auto center1_start    = (point3_t){ .x = 400, .y = 400, .z = 200 };
-  auto center1_end      = vec3_add (center1_start, (vec3_t){ .x = 30, .y = 0, .z = 0 });
-  auto sphere_material1 = lambertian_new ((color_t){ .r = 0.7, .g = 0.3, .b = 0.1 });
-  auto sphere1          = sphere_new (center1_start, center1_end, 50, (mat_t *)sphere_material1);
-  hittable_list_add (g_world_list, (hittable_t *)sphere1);
+  // auto center1_start    = (point3_t){ .x = 400, .y = 400, .z = 200 };
+  // auto center1_end      = vec3_add (center1_start, (vec3_t){ .x = 30, .y = 0, .z = 0 });
+  // auto sphere_material1 = lambertian_new ((color_t){ .r = 0.7, .g = 0.3, .b = 0.1 });
+  // auto sphere1          = sphere_new (center1_start, center1_end, 50, (mat_t *)sphere_material1);
+  // hittable_list_add (g_world_list, (hittable_t *)sphere1);
 
   // glass ball
   auto center2 = (point3_t){ .x = 260, .y = 150, .z = 45 };
@@ -100,10 +99,10 @@ final ()
   hittable_list_add (g_world_list, (hittable_t *)cm1);
 
   // earth
-  auto emat    = lambertian_new_with_tex ((texture_t *)image_texture_from_file ("earthmap.jpg"));
-  auto center4 = (point3_t){ .x = 400, .y = 200, .z = 400 };
-  auto sphere4 = sphere_new (center4, center4, 100, (mat_t *)emat);
-  hittable_list_add (g_world_list, (hittable_t *)sphere4);
+  // auto emat    = lambertian_new_with_tex ((texture_t *)image_texture_from_file ("earthmap.jpg"));
+  // auto center4 = (point3_t){ .x = 400, .y = 200, .z = 400 };
+  // auto sphere4 = sphere_new (center4, center4, 100, (mat_t *)emat);
+  // hittable_list_add (g_world_list, (hittable_t *)sphere4);
 
   // perlin ball
   auto perlin_tex = noise_phase_texture_new (0.2);
@@ -112,16 +111,15 @@ final ()
   hittable_list_add (g_world_list, (hittable_t *)sphere5);
 
   // ball cloud
-  auto      boxes2    = hittable_list_new ();
-  auto      lam_white = lambertian_new ((color_t){ .r = .73, .g = .73, .b = .73 });
-  int const ns        = 1000;
-  for (int j = 0; j < ns; j++)
-    {
-      auto random_center = vec3_random_min_max (0, 165);
-      hittable_list_add (boxes2, (hittable_t *)sphere_new (random_center, random_center, 10, (mat_t *)lam_white));
-    }
-  auto boxes2_bvh = bvh_node_new (boxes2->hittables);
-  // auto boxes2_r   = rotate_y_new ((hittable_t *)boxes2_bvh, 15); // rotate does not work
-  auto boxes2_t = translate_new ((hittable_t *)boxes2_bvh, (vec3_t){ .x = -100, .y = 270, .z = 395 });
-  hittable_list_add (g_world_list, (hittable_t *)boxes2_t);
+  // auto      boxes2    = hittable_list_new ();
+  // auto      lam_white = lambertian_new ((color_t){ .r = .73, .g = .73, .b = .73 });
+  // int const ns        = 1000;
+  // for (int j = 0; j < ns; j++)
+  //   {
+  //     auto random_center = vec3_random_min_max (0, 165);
+  //     hittable_list_add (boxes2, (hittable_t *)sphere_new (random_center, random_center, 10, (mat_t *)lam_white));
+  //   }
+  // auto boxes2_bvh = bvh_node_new (boxes2->hittables);
+  // auto boxes2_t = translate_new ((hittable_t *)boxes2_bvh, (vec3_t){ .x = -100, .y = 270, .z = 395 });
+  // hittable_list_add (g_world_list, (hittable_t *)boxes2_t);
 }
