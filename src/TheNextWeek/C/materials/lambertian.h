@@ -1,8 +1,8 @@
 #pragma once
 
-#include "materials/material.h"
-#include "math/color.h"
-#include "textures/texture.h"
+#include "color.h"
+#include "material.h"
+#include "texture.h"
 
 // `lambertian` is a `material`.
 typedef struct lambertian

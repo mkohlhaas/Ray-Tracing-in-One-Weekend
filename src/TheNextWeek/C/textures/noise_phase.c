@@ -1,10 +1,10 @@
-#include "textures/noise_phase.h"
-#include "error/error.h"
-#include "math/color.h"
-#include "math/vec3.h"
-#include "noise/perlin_phase.h"
+#include "noise_phase.h"
+#include "color.h"
+#include "error.h"
+#include "perlin_phase.h"
 #include "point.h"
-#include "textures/texture.h"
+#include "texture.h"
+#include "vec3.h"
 #include <math.h>
 
 static color_t

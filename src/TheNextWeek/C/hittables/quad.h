@@ -1,6 +1,6 @@
 #pragma once
 
-#include "materials/material.h"
+#include "material.h"
 
 // `quad_t` is a `hittable_t`
 typedef struct quadrilateral

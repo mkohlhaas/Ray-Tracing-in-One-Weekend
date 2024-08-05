@@ -8,17 +8,19 @@ ninja
 feh
 ```
 
-- Don't render lights!
-- Intel denoising
-- bump mapping
-- check return values of mallocs (are they leading to immediate failure or returned back to calling functions?)
-- reduce malloc calls!
+- Includes without full path ?
+- dielectric with texture (for coloring use solid_color)
+- Camera settings for every scene ?
+- Bump mapping
+- Intel denoising / higher resolution rendering and downsizing with image magick
+- Check return values of mallocs (are they leading to immediate failure or returned back to calling functions?)
+- Reduce malloc calls!
   - maybe in hit_fn_t ray should be a pointer
 - Notes:
-  - inline seems to be `obsolete`
-    - disassembly code in gdb with 'layout asm'
-    - compiler in-lines in release build automagically
-  - performance debug : release = 2 : 1 (release build needs half of debug's execution time)
+  - Inline seems to be `obsolete`
+    - Disassembly code in gdb with 'layout asm'
+    - Compiler in-lines in release build automagically
+  - Performance debug : release = 2 : 1 (release build needs half of debug's execution time)
   - rr debug
     - [Debugging with rr: Start at the End](https://www.youtube.com/watch?v=S6EQiSu_zNI&t=373s&pp=ygUTcnIgc3RhcnQgYXQgdGhlIGVuZA%3D%3D)
     - [rr Time-Traveling Debugger](https://www.youtube.com/watch?v=eOrpuc89baE)

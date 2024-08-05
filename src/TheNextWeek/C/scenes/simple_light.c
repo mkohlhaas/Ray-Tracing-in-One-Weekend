@@ -1,15 +1,15 @@
-#include "scenes/simple_light.h"
+#include "simple_light.h"
 #include "color.h"
 #include "diffuse_light.h"
-#include "hittables/hittable_list.h"
-#include "hittables/sphere.h"
-#include "materials/lambertian.h"
+#include "hittable_list.h"
+#include "lambertian.h"
 #include "noise_phase.h"
 #include "point.h"
 #include "quad.h"
-#include "scenes/scenes.h"
+#include "scenes.h"
+#include "sphere.h"
 #include "vec3.h"
-#include "world/world.h"
+#include "world.h"
 
 void
 simple_light ()

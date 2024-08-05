@@ -1,6 +1,6 @@
 #pragma once
 
-#include "error/error.h"
+#include "error.h"
 
 #define CHECK_MEMORY                                                                                                   \
   if (!m || !s)                                                                                                        \

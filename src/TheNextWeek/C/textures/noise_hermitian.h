@@ -1,7 +1,7 @@
 #pragma once
 
-#include "noise/perlin_hermitian.h"
-#include "textures/texture.h"
+#include "perlin_hermitian.h"
+#include "texture.h"
 
 typedef struct noise_hermitian_texture
 {

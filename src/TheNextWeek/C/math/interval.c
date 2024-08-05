@@ -1,4 +1,4 @@
-#include "math/interval.h"
+#include "interval.h"
 #include <math.h>
 
 interval_t const intvl_empty    = { +INFINITY, -INFINITY };

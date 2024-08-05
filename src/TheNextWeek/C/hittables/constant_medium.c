@@ -4,10 +4,7 @@
 #include "globals.h"
 #include "hittable.h"
 #include "interval.h"
-#include "isotropic.h"
-#include "material.h"
 #include "ray.h"
-#include "texture.h"
 #include "utils.h"
 #include "vec3.h"
 #include <math.h>

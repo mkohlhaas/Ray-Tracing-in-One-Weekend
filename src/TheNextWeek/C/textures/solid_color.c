@@ -1,5 +1,5 @@
-#include "textures/solid_color.h"
-#include "error/error.h"
+#include "solid_color.h"
+#include "error.h"
 #include <stdlib.h>
 
 static color_t

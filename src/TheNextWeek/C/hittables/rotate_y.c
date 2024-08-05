@@ -1,3 +1,7 @@
+// DO NOT USE!
+// Does not work!
+// Bounding box calculation seems to be busted
+
 #include "rotate_y.h"
 #include "aabb.h"
 #include "hittable.h"

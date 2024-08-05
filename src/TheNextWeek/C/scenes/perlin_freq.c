@@ -1,16 +1,16 @@
-#include "hittables/hittable_list.h"
-#include "hittables/sphere.h"
-#include "materials/lambertian.h"
+#include "hittable_list.h"
+#include "lambertian.h"
 #include "noise_freq.h"
-#include "scenes/scenes.h"
-#include "world/world.h"
+#include "scenes.h"
+#include "sphere.h"
+#include "world.h"
 
 void
 perlin_freq_spheres ()
 {
   // ground
   auto center = (point3_t){ .x = 0.0, .y = -1000.0, .z = 0.0 };
-  auto tex    = noise_freq_texture_new ();
+  auto tex    = noise_freq_texture_new (1.5);
   auto m      = lambertian_new_with_tex ((texture_t *)tex);
   auto s      = sphere_new (center, center, 1000, (mat_t *)m);
   CHECK_MEMORY;
@@ -18,7 +18,7 @@ perlin_freq_spheres ()
 
   // sphere
   center = (point3_t){ .x = 3.0, .y = 3.0, .z = -4.0 };
-  tex    = noise_freq_texture_new ();
+  tex    = noise_freq_texture_new (1.5);
   m      = lambertian_new_with_tex ((texture_t *)tex);
   s      = sphere_new (center, center, 3, (mat_t *)m);
   CHECK_MEMORY;

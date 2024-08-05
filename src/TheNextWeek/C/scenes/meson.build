@@ -6,6 +6,7 @@ source_files += files(
   'cornell_box_smoke.c',
   'cornell_box_with_blocks.c',
   'earth.c',
+  'final.c',
   'perlin_freq_spheres.c',
   'perlin_hermitian_spheres.c',
   'perlin_lattice_spheres.c',

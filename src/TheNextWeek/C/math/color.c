@@ -1,6 +1,6 @@
-#include "math/color.h"
-#include "math/interval.h"
-#include "utils/utils.h"
+#include "color.h"
+#include "interval.h"
+#include "utils.h"
 
 void
 color_write (FILE *out, color_t const pixel)

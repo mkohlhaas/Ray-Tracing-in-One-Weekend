@@ -1,9 +1,9 @@
-#include "hittables/hittable_list.h"
-#include "hittables/sphere.h"
-#include "materials/lambertian.h"
-#include "scenes/scenes.h"
-#include "textures/noise_smooth.h"
-#include "world/world.h"
+#include "hittable_list.h"
+#include "lambertian.h"
+#include "noise_smooth.h"
+#include "scenes.h"
+#include "sphere.h"
+#include "world.h"
 
 void
 perlin_smooth_spheres ()

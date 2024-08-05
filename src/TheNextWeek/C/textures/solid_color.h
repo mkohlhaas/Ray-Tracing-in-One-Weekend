@@ -1,7 +1,7 @@
 #pragma once
 
-#include "math/color.h"
-#include "textures/texture.h"
+#include "color.h"
+#include "texture.h"
 
 // `solid_color` is a `texture`.
 typedef struct solid_color

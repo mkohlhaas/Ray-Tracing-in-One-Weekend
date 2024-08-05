@@ -1,7 +1,7 @@
-#include "noise/perlin.h"
-#include "error/error.h"
-#include "math/point.h"
-#include "utils/utils.h"
+#include "perlin.h"
+#include "error.h"
+#include "point.h"
+#include "utils.h"
 #include <stdlib.h>
 
 static void

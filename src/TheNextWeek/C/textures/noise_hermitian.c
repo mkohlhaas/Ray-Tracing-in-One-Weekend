@@ -1,9 +1,9 @@
-#include "textures/noise_hermitian.h"
-#include "error/error.h"
-#include "math/color.h"
-#include "math/vec3.h"
-#include "noise/perlin_hermitian.h"
-#include "textures/texture.h"
+#include "noise_hermitian.h"
+#include "color.h"
+#include "error.h"
+#include "perlin_hermitian.h"
+#include "texture.h"
+#include "vec3.h"
 
 static color_t
 value (texture_t *tex, double u, double v, point3_t const *point)

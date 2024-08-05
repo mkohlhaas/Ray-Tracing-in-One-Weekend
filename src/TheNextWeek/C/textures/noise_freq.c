@@ -1,10 +1,10 @@
-#include "textures/noise_freq.h"
-#include "error/error.h"
-#include "math/color.h"
-#include "math/vec3.h"
-#include "noise/perlin_freq.h"
+#include "noise_freq.h"
+#include "color.h"
+#include "error.h"
+#include "perlin_freq.h"
 #include "point.h"
-#include "textures/texture.h"
+#include "texture.h"
+#include "vec3.h"
 
 static color_t
 value (texture_t *tex, double u, double v, point3_t const *point)

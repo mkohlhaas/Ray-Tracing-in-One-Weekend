@@ -1,10 +1,10 @@
-#include "ray/ray.h"
-#include "3rd_party/stb_ds.h"
-#include "globals/globals.h"
-#include "materials/material.h"
-#include "math/color.h"
-#include "math/interval.h"
-#include "utils/utils.h"
+#include "ray.h"
+#include "color.h"
+#include "globals.h"
+#include "interval.h"
+#include "material.h"
+#include "stb_ds.h"
+#include "utils.h"
 #include "vec3.h"
 #include <math.h>
 

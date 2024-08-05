@@ -1,8 +1,8 @@
 #pragma once
 
-#include "bbox/aabb.h"
-#include "math/interval.h"
-#include "math/vec3.h"
+#include "aabb.h"
+#include "interval.h"
+#include "vec3.h"
 
 typedef enum
 {

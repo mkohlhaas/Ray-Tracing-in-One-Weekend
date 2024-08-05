@@ -1,6 +1,6 @@
-#include "materials/lambertian.h"
-#include "textures/solid_color.h"
-#include "textures/texture.h"
+#include "lambertian.h"
+#include "solid_color.h"
+#include "texture.h"
 #include <stdbool.h>
 #include <stdlib.h>
 

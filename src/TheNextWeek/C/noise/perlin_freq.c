@@ -1,6 +1,6 @@
-#include "noise/perlin_freq.h"
-#include "error/error.h"
-#include "utils/utils.h"
+#include "perlin_freq.h"
+#include "error.h"
+#include "utils.h"
 #include <math.h>
 
 static void

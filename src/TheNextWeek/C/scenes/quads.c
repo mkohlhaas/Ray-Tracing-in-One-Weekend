@@ -1,9 +1,9 @@
-#include "scenes/quads.h"
-#include "hittables/quad.h"
-#include "materials/lambertian.h"
-#include "math/color.h"
-#include "scenes/scenes.h"
-#include "world/world.h"
+#include "quads.h"
+#include "color.h"
+#include "lambertian.h"
+#include "quad.h"
+#include "scenes.h"
+#include "world.h"
 
 void
 quads ()

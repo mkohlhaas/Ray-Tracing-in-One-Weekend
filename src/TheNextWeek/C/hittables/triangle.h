@@ -2,7 +2,7 @@
 
 // A triangle is just a quad with a different is_interior function.
 
-#include "materials/material.h"
+#include "material.h"
 
 // `triangle_t` is a `hittable_t`
 typedef struct triangle

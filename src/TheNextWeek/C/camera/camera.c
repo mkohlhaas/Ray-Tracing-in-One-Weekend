@@ -1,10 +1,10 @@
-#include "camera/camera.h"
-#include "args/args.h"
-#include "globals/globals.h"
-#include "math/vec3.h"
-#include "ray/ray.h"
-#include "utils/utils.h"
-#include "world/world.h"
+#include "camera.h"
+#include "args.h"
+#include "globals.h"
+#include "ray.h"
+#include "utils.h"
+#include "vec3.h"
+#include "world.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -89,10 +89,10 @@ render_image_body (FILE *output_file)
           color_t pixel_col = black;
           for (int sample = 0; sample < g_camera.samples_per_pixel; sample++)
             {
-              auto ray = random_ray (g_camera, row, col);
-              // auto ray_col = ray_color (ray, g_camera.max_depth, (hittable_t *)g_world_bvh);
-              auto ray_col = ray_color (ray, g_camera.max_depth, (hittable_t *)g_world_list);
-              pixel_col    = vec3_add (pixel_col, ray_col);
+              auto ray     = random_ray (g_camera, row, col);
+              auto ray_col = ray_color (ray, g_camera.max_depth, (hittable_t *)g_world_bvh);
+              // auto ray_col = ray_color (ray, g_camera.max_depth, (hittable_t *)g_world_list);
+              pixel_col = vec3_add (pixel_col, ray_col);
             }
           auto color = vec3_divt (pixel_col, g_camera.samples_per_pixel);
           color_write (output_file, color);

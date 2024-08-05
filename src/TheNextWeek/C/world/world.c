@@ -1,26 +1,27 @@
 #include "world.h"
-#include "3rd_party/stb_ds.h"
+#include "bounding_spheres.h"
+#include "bvh_node.h"
+#include "checkered_spheres.h"
 #include "cornell_box.h"
 #include "cornell_box_real.h"
 #include "cornell_box_smoke.h"
 #include "cornell_box_with_blocks.h"
-#include "error/error.h"
-#include "globals/globals.h"
-#include "hittables/bvh_node.h"
-#include "hittables/hittable_list.h"
-#include "scenes/bounding_spheres.h"
-#include "scenes/checkered_spheres.h"
-#include "scenes/earth.h"
-#include "scenes/perlin_freq_spheres.h"
-#include "scenes/perlin_hermitian_spheres.h"
-#include "scenes/perlin_lattice_spheres.h"
-#include "scenes/perlin_phase_spheres.h"
-#include "scenes/perlin_smooth_spheres.h"
-#include "scenes/perlin_spheres.h"
-#include "scenes/perlin_turb_spheres.h"
-#include "scenes/quads.h"
-#include "scenes/simple_light.h"
-#include "scenes/triangles.h"
+#include "earth.h"
+#include "error.h"
+#include "final.h"
+#include "globals.h"
+#include "hittable_list.h"
+#include "perlin_freq_spheres.h"
+#include "perlin_hermitian_spheres.h"
+#include "perlin_lattice_spheres.h"
+#include "perlin_phase_spheres.h"
+#include "perlin_smooth_spheres.h"
+#include "perlin_spheres.h"
+#include "perlin_turb_spheres.h"
+#include "quads.h"
+#include "simple_light.h"
+#include "stb_ds.h"
+#include "triangles.h"
 
 static void
 init_g_world ()
@@ -44,7 +45,7 @@ world_init (void)
   init_g_world ();
 
   // choose scene
-  switch (17)
+  switch (18)
     {
     case 1:
       bouncing_spheres ();
@@ -96,6 +97,9 @@ world_init (void)
       break;
     case 17:
       cornell_box_smoke ();
+      break;
+    case 18:
+      final ();
       break;
     }
 

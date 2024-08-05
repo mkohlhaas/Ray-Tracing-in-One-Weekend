@@ -1,8 +1,8 @@
-#include "hittables/triangle.h"
-#include "bbox/aabb.h"
-#include "hittables/hittable.h"
-#include "math/interval.h"
-#include "math/vec3.h"
+#include "triangle.h"
+#include "aabb.h"
+#include "hittable.h"
+#include "interval.h"
+#include "vec3.h"
 #include <math.h>
 #include <stdlib.h>
 

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "args/args.h"
-#include "camera/camera.h"
-#include "error/error.h"
-#include "world/world.h"
+#include "args.h"
+#include "camera.h"
+#include "error.h"
+#include "world.h"
 #include <stdio.h>
 #define STB_DS_IMPLEMENTATION
-#include "3rd_party/stb_ds.h"
+#include "stb_ds.h"
 
 static FILE *output_file = NULL;
 

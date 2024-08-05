@@ -1,7 +1,7 @@
 #pragma once
 
-#include "hittables/bvh_node.h"
-#include "hittables/hittable_list.h"
+#include "bvh_node.h"
+#include "hittable_list.h"
 
 // global world
 extern hittable_list_t *g_world_list;

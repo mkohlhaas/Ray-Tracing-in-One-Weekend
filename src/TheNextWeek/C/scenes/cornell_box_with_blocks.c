@@ -1,13 +1,13 @@
 #include "cornell_box_with_blocks.h"
 #include "color.h"
 #include "diffuse_light.h"
-#include "hittables/hittable_list.h"
-#include "materials/lambertian.h"
+#include "hittable_list.h"
+#include "lambertian.h"
 #include "point.h"
 #include "quad.h"
-#include "scenes/scenes.h"
+#include "scenes.h"
 #include "vec3.h"
-#include "world/world.h"
+#include "world.h"
 #include <math.h>
 
 // Returns the 3D box (six sides) that contains the two opposite vertices a & b.

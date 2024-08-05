@@ -1,7 +1,7 @@
 #pragma once
 
-#include "math/interval.h"
-#include "math/point.h"
+#include "interval.h"
+#include "point.h"
 #include "vec3.h"
 
 typedef enum axis

@@ -1,5 +1,5 @@
-#include "materials/metal.h"
-#include "math/color.h"
+#include "metal.h"
+#include "color.h"
 #include <stdbool.h>
 #include <stdlib.h>
 

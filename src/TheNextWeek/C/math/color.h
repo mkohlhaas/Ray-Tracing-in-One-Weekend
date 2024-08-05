@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/vec3.h"
+#include "vec3.h"
 #include <stdio.h>
 
 typedef vec3_t color_t;

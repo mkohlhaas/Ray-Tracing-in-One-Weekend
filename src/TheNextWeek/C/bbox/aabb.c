@@ -1,8 +1,8 @@
-#include "bbox/aabb.h"
-#include "error/error.h"
-#include "math/interval.h"
-#include "math/point.h"
-#include "ray/ray.h"
+#include "aabb.h"
+#include "error.h"
+#include "interval.h"
+#include "point.h"
+#include "ray.h"
 #include <math.h>
 
 aabb_t const aabb_empty = {

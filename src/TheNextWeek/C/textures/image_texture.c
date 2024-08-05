@@ -1,9 +1,9 @@
-#include "textures/image_texture.h"
-#include "error/error.h"
-#include "image/image.h"
-#include "math/color.h"
-#include "math/interval.h"
-#include "textures/texture.h"
+#include "image_texture.h"
+#include "color.h"
+#include "error.h"
+#include "image.h"
+#include "interval.h"
+#include "texture.h"
 #include <stdlib.h>
 
 static color_t

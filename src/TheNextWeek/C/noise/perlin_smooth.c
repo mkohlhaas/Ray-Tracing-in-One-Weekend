@@ -1,6 +1,6 @@
-#include "error/error.h"
-#include "noise/perlin_smooth.h"
-#include "utils/utils.h"
+#include "perlin_smooth.h"
+#include "error.h"
+#include "utils.h"
 #include <math.h>
 
 static void

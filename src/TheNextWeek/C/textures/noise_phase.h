@@ -1,7 +1,7 @@
 #pragma once
 
-#include "noise/perlin_phase.h"
-#include "textures/texture.h"
+#include "perlin_phase.h"
+#include "texture.h"
 
 typedef struct noise_phase_texture
 {

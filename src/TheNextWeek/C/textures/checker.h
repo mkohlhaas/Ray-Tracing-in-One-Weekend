@@ -1,6 +1,6 @@
 #pragma once
 
-#include "textures/texture.h"
+#include "texture.h"
 
 // `checker_texture` is a `texture`.
 typedef struct checker_texture

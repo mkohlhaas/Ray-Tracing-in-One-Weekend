@@ -1,9 +1,9 @@
 #pragma once
 
-#include "bbox/aabb.h"
-#include "camera/camera.h"
-#include "hittables/hittable.h"
-#include "math/color.h"
+#include "aabb.h"
+#include "camera.h"
+#include "color.h"
+#include "hittable.h"
 
 typedef struct ray
 {

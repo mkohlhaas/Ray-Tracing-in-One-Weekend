@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/color.h"
+#include "color.h"
 
 double  degrees_to_radians (double degrees);
 double  random_double (void);

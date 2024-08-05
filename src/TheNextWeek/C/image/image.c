@@ -1,9 +1,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_FAILURE_USERMSG
 
-#include "image/image.h"
-#include "3rd_party/stb_image.h"
-#include "error/error.h"
+#include "image.h"
+#include "error.h"
+#include "stb_image.h"
 #include <stdlib.h>
 
 static unsigned char

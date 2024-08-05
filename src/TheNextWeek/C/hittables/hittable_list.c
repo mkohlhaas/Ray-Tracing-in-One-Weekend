@@ -1,8 +1,8 @@
-#include "hittables/hittable_list.h"
-#include "3rd_party/stb_ds.h"
-#include "bbox/aabb.h"
-#include "math/interval.h"
-#include "ray/ray.h"
+#include "hittable_list.h"
+#include "aabb.h"
+#include "interval.h"
+#include "ray.h"
+#include "stb_ds.h"
 
 // Returns `true` if something got hit.
 // Returns `hit_record` in `rec` if something got hit.
@@ -17,9 +17,9 @@ hittable_list_hit (ray_t const ray, hittable_t *object, interval_t intvl, hit_re
     {
       if (l->hittables[i]->hit (ray, l->hittables[i], (interval_t){ intvl.low, closest_so_far }, &obj_hit))
         {
-          hit_anything = true;
           if (obj_hit.t < closest_so_far)
             {
+              hit_anything   = true;
               *rec           = obj_hit;
               closest_so_far = rec->t;
             }

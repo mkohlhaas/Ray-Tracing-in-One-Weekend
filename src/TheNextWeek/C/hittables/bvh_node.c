@@ -1,16 +1,16 @@
-#include "hittables/bvh_node.h"
-#include "bbox/aabb.h"
+#include "bvh_node.h"
+#include "aabb.h"
 #include "constant_medium.h"
-#include "error/error.h"
-#include "hittables/hittable.h"
-#include "hittables/hittable_list.h"
-#include "hittables/quad.h"
-#include "hittables/rotate_y.h"
-#include "hittables/sphere.h"
-#include "hittables/translate.h"
-#include "hittables/triangle.h"
-#include "math/interval.h"
-#include "ray/ray.h"
+#include "error.h"
+#include "hittable.h"
+#include "hittable_list.h"
+#include "interval.h"
+#include "quad.h"
+#include "ray.h"
+#include "rotate_y.h"
+#include "sphere.h"
+#include "translate.h"
+#include "triangle.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -80,7 +80,7 @@ box_z_compare (const void *a, const void *b)
 static bvh_node_t *
 bvh_node_new_hierarchy (hittable_t **objects, size_t start, size_t end)
 {
-  // calc bounding box
+  // calculate bounding box
   auto bbox = aabb_empty;
   for (size_t i = start; i < end; i++)
     {

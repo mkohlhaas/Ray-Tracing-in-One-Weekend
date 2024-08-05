@@ -1,8 +1,8 @@
 #pragma once
 
-#include "3rd_party/stb_ds.h"
-#include "bbox/aabb.h"
-#include "hittables/hittable.h"
+#include "aabb.h"
+#include "hittable.h"
+#include "stb_ds.h"
 
 // `hittable_list_t` is a `hittable_t`
 typedef struct hittable_list

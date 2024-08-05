@@ -1,7 +1,7 @@
-#include "noise/perlin_phase.h"
-#include "error/error.h"
+#include "perlin_phase.h"
+#include "error.h"
 #include "point.h"
-#include "utils/utils.h"
+#include "utils.h"
 #include "vec3.h"
 #include <math.h>
 

@@ -1,6 +1,6 @@
-#include "textures/checker.h"
-#include "error/error.h"
-#include "textures/solid_color.h"
+#include "checker.h"
+#include "error.h"
+#include "solid_color.h"
 #include <math.h>
 #include <stdlib.h>
 

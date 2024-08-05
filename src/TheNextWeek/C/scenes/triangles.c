@@ -1,9 +1,9 @@
-#include "scenes/triangles.h"
-#include "hittables/triangle.h"
-#include "materials/lambertian.h"
-#include "math/color.h"
-#include "scenes/scenes.h"
-#include "world/world.h"
+#include "triangles.h"
+#include "color.h"
+#include "lambertian.h"
+#include "scenes.h"
+#include "triangle.h"
+#include "world.h"
 
 void
 triangles ()

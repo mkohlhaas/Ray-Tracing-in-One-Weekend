@@ -1,5 +1,5 @@
-#include "args/args.h"
-#include "utils/utils.h"
+#include "args.h"
+#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

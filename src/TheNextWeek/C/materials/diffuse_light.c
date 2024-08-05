@@ -1,5 +1,5 @@
-#include "materials/diffuse_light.h"
-#include "math/color.h"
+#include "diffuse_light.h"
+#include "color.h"
 #include "solid_color.h"
 #include "texture.h"
 #include <stdbool.h>

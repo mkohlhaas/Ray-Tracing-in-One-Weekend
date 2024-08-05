@@ -1,10 +1,10 @@
 #pragma once
 
-#include "camera/camera.h"
-#include "hittables/bvh_node.h"
-#include "hittables/hittable_list.h"
-#include "math/color.h"
-#include "math/vec3.h"
+#include "bvh_node.h"
+#include "camera.h"
+#include "color.h"
+#include "hittable_list.h"
+#include "vec3.h"
 
 // global world
 extern hittable_list_t *g_world_list;

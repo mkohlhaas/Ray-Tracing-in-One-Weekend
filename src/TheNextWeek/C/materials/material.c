@@ -1,9 +1,9 @@
-#include "materials/material.h"
-#include "error/error.h"
+#include "material.h"
+#include "error.h"
 #include "hittable.h"
-#include "hittables/quad.h"
-#include "hittables/sphere.h"
-#include "hittables/triangle.h"
+#include "quad.h"
+#include "sphere.h"
+#include "triangle.h"
 
 material_t *
 get_material (hittable_t *object)

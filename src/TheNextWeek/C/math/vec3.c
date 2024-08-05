@@ -1,5 +1,5 @@
-#include "math/vec3.h"
-#include "utils/utils.h"
+#include "vec3.h"
+#include "utils.h"
 #include <math.h>
 #include <stdio.h>
 

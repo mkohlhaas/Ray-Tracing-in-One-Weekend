@@ -1,8 +1,8 @@
 #pragma once
 
-#include "bbox/aabb.h"
-#include "materials/material.h"
-#include "math/vec3.h"
+#include "aabb.h"
+#include "material.h"
+#include "vec3.h"
 #include <stdbool.h>
 
 // `sphere_t` is a `hittable_t`

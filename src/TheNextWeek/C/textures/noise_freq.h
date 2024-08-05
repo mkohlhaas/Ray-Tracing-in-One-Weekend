@@ -1,7 +1,7 @@
 #pragma once
 
-#include "noise/perlin_freq.h"
-#include "textures/texture.h"
+#include "perlin_freq.h"
+#include "texture.h"
 
 typedef struct noise_freq_texture
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/point.h"
+#include "point.h"
 
 typedef struct perlin
 {

@@ -1,8 +1,8 @@
-#include "hittables/sphere.h"
-#include "bbox/aabb.h"
-#include "math/point.h"
-#include "math/vec3.h"
-#include "utils/utils.h"
+#include "sphere.h"
+#include "aabb.h"
+#include "point.h"
+#include "utils.h"
+#include "vec3.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

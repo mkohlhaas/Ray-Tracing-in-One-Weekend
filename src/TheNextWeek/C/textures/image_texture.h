@@ -1,7 +1,7 @@
 #pragma once
 
-#include "image/image.h"
-#include "textures/texture.h"
+#include "image.h"
+#include "texture.h"
 
 typedef struct image_texture
 {

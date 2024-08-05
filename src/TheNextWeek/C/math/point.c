@@ -1,4 +1,4 @@
-#include "math/point.h"
+#include "point.h"
 
 // global point
 const point3_t origin = { .x = 0, .y = 0, .z = 0 };

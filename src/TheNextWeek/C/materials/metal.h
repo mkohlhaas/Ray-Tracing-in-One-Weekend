@@ -1,6 +1,6 @@
 #pragma once
 
-#include "materials/material.h"
+#include "material.h"
 
 typedef struct metal
 {

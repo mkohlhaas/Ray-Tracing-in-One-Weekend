@@ -1,6 +1,6 @@
-#include "noise/perlin_lattice.h"
-#include "error/error.h"
-#include "utils/utils.h"
+#include "perlin_lattice.h"
+#include "error.h"
+#include "utils.h"
 #include "vec3.h"
 #include <math.h>
 

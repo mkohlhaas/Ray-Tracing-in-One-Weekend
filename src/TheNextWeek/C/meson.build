@@ -1,8 +1,8 @@
 project(
-    'raytracer',
-    'c',
-    version: '0.1',
-    default_options: ['warning_level=3', 'werror=false', 'c_std=gnu2x'],
+  'raytracer',
+  'c',
+  version: '0.1',
+  default_options: ['warning_level=3', 'werror=false', 'c_std=gnu2x'],
 )
 
 # filesystem module
@@ -35,28 +35,28 @@ subdir('utils')
 subdir('world')
 
 incdir = include_directories(
-    '3rd_party',
-    'args',
-    'bbox',
-    'camera',
-    'error',
-    'globals',
-    'hittables',
-    'image',
-    'materials',
-    'math',
-    'noise',
-    'ray',
-    'scenes',
-    'textures',
-    'utils',
-    'world',
+  '3rd_party',
+  'args',
+  'bbox',
+  'camera',
+  'error',
+  'globals',
+  'hittables',
+  'image',
+  'materials',
+  'math',
+  'noise',
+  'ray',
+  'scenes',
+  'textures',
+  'utils',
+  'world',
 )
 
 executable(
-    'raytracer',
-    source_files,
-    dependencies: [m_dep],
-    include_directories: incdir,
-    install: false,
+  'raytracer',
+  source_files,
+  dependencies: [m_dep],
+  include_directories: incdir,
+  install: false,
 )
