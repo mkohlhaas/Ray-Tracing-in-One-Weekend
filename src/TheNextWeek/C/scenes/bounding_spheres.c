@@ -1,5 +1,6 @@
 #include "bounding_spheres.h"
 #include "checker.h"
+#include "color.h"
 #include "dielectric.h"
 #include "hittable_list.h"
 #include "lambertian.h"
@@ -37,7 +38,7 @@ static void
 create_big_spheres ()
 {
   {
-    auto m = dielectric_new (1.50);
+    auto m = dielectric_from_color (1.50, light_blue);
     auto c = (point3_t){ .x = 0, .y = 1, .z = 0 };
     auto s = sphere_new (c, c, 1.0, (mat_t *)m);
     CHECK_MEMORY;
@@ -101,7 +102,7 @@ create_small_spheres ()
               else
                 {
                   // glass
-                  auto m = dielectric_new (1.5);
+                  auto m = dielectric_from_color (1.5, white);
                   auto s = sphere_new (c_start, c_start, 0.2, (material_t *)m);
                   CHECK_MEMORY;
                   hittable_list_add (g_world_list, (hittable_t *)s);

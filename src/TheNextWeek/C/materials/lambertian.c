@@ -36,14 +36,7 @@ lambertian_emit (hit_record_t const *rec)
 lambertian_t *
 lambertian_new (color_t albedo)
 {
-  lambertian_t *lam = malloc (sizeof (*lam));
-  if (lam)
-    {
-      lam->scatter = lambertian_scatter;
-      lam->emit    = lambertian_emit;
-      lam->tex     = (texture_t *)solid_color_from_color (albedo);
-    }
-  return lam;
+  return lambertian_new_with_tex ((texture_t *)solid_color_from_color (albedo));
 }
 
 // Returns `NULL` if memory allocation failed.

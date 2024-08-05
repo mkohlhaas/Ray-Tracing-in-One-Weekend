@@ -1,5 +1,7 @@
 #include "materials/dielectric.h"
 #include "color.h"
+#include "solid_color.h"
+#include "texture.h"
 #include "utils/utils.h"
 #include <math.h>
 #include <stdbool.h>
@@ -38,10 +40,11 @@ dielectric_scatter (ray_t const ray, hit_record_t const *rec, color_t *attenuati
     }
 
   // return values
-  *attenuation = white; // no attenuation
+  // *attenuation = white; // no attenuation
+  *attenuation = diel->tex->value (diel->tex, rec->u, rec->v, &rec->p);
   *scattered   = (ray_t){ rec->p, direction, ray.tm };
 
-  return true;          // material, not light source
+  return true; // material, not light source
 }
 
 static color_t
@@ -54,7 +57,7 @@ dielectric_emit (hit_record_t const *rec)
 
 // Returns `NULL` if memory allocation failed.
 dielectric_t *
-dielectric_new (double refraction_index)
+dielectric_new_with_tex (double refraction_index, texture_t *tex)
 {
   dielectric_t *d = malloc (sizeof (*d));
   if (d)
@@ -62,6 +65,13 @@ dielectric_new (double refraction_index)
       d->scatter          = dielectric_scatter;
       d->emit             = dielectric_emit;
       d->refraction_index = refraction_index;
+      d->tex              = tex;
     }
   return d;
+}
+
+dielectric_t *
+dielectric_from_color (double refraction_index, color_t albedo)
+{
+  return dielectric_new_with_tex (refraction_index, (texture_t *)solid_color_from_color (albedo));
 }

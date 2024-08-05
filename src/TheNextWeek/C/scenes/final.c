@@ -80,22 +80,23 @@ final ()
   hittable_list_add (g_world_list, (hittable_t *)quad1);
 
   // brown moving ball
-  // auto center1_start    = (point3_t){ .x = 400, .y = 400, .z = 200 };
-  // auto center1_end      = vec3_add (center1_start, (vec3_t){ .x = 30, .y = 0, .z = 0 });
-  // auto sphere_material1 = lambertian_new ((color_t){ .r = 0.7, .g = 0.3, .b = 0.1 });
-  // auto sphere1          = sphere_new (center1_start, center1_end, 50, (mat_t *)sphere_material1);
-  // hittable_list_add (g_world_list, (hittable_t *)sphere1);
+  auto center1_start    = (point3_t){ .x = 400, .y = 400, .z = 200 };
+  auto center1_end      = vec3_add (center1_start, (vec3_t){ .x = 30, .y = 0, .z = 0 });
+  auto sphere_material1 = lambertian_new ((color_t){ .r = 0.7, .g = 0.3, .b = 0.1 });
+  auto sphere1          = sphere_new (center1_start, center1_end, 50, (mat_t *)sphere_material1);
+  hittable_list_add (g_world_list, (hittable_t *)sphere1);
 
   // glass ball
   auto center2 = (point3_t){ .x = 260, .y = 150, .z = 45 };
-  auto sphere2 = sphere_new (center2, center2, 50, (mat_t *)dielectric_new (1.5));
+  auto sphere2 = sphere_new (center2, center2, 50, (mat_t *)dielectric_from_color (1.5, white));
   hittable_list_add (g_world_list, (hittable_t *)sphere2);
 
   // "blue" ball
   auto center3   = (point3_t){ .x = 360, .y = 150, .z = 145 };
-  auto boundary1 = sphere_new (center3, center3, 70, (mat_t *)dielectric_new (1.5));
+  auto col3      = (color_t){ .r = 0.2, .g = 0.4, .b = 0.9 };
+  auto boundary1 = sphere_new (center3, center3, 70, (mat_t *)dielectric_from_color (1.5, col3));
   hittable_list_add (g_world_list, (hittable_t *)boundary1);
-  auto cm1 = constant_medium_new ((hittable_t *)boundary1, 0.2); // blue = color (0.2, 0.4, 0.9)
+  auto cm1 = constant_medium_new ((hittable_t *)boundary1, 0.2);
   hittable_list_add (g_world_list, (hittable_t *)cm1);
 
   // earth
